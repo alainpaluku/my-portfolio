@@ -64,27 +64,47 @@ const flags = {
       </a>
 
       <!-- Mobile Menu Button -->
-      <button id="mobile-menu-btn" class="lg:hidden text-white p-1" aria-label="Menu">
-        <Icon name="menu" size={22} />
+      <button id="mobile-menu-btn" class="lg:hidden text-white p-2" aria-label="Menu" aria-expanded="false">
+        <span id="menu-icon-open">
+          <Icon name="menu" size={24} />
+        </span>
+        <span id="menu-icon-close" class="hidden">
+          <Icon name="close" size={24} />
+        </span>
       </button>
     </div>
   </div>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-4 border-t border-white/10 pt-4">
-    <div class="flex flex-col space-y-3">
+  <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-6 border-t border-white/10 pt-6">
+    <div class="flex flex-col items-center space-y-4">
       {navLinks.map(link => (
-        <a href={`${basePath}${link.href}`} class="nav-link py-2">{link.label}</a>
+        <a href={`${basePath}${link.href}`} class="nav-link py-2 text-lg text-center w-full">{link.label}</a>
       ))}
-      <a href={otherLangPath} class="nav-link py-2 flex items-center gap-2">
-        🌐 {otherLang === 'fr' ? 'Français' : 'English'}
+      <a href={otherLangPath} class="nav-link py-2 text-lg flex items-center justify-center gap-2 w-full">
+        <span class="w-5 h-5 rounded-full overflow-hidden">
+          <svg viewBox="0 0 36 36" class="w-full h-full" set:html={flags[otherLang]} />
+        </span>
+        {otherLang === 'fr' ? 'Français' : 'English'}
       </a>
     </div>
   </div>
 </nav>
 
 <script>
-  document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
-    document.getElementById('mobile-menu')?.classList.toggle('hidden');
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+
+  menuBtn?.addEventListener('click', () => {
+    const isOpen = mobileMenu?.classList.toggle('hidden');
+    
+    // Toggle icons
+    iconOpen?.classList.toggle('hidden');
+    iconClose?.classList.toggle('hidden');
+    
+    // Update aria-expanded
+    menuBtn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
   });
 </script>
