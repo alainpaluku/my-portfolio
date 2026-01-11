@@ -1,0 +1,44 @@
+---
+import { useTranslations, type Lang, defaultLang } from '../../i18n/translations';
+import SectionHeader from '../SectionHeader.astro';
+import Icon from '../Icon.astro';
+import ArticleCard from '../cards/ArticleCard.astro';
+import { articles } from '../../data/articles';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+const basePath = `/${lang}`;
+const latestArticles = articles.slice(0, 3);
+---
+
+<section class="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto relative">
+  <div class="glow-blob top-0 left-0 -translate-x-1/2 w-[200px] sm:w-[300px] lg:w-[400px] h-[200px] sm:h-[300px] lg:h-[400px] bg-primary/20"></div>
+
+  <SectionHeader title={t.articles.title} subtitle={t.articles.subtitle} />
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-10">
+    {latestArticles.map((article) => (
+      <ArticleCard 
+        title={article.title}
+        excerpt={article.excerpt}
+        category={article.category}
+        image={article.image}
+        date={article.date}
+        readTime={article.readTime}
+        lang={lang}
+        readMoreText={t.articles.readMore}
+      />
+    ))}
+  </div>
+
+  <div class="text-center">
+    <a href={`${basePath}/articles`} class="btn-outline inline-flex items-center gap-2">
+      {t.articles.viewAll}
+      <Icon name="arrowRight" size={16} />
+    </a>
+  </div>
+</section>

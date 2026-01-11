@@ -1,0 +1,50 @@
+---
+import Icon from '../Icon.astro';
+import { type Lang } from '../../i18n/translations';
+
+interface Props {
+  title: { en: string; fr: string };
+  excerpt: { en: string; fr: string };
+  category: { en: string; fr: string };
+  image: string;
+  date: string;
+  readTime: string;
+  lang: Lang;
+  readMoreText?: string;
+}
+
+const { title, excerpt, category, image, date, readTime, lang, readMoreText = 'Read More' } = Astro.props;
+
+const formatDate = (d: string) => 
+  new Date(d).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', { 
+    year: 'numeric', month: 'short', day: 'numeric' 
+  });
+---
+
+<article class="glass-card rounded-xl sm:rounded-2xl overflow-hidden group hover:bg-white/5 transition-colors">
+  <div class="aspect-video overflow-hidden">
+    <img 
+      src={image} 
+      alt={title[lang]}
+      loading="lazy"
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+    />
+  </div>
+  <div class="p-4 sm:p-5">
+    <div class="flex items-center justify-between mb-2 sm:mb-3">
+      <span class="text-[10px] sm:text-xs text-accent uppercase tracking-wider">{category[lang]}</span>
+      <span class="text-[10px] sm:text-xs text-gray-500">{readTime}</span>
+    </div>
+    <h3 class="text-sm sm:text-base font-bold mb-2 group-hover:text-accent transition-colors line-clamp-2">
+      {title[lang]}
+    </h3>
+    <p class="text-gray-400 text-xs sm:text-sm leading-relaxed mb-2 sm:mb-3 line-clamp-2">{excerpt[lang]}</p>
+    <div class="flex items-center justify-between">
+      <span class="text-[10px] sm:text-xs text-gray-500">{formatDate(date)}</span>
+      <a href="#" class="text-xs sm:text-sm font-medium text-white hover:text-accent transition-colors inline-flex items-center gap-1">
+        {readMoreText}
+        <Icon name="chevronRight" size={12} />
+      </a>
+    </div>
+  </div>
+</article>

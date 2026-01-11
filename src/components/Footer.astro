@@ -1,0 +1,22 @@
+---
+import { useTranslations, type Lang, defaultLang } from '../i18n/translations';
+import SocialLinks from './SocialLinks.astro';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<footer class="py-8 sm:py-12 px-4 sm:px-6 text-center relative overflow-hidden border-t border-white/5">
+  <div class="glow-blob bottom-0 left-1/2 -translate-x-1/2 w-[300px] sm:w-[500px] h-[200px] sm:h-[300px] bg-accent/10"></div>
+  
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-6 sm:mb-8">
+      <SocialLinks variant="footer" />
+    </div>
+    <p class="text-gray-600 text-xs sm:text-sm">© {new Date().getFullYear()} ALAIN PALUKU. {t.footer.rights}</p>
+  </div>
+</footer>

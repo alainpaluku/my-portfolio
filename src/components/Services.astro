@@ -1,0 +1,37 @@
+---
+import { useTranslations, type Lang, defaultLang } from '../i18n/translations';
+import SectionHeader from './SectionHeader.astro';
+import ServiceCard from './cards/ServiceCard.astro';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+
+const services = [
+  { icon: 'bolt' as const, ...t.services.power, color: 'primary' as const },
+  { icon: 'chip' as const, ...t.services.embedded, color: 'secondary' as const },
+  { icon: 'document' as const, ...t.services.cad, color: 'accent' as const },
+  { icon: 'info' as const, ...t.services.consulting, color: 'primary' as const },
+];
+---
+
+<section class="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto relative overflow-hidden">
+  <div class="glow-blob top-1/2 right-0 translate-x-1/2 w-[200px] sm:w-[300px] lg:w-[400px] h-[200px] sm:h-[300px] lg:h-[400px] bg-secondary/20"></div>
+
+  <SectionHeader title={t.services.title} subtitle={t.services.subtitle} />
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
+    {services.map((service) => (
+      <ServiceCard 
+        icon={service.icon}
+        title={service.title}
+        desc={service.desc}
+        tools={service.tools}
+        color={service.color}
+      />
+    ))}
+  </div>
+</section>

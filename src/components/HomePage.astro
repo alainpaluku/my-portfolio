@@ -1,0 +1,37 @@
+---
+/**
+ * Page d'accueil complète avec aperçus de chaque section
+ */
+import Layout from '../layouts/Layout.astro';
+import Hero from './Hero.astro';
+import Marquee from './Marquee.astro';
+import Stats from './Stats.astro';
+import AboutPreview from './home/AboutPreview.astro';
+import ServicesPreview from './home/ServicesPreview.astro';
+import PortfolioPreview from './home/PortfolioPreview.astro';
+import ArticlesPreview from './home/ArticlesPreview.astro';
+import ContactCTA from './home/ContactCTA.astro';
+import { type Lang } from '../i18n/translations';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const titles = {
+  en: 'ALAIN PALUKU | M.Sc. Power Systems & IoT Developer',
+  fr: 'ALAIN PALUKU | M.Sc. Systèmes de Puissance & Développeur IoT',
+};
+---
+
+<Layout title={titles[lang]} lang={lang}>
+  <Hero lang={lang} />
+  <Marquee lang={lang} />
+  <AboutPreview lang={lang} />
+  <ServicesPreview lang={lang} />
+  <Stats lang={lang} />
+  <PortfolioPreview lang={lang} />
+  <ArticlesPreview lang={lang} />
+  <ContactCTA lang={lang} />
+</Layout>
