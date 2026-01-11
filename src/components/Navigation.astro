@@ -33,10 +33,10 @@ const flags = {
 };
 ---
 
-<nav class="fixed w-full z-50 top-0 left-0 px-3 sm:px-6 py-2.5 sm:py-4 backdrop-blur-md bg-black/50 border-b border-white/5">
+<nav class="fixed w-full z-50 top-0 left-0 px-3 sm:px-6 py-2.5 sm:py-4 backdrop-blur-md bg-[var(--color-bg)]/90 border-b border-[var(--color-border)] shadow-sm dark:shadow-none">
   <div class="max-w-7xl mx-auto flex justify-between items-center">
     <a href={`${basePath}/`} class="text-base sm:text-xl md:text-2xl font-bold font-mono tracking-tighter">
-      <span class="text-gradient">ALAIN</span> <span class="text-white">PALUKU</span>
+      <span class="text-gradient">ALAIN</span> <span class="text-[var(--color-text)]">PALUKU</span>
     </a>
     
     <div class="hidden lg:flex space-x-6 xl:space-x-8">
@@ -45,11 +45,25 @@ const flags = {
       ))}
     </div>
 
-    <div class="flex items-center gap-1.5 sm:gap-4">
+    <div class="flex items-center gap-1.5 sm:gap-3">
+      <!-- Theme Toggle -->
+      <button 
+        id="theme-toggle" 
+        class="p-2 rounded-full border border-[var(--color-border)] hover:border-accent text-[var(--color-text-muted)] hover:text-accent transition-all"
+        aria-label="Toggle theme"
+      >
+        <span id="theme-icon-dark" class="hidden dark:block">
+          <Icon name="sun" size={18} />
+        </span>
+        <span id="theme-icon-light" class="block dark:hidden">
+          <Icon name="moon" size={18} />
+        </span>
+      </button>
+
       <!-- Language Switcher -->
       <a 
         href={otherLangPath} 
-        class="flex items-center gap-1 sm:gap-2 text-[10px] sm:text-sm text-gray-400 hover:text-white transition-colors uppercase font-mono px-1.5 sm:px-3 py-1 rounded-full border border-white/10 hover:border-white/30"
+        class="flex items-center gap-1 sm:gap-2 text-[10px] sm:text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors uppercase font-mono px-1.5 sm:px-3 py-1 rounded-full border border-[var(--color-border)] hover:border-accent"
         title={otherLang === 'fr' ? 'Version française' : 'English version'}
       >
         <span class="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full overflow-hidden">
@@ -64,7 +78,7 @@ const flags = {
       </a>
 
       <!-- Mobile Menu Button -->
-      <button id="mobile-menu-btn" class="lg:hidden text-white p-2" aria-label="Menu" aria-expanded="false">
+      <button id="mobile-menu-btn" class="lg:hidden text-[var(--color-text)] p-2" aria-label="Menu" aria-expanded="false">
         <span id="menu-icon-open">
           <Icon name="menu" size={24} />
         </span>
@@ -76,7 +90,7 @@ const flags = {
   </div>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-6 border-t border-white/10 pt-6">
+  <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-6 border-t border-[var(--color-border)] pt-6">
     <div class="flex flex-col items-center space-y-4">
       {navLinks.map(link => (
         <a href={`${basePath}${link.href}`} class="nav-link py-2 text-lg text-center w-full">{link.label}</a>
@@ -92,6 +106,7 @@ const flags = {
 </nav>
 
 <script>
+  // Mobile menu toggle
   const menuBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   const iconOpen = document.getElementById('menu-icon-open');
@@ -99,12 +114,16 @@ const flags = {
 
   menuBtn?.addEventListener('click', () => {
     const isOpen = mobileMenu?.classList.toggle('hidden');
-    
-    // Toggle icons
     iconOpen?.classList.toggle('hidden');
     iconClose?.classList.toggle('hidden');
-    
-    // Update aria-expanded
     menuBtn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+  });
+
+  // Theme toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  
+  themeToggle?.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
   });
 </script>

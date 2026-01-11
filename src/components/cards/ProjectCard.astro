@@ -23,19 +23,19 @@ const { title, category, image, tags, lang, showLink = false, linkText = 'View P
       loading="lazy"
       class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
     />
-    <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-[var(--color-bg)]/50 to-transparent"></div>
   </div>
   
   <div class="absolute bottom-0 left-0 right-0 p-3 sm:p-4">
     <span class="text-[10px] sm:text-xs text-accent uppercase tracking-wider">{category[lang]}</span>
-    <h3 class="text-base sm:text-lg font-bold mt-1">{title[lang]}</h3>
+    <h3 class="text-base sm:text-lg font-bold mt-1 text-[var(--color-text)]">{title[lang]}</h3>
     <div class="flex flex-wrap gap-1 mt-2">
       {tags.map(tag => (
-        <span class="px-1.5 sm:px-2 py-0.5 text-[10px] sm:text-xs bg-white/10 rounded-full">{tag}</span>
+        <span class="px-1.5 sm:px-2 py-0.5 text-[10px] sm:text-xs bg-[var(--color-card-bg)] border border-[var(--color-border)] rounded-full text-[var(--color-text-muted)]">{tag}</span>
       ))}
     </div>
     {showLink && (
-      <a href="#" class="inline-flex items-center text-xs sm:text-sm font-medium text-white hover:text-accent transition-colors group/link mt-3">
+      <a href="#" class="inline-flex items-center text-xs sm:text-sm font-medium text-[var(--color-text)] hover:text-accent transition-colors group/link mt-3">
         {linkText}
         <Icon name="arrowRight" size={14} class="ml-1.5 group-hover/link:translate-x-1 transition-transform" />
       </a>

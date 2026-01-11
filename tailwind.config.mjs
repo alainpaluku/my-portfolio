@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -12,7 +13,7 @@ export default {
         dark: '#050505',
         primary: '#6366f1',
         secondary: '#ec4899',
-        accent: '#f59e0b',
+        accent: 'var(--color-accent)',
       },
       animation: {
         'spin-slow': 'spin 20s linear infinite',

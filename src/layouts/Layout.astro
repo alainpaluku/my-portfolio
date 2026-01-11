@@ -22,7 +22,7 @@ const descriptions = {
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,6 +49,20 @@ const descriptions = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     
+    <!-- Theme Detection - Évite le flash -->
+    <script is:inline>
+      (function() {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
+    
     <!-- Détection de langue du navigateur (seulement sur la page d'accueil) -->
     <script is:inline>
       (function() {
@@ -73,8 +87,8 @@ const descriptions = {
   </head>
   <body class="antialiased overflow-x-hidden">
     <!-- Background Glow Effects -->
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[300px] sm:w-[500px] lg:w-[800px] h-[300px] sm:h-[400px] lg:h-[600px] bg-primary/20 rounded-full blur-[80px] sm:blur-[100px] lg:blur-[120px] -z-10 pointer-events-none"></div>
-    <div class="fixed bottom-0 right-0 w-[200px] sm:w-[400px] lg:w-[600px] h-[200px] sm:h-[400px] lg:h-[600px] bg-secondary/10 rounded-full blur-[60px] sm:blur-[80px] lg:blur-[100px] -z-10 pointer-events-none"></div>
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[300px] sm:w-[500px] lg:w-[800px] h-[300px] sm:h-[400px] lg:h-[600px] bg-[var(--color-glow-primary)] rounded-full blur-[80px] sm:blur-[100px] lg:blur-[120px] -z-10 pointer-events-none"></div>
+    <div class="fixed bottom-0 right-0 w-[200px] sm:w-[400px] lg:w-[600px] h-[200px] sm:h-[400px] lg:h-[600px] bg-[var(--color-glow-secondary)] rounded-full blur-[60px] sm:blur-[80px] lg:blur-[100px] -z-10 pointer-events-none"></div>
     
     <Navigation lang={lang} />
     <main>

@@ -170,7 +170,7 @@ const v = vision[lang];
   <!-- Header -->
   <div class="text-center mb-10 sm:mb-14">
     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 uppercase tracking-wide">{c.title}</h1>
-    <p class="text-sm sm:text-base text-gray-400">{c.subtitle}</p>
+    <p class="text-sm sm:text-base text-[var(--color-text-muted)]">{c.subtitle}</p>
   </div>
 
   <!-- Profile + Intro -->
@@ -187,20 +187,20 @@ const v = vision[lang];
         <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-3">
           <div class="flex items-center gap-2">
             <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-            <span class="text-xs sm:text-sm text-green-400 font-mono">
+            <span class="text-xs sm:text-sm text-green-600 dark:text-green-400 font-mono">
               {lang === 'fr' ? 'Master en cours' : "Master's in progress"}
             </span>
           </div>
-          <span class="text-gray-600">•</span>
-          <span class="text-xs sm:text-sm text-gray-400">
-            🇨🇩 {lang === 'fr' ? 'Nationalité' : 'Nationality'}: <span class="text-white">{c.nationality}</span>
+          <span class="text-[var(--color-text-muted)]">•</span>
+          <span class="text-xs sm:text-sm text-[var(--color-text-muted)]">
+            🇨🇩 {lang === 'fr' ? 'Nationalité' : 'Nationality'}: <span class="text-[var(--color-text)]">{c.nationality}</span>
           </span>
         </div>
-        <p class="text-gray-300 text-sm sm:text-base leading-relaxed">{c.intro}</p>
+        <p class="text-[var(--color-text-muted)] text-sm sm:text-base leading-relaxed">{c.intro}</p>
         
         <!-- Languages -->
-        <div class="mt-4 pt-4 border-t border-white/10">
-          <div class="text-[10px] sm:text-xs text-gray-500 uppercase mb-2">{c.languagesTitle}</div>
+        <div class="mt-4 pt-4 border-t border-[var(--color-border)]">
+          <div class="text-[10px] sm:text-xs text-[var(--color-text-muted)] uppercase mb-2">{c.languagesTitle}</div>
           <div class="flex flex-wrap gap-2">
             {c.languages.map((lang) => (
               <span class={`px-2 py-1 text-[10px] sm:text-xs rounded-full ${
@@ -208,7 +208,7 @@ const v = vision[lang];
                   ? 'bg-accent/20 text-accent' 
                   : lang.level === 'Secondary' || lang.level === 'Secondaire'
                     ? 'bg-primary/20 text-primary'
-                    : 'bg-white/10 text-gray-400'
+                    : 'bg-[var(--color-card-bg)] text-[var(--color-text-muted)]'
               }`}>
                 {lang.name} <span class="opacity-60">({lang.level})</span>
               </span>
@@ -221,15 +221,15 @@ const v = vision[lang];
       <div class="grid grid-cols-3 gap-3">
         <div class="glass-card p-3 sm:p-4 rounded-lg text-center">
           <div class="text-xl sm:text-2xl font-bold text-accent">4+</div>
-          <div class="text-[10px] sm:text-xs text-gray-500 uppercase">{lang === 'fr' ? "Ans d'études" : 'Years Study'}</div>
+          <div class="text-[10px] sm:text-xs text-[var(--color-text-muted)] uppercase">{lang === 'fr' ? "Ans d'études" : 'Years Study'}</div>
         </div>
         <div class="glass-card p-3 sm:p-4 rounded-lg text-center">
           <div class="text-xl sm:text-2xl font-bold text-primary">10+</div>
-          <div class="text-[10px] sm:text-xs text-gray-500 uppercase">{lang === 'fr' ? 'Projets' : 'Projects'}</div>
+          <div class="text-[10px] sm:text-xs text-[var(--color-text-muted)] uppercase">{lang === 'fr' ? 'Projets' : 'Projects'}</div>
         </div>
         <div class="glass-card p-3 sm:p-4 rounded-lg text-center">
           <div class="text-xl sm:text-2xl font-bold text-secondary">3</div>
-          <div class="text-[10px] sm:text-xs text-gray-500 uppercase">{lang === 'fr' ? 'Langages' : 'Languages'}</div>
+          <div class="text-[10px] sm:text-xs text-[var(--color-text-muted)] uppercase">{lang === 'fr' ? 'Langages' : 'Languages'}</div>
         </div>
       </div>
     </div>
@@ -238,12 +238,12 @@ const v = vision[lang];
   <!-- Vision & Approche - Justification du parcours -->
   <div class="mb-10 sm:mb-14">
     <div class="glass-card p-5 sm:p-6 rounded-xl">
-      <h3 class="text-base sm:text-lg font-bold text-white mb-5 flex items-center gap-2">
+      <h3 class="text-base sm:text-lg font-bold text-[var(--color-text)] mb-5 flex items-center gap-2">
         <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-accent/20 flex items-center justify-center text-accent">
           <Icon name="bolt" size={14} />
         </span>
         {v.title}
-        <span class="ml-auto text-[10px] sm:text-xs text-gray-500 font-normal">
+        <span class="ml-auto text-[10px] sm:text-xs text-[var(--color-text-muted)] font-normal">
           {lang === 'fr' ? 'Pourquoi Embarqué, IoT & CAO ?' : 'Why Embedded, IoT & CAD?'}
         </span>
       </h3>
@@ -258,7 +258,7 @@ const v = vision[lang];
             <h4 class={`text-sm sm:text-base font-semibold mb-2 ${i === 0 ? 'text-primary' : 'text-secondary'}`}>
               {section.title}
             </h4>
-            <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">{section.content}</p>
+            <p class="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed">{section.content}</p>
           </div>
         ))}
       </div>
@@ -269,7 +269,7 @@ const v = vision[lang];
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
     <!-- Formation -->
     <div class="glass-card p-5 sm:p-6 rounded-xl">
-      <h3 class="text-base sm:text-lg font-bold text-white mb-5 flex items-center gap-2">
+      <h3 class="text-base sm:text-lg font-bold text-[var(--color-text)] mb-5 flex items-center gap-2">
         <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
           <Icon name="education" size={14} />
         </span>
@@ -277,9 +277,9 @@ const v = vision[lang];
       </h3>
       <div class="space-y-4">
         {c.education.map((edu) => (
-          <div class={`border-l-2 pl-4 ${edu.current ? 'border-accent' : 'border-white/10'}`}>
+          <div class={`border-l-2 pl-4 ${edu.current ? 'border-accent' : 'border-[var(--color-border)]'}`}>
             <div class="flex items-center gap-2 mb-1">
-              <span class={`text-[10px] sm:text-xs font-mono ${edu.current ? 'text-accent' : 'text-gray-500'}`}>
+              <span class={`text-[10px] sm:text-xs font-mono ${edu.current ? 'text-accent' : 'text-[var(--color-text-muted)]'}`}>
                 {edu.period}
               </span>
               {edu.current && (
@@ -288,9 +288,9 @@ const v = vision[lang];
                 </span>
               )}
             </div>
-            <h4 class="text-xs sm:text-sm font-semibold text-white">{edu.title}</h4>
-            <p class="text-[10px] sm:text-xs text-gray-400 mt-0.5">{edu.school}</p>
-            <p class="text-[10px] sm:text-xs text-gray-500 mt-1">{edu.desc}</p>
+            <h4 class="text-xs sm:text-sm font-semibold text-[var(--color-text)]">{edu.title}</h4>
+            <p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-0.5">{edu.school}</p>
+            <p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">{edu.desc}</p>
           </div>
         ))}
       </div>
@@ -298,7 +298,7 @@ const v = vision[lang];
 
     <!-- Compétences -->
     <div class="glass-card p-5 sm:p-6 rounded-xl">
-      <h3 class="text-base sm:text-lg font-bold text-white mb-5 flex items-center gap-2">
+      <h3 class="text-base sm:text-lg font-bold text-[var(--color-text)] mb-5 flex items-center gap-2">
         <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-secondary/20 flex items-center justify-center text-secondary">
           <Icon name="computer" size={14} />
         </span>
@@ -310,9 +310,9 @@ const v = vision[lang];
             <h4 class={`text-xs sm:text-sm font-semibold mb-3 text-${cat.color}`}>{cat.title}</h4>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {cat.skills.map((skill) => (
-                <div class="bg-white/5 rounded-lg p-2.5 sm:p-3">
-                  <div class="text-xs sm:text-sm font-medium text-white">{skill.name}</div>
-                  <div class="text-[9px] sm:text-[10px] text-gray-500 mt-0.5">{skill.desc}</div>
+                <div class="bg-[var(--color-card-bg)] rounded-lg p-2.5 sm:p-3">
+                  <div class="text-xs sm:text-sm font-medium text-[var(--color-text)]">{skill.name}</div>
+                  <div class="text-[9px] sm:text-[10px] text-[var(--color-text-muted)] mt-0.5">{skill.desc}</div>
                 </div>
               ))}
             </div>

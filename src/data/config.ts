@@ -15,6 +15,7 @@ export const siteConfig = {
     medium: 'https://medium.com/@alainpaluku',
     huggingface: 'https://huggingface.co/alainpaluku',
     reddit: 'https://reddit.com/user/alainpaluku',
+    email: 'contact@alainpaluku.com',
   },
   
   // Nom du site
