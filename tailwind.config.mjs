@@ -4,8 +4,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Outfit', 'sans-serif'],
-        mono: ['Space Grotesk', 'monospace'],
+        sans: ['Nunito', 'sans-serif'],
+        serif: ['Lora', 'serif'],
+        mono: ['Space Mono', 'monospace'],
       },
       colors: {
         dark: '#050505',

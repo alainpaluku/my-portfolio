@@ -8,6 +8,10 @@ interface Props {
 }
 
 const { name, size = 20, class: className = '' } = Astro.props;
+
+// Icônes qui utilisent fill au lieu de stroke
+const fillIcons = ['medium', 'huggingface', 'reddit'];
+const useFill = fillIcons.includes(name);
 ---
 
 <svg 
@@ -15,8 +19,8 @@ const { name, size = 20, class: className = '' } = Astro.props;
   width={size} 
   height={size} 
   viewBox="0 0 24 24" 
-  fill="none" 
-  stroke="currentColor" 
+  fill={useFill ? 'currentColor' : 'none'}
+  stroke={useFill ? 'none' : 'currentColor'}
   stroke-width="2" 
   stroke-linecap="round" 
   stroke-linejoin="round"

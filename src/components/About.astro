@@ -20,8 +20,8 @@ const content = {
     languages: [
       { name: 'French', level: 'Fluent' },
       { name: 'Swahili', level: 'Fluent' },
+      { name: 'Lingala', level: 'Secondary' },
       { name: 'English', level: 'Basic' },
-      { name: 'Lingala', level: 'Basic' },
     ],
     educationTitle: 'Education',
     skillsTitle: 'Technical Skills',
@@ -53,6 +53,8 @@ const content = {
         color: 'primary',
         skills: [
           { name: 'Power Networks', desc: 'Design & analysis (MV/LV)' },
+          { name: 'Solar PV Systems', desc: 'Sizing & installation' },
+          { name: 'Home & Industrial', desc: 'Automation & domotics' },
           { name: 'PCB Design', desc: 'KiCad schematic & layout' },
           { name: '3D Modeling', desc: 'FreeCAD parametric design' },
         ],
@@ -63,7 +65,7 @@ const content = {
         color: 'secondary',
         skills: [
           { name: 'Rust', desc: 'Embedded, Memory safety' },
-          { name: 'Golang', desc: 'Backend, Microservices' },
+          { name: 'Golang', desc: 'Backend, DevOps' },
           { name: 'TypeScript', desc: 'Web apps, UI/UX' },
         ],
       },
@@ -78,8 +80,8 @@ const content = {
     languages: [
       { name: 'Français', level: 'Courant' },
       { name: 'Swahili', level: 'Courant' },
+      { name: 'Lingala', level: 'Secondaire' },
       { name: 'Anglais', level: 'Basique' },
-      { name: 'Lingala', level: 'Basique' },
     ],
     educationTitle: 'Formation',
     skillsTitle: 'Compétences Techniques',
@@ -111,6 +113,8 @@ const content = {
         color: 'primary',
         skills: [
           { name: 'Réseaux Électriques', desc: 'Conception & analyse (MT/BT)' },
+          { name: 'Solaire PV', desc: 'Dimensionnement & installation' },
+          { name: 'Domestique & Industriel', desc: 'Domotique & automatisation' },
           { name: 'Conception PCB', desc: 'Schématique & layout KiCad' },
           { name: 'Modélisation 3D', desc: 'Design paramétrique FreeCAD' },
         ],
@@ -121,7 +125,7 @@ const content = {
         color: 'secondary',
         skills: [
           { name: 'Rust', desc: 'Embarqué, Sécurité mémoire' },
-          { name: 'Golang', desc: 'Backend, Microservices' },
+          { name: 'Golang', desc: 'Backend, DevOps' },
           { name: 'TypeScript', desc: 'Apps web, UI/UX' },
         ],
       },
@@ -165,7 +169,7 @@ const v = vision[lang];
 <section class="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto">
   <!-- Header -->
   <div class="text-center mb-10 sm:mb-14">
-    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2">{c.title}</h1>
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 uppercase tracking-wide">{c.title}</h1>
     <p class="text-sm sm:text-base text-gray-400">{c.subtitle}</p>
   </div>
 
@@ -199,7 +203,13 @@ const v = vision[lang];
           <div class="text-[10px] sm:text-xs text-gray-500 uppercase mb-2">{c.languagesTitle}</div>
           <div class="flex flex-wrap gap-2">
             {c.languages.map((lang) => (
-              <span class={`px-2 py-1 text-[10px] sm:text-xs rounded-full ${lang.level === 'Fluent' || lang.level === 'Courant' ? 'bg-accent/20 text-accent' : 'bg-white/10 text-gray-400'}`}>
+              <span class={`px-2 py-1 text-[10px] sm:text-xs rounded-full ${
+                lang.level === 'Fluent' || lang.level === 'Courant' 
+                  ? 'bg-accent/20 text-accent' 
+                  : lang.level === 'Secondary' || lang.level === 'Secondaire'
+                    ? 'bg-primary/20 text-primary'
+                    : 'bg-white/10 text-gray-400'
+              }`}>
                 {lang.name} <span class="opacity-60">({lang.level})</span>
               </span>
             ))}
