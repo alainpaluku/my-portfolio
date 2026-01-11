@@ -134,18 +134,10 @@ const socialLinks = [
     </div>
 
     <!-- Bottom Bar -->
-    <div class="pt-6 sm:pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
+    <div class="pt-6 sm:pt-8 border-t border-white/5 flex justify-center items-center">
       <p class="text-gray-500 text-[10px] sm:text-xs">
         © {new Date().getFullYear()} ALAIN PALUKU. {t.footer.rights}
       </p>
-      <div class="flex items-center gap-4 text-[10px] sm:text-xs text-gray-500">
-        <span class="flex items-center gap-1">
-          <span class="text-accent">⚡</span> 
-          {lang === 'fr' ? 'Fait avec Astro' : 'Built with Astro'}
-        </span>
-        <span>•</span>
-        <span>{lang === 'fr' ? 'Hébergé sur Cloudflare' : 'Hosted on Cloudflare'}</span>
-      </div>
     </div>
   </div>
 </footer>
