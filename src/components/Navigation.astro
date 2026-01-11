@@ -33,7 +33,7 @@ const flags = {
 };
 ---
 
-<nav class="fixed w-full z-50 top-0 left-0 px-3 sm:px-6 py-2.5 sm:py-4 backdrop-blur-md bg-[var(--color-bg)]/90 border-b border-[var(--color-border)] shadow-sm dark:shadow-none">
+<nav id="main-nav" class="fixed w-full z-50 top-0 left-0 px-3 sm:px-6 py-2.5 sm:py-4 backdrop-blur-md bg-[var(--color-bg)]/90 border-b border-transparent shadow-none transition-all duration-300">
   <div class="max-w-7xl mx-auto flex justify-between items-center">
     <a href={`${basePath}/`} class="text-base sm:text-xl md:text-2xl font-bold font-mono tracking-tighter">
       <span class="text-gradient">ALAIN</span> <span class="text-[var(--color-text)]">PALUKU</span>
@@ -126,4 +126,20 @@ const flags = {
     const isDark = document.documentElement.classList.toggle('dark');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
   });
+
+  // Nav border on scroll
+  const nav = document.getElementById('main-nav');
+  
+  function updateNavBorder() {
+    if (window.scrollY > 10) {
+      nav?.classList.remove('border-transparent', 'shadow-none');
+      nav?.classList.add('border-[var(--color-border)]', 'shadow-sm', 'dark:shadow-none');
+    } else {
+      nav?.classList.add('border-transparent', 'shadow-none');
+      nav?.classList.remove('border-[var(--color-border)]', 'shadow-sm', 'dark:shadow-none');
+    }
+  }
+
+  window.addEventListener('scroll', updateNavBorder);
+  updateNavBorder();
 </script>

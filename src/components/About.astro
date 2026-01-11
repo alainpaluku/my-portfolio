@@ -310,7 +310,7 @@ const v = vision[lang];
             <h4 class={`text-xs sm:text-sm font-semibold mb-3 text-${cat.color}`}>{cat.title}</h4>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {cat.skills.map((skill) => (
-                <div class="bg-[var(--color-card-bg)] rounded-lg p-2.5 sm:p-3">
+                <div class="bg-[var(--color-card-bg)] border border-[var(--color-border)] rounded-lg p-2.5 sm:p-3 hover:border-primary/30 transition-colors">
                   <div class="text-xs sm:text-sm font-medium text-[var(--color-text)]">{skill.name}</div>
                   <div class="text-[9px] sm:text-[10px] text-[var(--color-text-muted)] mt-0.5">{skill.desc}</div>
                 </div>

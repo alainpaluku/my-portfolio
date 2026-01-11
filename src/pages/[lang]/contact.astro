@@ -1,0 +1,23 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Contact from '../../components/Contact.astro';
+import { getStaticLangPaths } from '../../utils/lang';
+import type { Lang } from '../../i18n/translations';
+
+export function getStaticPaths() {
+  return getStaticLangPaths();
+}
+
+const { lang } = Astro.params as { lang: Lang };
+
+const titles = {
+  en: 'Contact | ALAIN PALUKU',
+  fr: 'Contact | ALAIN PALUKU',
+};
+---
+
+<Layout title={titles[lang]} lang={lang}>
+  <div class="pt-16 sm:pt-20">
+    <Contact lang={lang} />
+  </div>
+</Layout>
