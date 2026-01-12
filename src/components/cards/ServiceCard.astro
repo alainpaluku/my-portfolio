@@ -12,19 +12,25 @@ interface Props {
 const { icon, title, desc, tools, color = 'primary' } = Astro.props;
 
 const colorClasses = {
-  primary: 'bg-primary/20 text-primary',
-  secondary: 'bg-secondary/20 text-secondary',
-  accent: 'bg-accent/20 text-accent',
+  primary: 'bg-[var(--color-primary)]/20 text-[var(--color-primary)]',
+  secondary: 'bg-[var(--color-secondary)]/20 text-[var(--color-secondary)]',
+  accent: 'bg-[var(--color-accent)]/20 text-[var(--color-accent)]',
+};
+
+const hoverClasses = {
+  primary: 'group-hover:bg-[var(--color-primary)] group-hover:text-white',
+  secondary: 'group-hover:bg-[var(--color-secondary)] group-hover:text-white',
+  accent: 'group-hover:bg-[var(--color-accent)] group-hover:text-[var(--color-bg)]',
 };
 ---
 
-<div class="glass-card p-4 sm:p-5 lg:p-6 rounded-xl lg:rounded-2xl hover:bg-[var(--color-card-bg)] transition-colors group">
+<div class="glass-card p-4 sm:p-5 lg:p-6 rounded-xl lg:rounded-2xl hover:border-[var(--color-border)] transition-all duration-300 group">
   <div class="flex items-start gap-3 mb-3">
-    <div class={`p-2 sm:p-2.5 lg:p-3 ${colorClasses[color]} rounded-lg group-hover:text-white transition-colors flex-shrink-0`}>
+    <div class={`p-2 sm:p-2.5 lg:p-3 ${colorClasses[color]} ${hoverClasses[color]} rounded-lg transition-all duration-300 flex-shrink-0`}>
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sm:w-5 sm:h-5 lg:w-6 lg:h-6" set:html={icons[icon]} />
     </div>
     <h3 class="text-sm sm:text-base lg:text-lg font-bold leading-tight pt-1 text-[var(--color-text)]">{title}</h3>
   </div>
   <p class="text-[var(--color-text-muted)] leading-relaxed mb-2 sm:mb-3 text-xs sm:text-sm lg:text-base">{desc}</p>
-  {tools && <span class="text-[9px] sm:text-[10px] lg:text-xs text-[var(--color-text-muted)] uppercase block">{tools}</span>}
+  {tools && <span class="text-[9px] sm:text-[10px] lg:text-xs text-[var(--color-text-muted)] uppercase block font-medium">{tools}</span>}
 </div>

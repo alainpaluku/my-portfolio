@@ -2,6 +2,7 @@
 import { useTranslations, type Lang, defaultLang } from '../i18n/translations';
 import SectionHeader from './SectionHeader.astro';
 import ProjectCard from './cards/ProjectCard.astro';
+import FilterButton from './ui/FilterButton.astro';
 import { projects, projectCategories, type ProjectCategory } from '../data/projects';
 
 interface Props {
@@ -20,12 +21,7 @@ const categories = Object.entries(projectCategories) as [ProjectCategory, { en: 
   <!-- Filtres -->
   <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12" id="portfolio-filters">
     {categories.map(([key, label]) => (
-      <button 
-        data-filter={key}
-        class={`filter-btn px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-full border transition-all ${key === 'all' ? 'bg-accent text-dark border-accent' : 'border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-accent hover:text-accent'}`}
-      >
-        {label[lang]}
-      </button>
+      <FilterButton filter={key} label={label[lang]} isActive={key === 'all'} />
     ))}
   </div>
 
@@ -48,24 +44,6 @@ const categories = Object.entries(projectCategories) as [ProjectCategory, { en: 
 </section>
 
 <script>
-  const filterBtns = document.querySelectorAll('#portfolio-filters .filter-btn');
-  const projectCards = document.querySelectorAll('.project-card');
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const filter = btn.getAttribute('data-filter');
-      
-      filterBtns.forEach(b => {
-        b.classList.remove('bg-accent', 'text-dark', 'border-accent');
-        b.classList.add('border-[var(--color-border)]', 'text-[var(--color-text-muted)]');
-      });
-      btn.classList.add('bg-accent', 'text-dark', 'border-accent');
-      btn.classList.remove('border-[var(--color-border)]', 'text-[var(--color-text-muted)]');
-      
-      projectCards.forEach(card => {
-        const category = card.getAttribute('data-category');
-        (card as HTMLElement).style.display = (filter === 'all' || category === filter) ? 'block' : 'none';
-      });
-    });
-  });
+  import { initFilterGrid } from '../scripts/filterGrid';
+  initFilterGrid('portfolio-filters', 'project-card');
 </script>

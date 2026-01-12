@@ -12,20 +12,16 @@ import PortfolioPreview from './home/PortfolioPreview.astro';
 import ArticlesPreview from './home/ArticlesPreview.astro';
 import ContactCTA from './home/ContactCTA.astro';
 import { type Lang } from '../i18n/translations';
+import { getPageTitle } from '../data/pageTitles';
 
 interface Props {
   lang: Lang;
 }
 
 const { lang } = Astro.props;
-
-const titles = {
-  en: 'ALAIN PALUKU | M.Sc. Power Systems & IoT Developer',
-  fr: 'ALAIN PALUKU | M.Sc. Systèmes de Puissance & Développeur IoT',
-};
 ---
 
-<Layout title={titles[lang]} lang={lang}>
+<Layout title={getPageTitle('home', lang)} lang={lang}>
   <Hero lang={lang} />
   <Marquee lang={lang} />
   <AboutPreview lang={lang} />

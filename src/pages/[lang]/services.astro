@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Services from '../../components/Services.astro';
 import { getStaticLangPaths } from '../../utils/lang';
+import { getPageTitle } from '../../data/pageTitles';
 import type { Lang } from '../../i18n/translations';
 
 export function getStaticPaths() {
@@ -9,14 +10,9 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params as { lang: Lang };
-
-const titles = {
-  en: 'Services | ALAIN PALUKU',
-  fr: 'Services | ALAIN PALUKU',
-};
 ---
 
-<Layout title={titles[lang]} lang={lang}>
+<Layout title={getPageTitle('services', lang)} lang={lang}>
   <div class="pt-16 sm:pt-20">
     <Services lang={lang} />
   </div>

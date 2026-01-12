@@ -66,11 +66,13 @@ export const translations = {
     contact: {
       title: 'Get In Touch',
       subtitle: "Ready to innovate together?",
+      description: "Let's discuss your next project in power systems, IoT, or embedded development.",
       name: 'Name',
       email: 'Email',
       message: 'Message',
       send: 'Send Message',
       info: 'Contact Information',
+      cta: 'Get in touch',
     },
     footer: {
       rights: 'All rights reserved.',
@@ -150,11 +152,13 @@ export const translations = {
     contact: {
       title: 'Me Contacter',
       subtitle: 'Prêt à innover ensemble ?',
+      description: 'Discutons de votre prochain projet en systèmes de puissance, IoT ou développement embarqué.',
       name: 'Nom',
       email: 'Email',
       message: 'Message',
       send: 'Envoyer',
       info: 'Informations de Contact',
+      cta: 'Me contacter',
     },
     footer: {
       rights: 'Tous droits réservés.',

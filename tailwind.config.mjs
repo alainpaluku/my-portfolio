@@ -10,9 +10,9 @@ export default {
         mono: ['Space Mono', 'monospace'],
       },
       colors: {
-        dark: '#050505',
-        primary: '#6366f1',
-        secondary: '#ec4899',
+        dark: '#0a0a0f',
+        primary: 'var(--color-primary)',
+        secondary: 'var(--color-secondary)',
         accent: 'var(--color-accent)',
       },
       animation: {

@@ -2,6 +2,7 @@
 import { useTranslations, type Lang, defaultLang } from '../i18n/translations';
 import Icon from './Icon.astro';
 import { siteConfig } from '../data/config';
+import { socialLinks } from '../data/socialLinks';
 
 interface Props {
   lang?: Lang;
@@ -44,13 +45,6 @@ const serviceLinks = [
   { label: lang === 'fr' ? 'Systèmes Embarqués' : 'Embedded Systems' },
   { label: lang === 'fr' ? 'Solutions IoT' : 'IoT Solutions' },
   { label: lang === 'fr' ? 'Logiciels CAO' : 'CAD Software' },
-];
-
-const socialLinks = [
-  { name: 'github' as const, url: siteConfig.social.github },
-  { name: 'medium' as const, url: siteConfig.social.medium },
-  { name: 'huggingface' as const, url: siteConfig.social.huggingface },
-  { name: 'reddit' as const, url: siteConfig.social.reddit },
 ];
 ---
 
@@ -122,8 +116,8 @@ const socialLinks = [
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-[var(--color-card-bg)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-text-muted)] hover:bg-accent hover:text-dark hover:border-accent transition-all"
-                title={link.name}
+                class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-[var(--color-bg)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-text-muted)] hover:bg-[var(--color-accent)] hover:text-[var(--color-bg)] hover:border-[var(--color-accent)] transition-all duration-300"
+                title={link.label}
               >
                 <Icon name={link.name} size={18} />
               </a>
