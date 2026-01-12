@@ -8,14 +8,16 @@ interface Props {
   image: string;
   tags: string[];
   lang: Lang;
+  slug?: string;
   showLink?: boolean;
   linkText?: string;
 }
 
-const { title, category, image, tags, lang, showLink = false, linkText = 'View Project' } = Astro.props;
+const { title, category, image, tags, lang, slug, showLink = false, linkText = 'View Project' } = Astro.props;
+const projectUrl = slug ? `/${lang}/projects/${slug}` : '#';
 ---
 
-<div class="group relative overflow-hidden rounded-xl sm:rounded-2xl glass-card">
+<a href={projectUrl} class="block group relative overflow-hidden rounded-xl sm:rounded-2xl glass-card cursor-pointer">
   <div class="aspect-[4/3] overflow-hidden">
     <img 
       src={image} 
@@ -35,10 +37,10 @@ const { title, category, image, tags, lang, showLink = false, linkText = 'View P
       ))}
     </div>
     {showLink && (
-      <a href="#" class="inline-flex items-center text-xs sm:text-sm font-medium text-[var(--color-text)] hover:text-accent transition-colors group/link mt-3">
+      <span class="inline-flex items-center text-xs sm:text-sm font-medium text-[var(--color-text)] group-hover:text-accent transition-colors mt-3">
         {linkText}
-        <Icon name="arrowRight" size={14} class="ml-1.5 group-hover/link:translate-x-1 transition-transform" />
-      </a>
+        <Icon name="arrowRight" size={14} class="ml-1.5 group-hover:translate-x-1 transition-transform" />
+      </span>
     )}
   </div>
-</div>
+</a>
