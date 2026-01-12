@@ -7,7 +7,7 @@ export const siteConfig = {
   domain: 'alainpaluku.com',
   
   // Image de profil unique (Hero + About)
-  profileImage: 'https://neosoft.dev/images/team/paluku.png',
+  profileImage: 'https://alainpaluku.com/alainpaluku.png',
   
   // Liens sociaux
   social: {
