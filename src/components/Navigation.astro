@@ -65,10 +65,8 @@ const flags = {
         class="flex items-center gap-1 sm:gap-2 text-[10px] sm:text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors uppercase font-mono px-1.5 sm:px-3 py-1 rounded-full border border-[var(--color-border)] hover:border-[var(--color-text)]"
         title={otherLang === 'fr' ? 'Version française' : 'English version'}
       >
-        <span class="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full overflow-hidden">
-          <svg viewBox="0 0 36 36" class="w-full h-full" set:html={flags[otherLang]} />
-        </span>
-        <span class="hidden xs:inline sm:inline">{otherLang.toUpperCase()}</span>
+        <Icon name="globe" size={14} />
+        <span class="text-xs font-bold">{otherLang.toUpperCase()}</span>
       </a>
       
       <a href={`${basePath}/contact`} class="hidden md:flex group items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wide hover:text-[var(--color-text)] transition-colors">
@@ -95,9 +93,7 @@ const flags = {
         <a href={`${basePath}${link.href}`} class="nav-link py-2 text-lg text-center w-full">{link.label}</a>
       ))}
       <a href={otherLangPath} class="nav-link py-2 text-lg flex items-center justify-center gap-2 w-full">
-        <span class="w-5 h-5 rounded-full overflow-hidden">
-          <svg viewBox="0 0 36 36" class="w-full h-full" set:html={flags[otherLang]} />
-        </span>
+        <Icon name="globe" size={20} />
         {otherLang === 'fr' ? 'Français' : 'English'}
       </a>
     </div>

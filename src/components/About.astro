@@ -21,27 +21,30 @@ const t = useTranslations(lang);
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
     <!-- Colonne gauche - Profile + Formation -->
     <div class="order-1 lg:order-1 space-y-6 lg:space-y-8">
-      <div class="flex justify-center lg:justify-start">
-        <ProfileCard lang={lang} showSocials={true} />
-      </div>
-      
-      <!-- Education -->
-      <div class="glass-card p-5 sm:p-6 rounded-xl">
-        <h2 class="text-base sm:text-lg font-bold text-[var(--color-text)] mb-6 text-center lg:text-left uppercase tracking-widest font-mono">
-          {t.about.educationTitle}
-        </h2>
+      <!-- Profile et Formation sur la même ligne en desktop -->
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
+        <div class="flex justify-center xl:justify-start">
+          <ProfileCard lang={lang} showSocials={true} />
+        </div>
+        
+        <!-- Education -->
+        <div class="glass-card p-5 sm:p-6 rounded-xl">
+          <h2 class="text-base sm:text-lg font-bold text-[var(--color-text)] mb-6 text-center xl:text-left uppercase tracking-widest font-mono">
+            {t.about.educationTitle}
+          </h2>
 
-        <div class="space-y-4">
-          {t.about.educationList.map((item) => (
-            <div class="bg-[var(--color-card-bg)] border border-[var(--color-border)] rounded-xl p-4 sm:p-5">
-              <p class="text-xs sm:text-sm font-bold text-[var(--color-text)] uppercase tracking-wider mb-2">
-                {item.degree}
-              </p>
-              <p class="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed">
-                {item.school}
-              </p>
-            </div>
-          ))}
+          <div class="space-y-4">
+            {t.about.educationList.map((item) => (
+              <div class="bg-[var(--color-card-bg)] border border-[var(--color-border)] rounded-xl p-4 sm:p-5">
+                <p class="text-xs sm:text-sm font-bold text-[var(--color-text)] uppercase tracking-wider mb-2">
+                  {item.degree}
+                </p>
+                <p class="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed">
+                  {item.school}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
