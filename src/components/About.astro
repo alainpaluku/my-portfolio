@@ -19,13 +19,13 @@ const t = useTranslations(lang);
 
   <!-- Layout en deux colonnes sur desktop -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-    <!-- Colonne gauche - Profile + Formation (desktop) / Premier sur mobile -->
+    <!-- Colonne gauche - Profile + Formation + Expérience -->
     <div class="order-1 lg:order-1 space-y-6 lg:space-y-8">
       <div class="flex justify-center lg:justify-start">
         <ProfileCard lang={lang} showSocials={true} />
       </div>
       
-      <!-- Education - Sous le profil en desktop -->
+      <!-- Education -->
       <div class="glass-card p-5 sm:p-6 rounded-xl">
         <h2 class="text-base sm:text-lg font-bold text-[var(--color-text)] mb-6 text-center lg:text-left uppercase tracking-widest font-mono">
           {t.about.educationTitle}
@@ -44,9 +44,34 @@ const t = useTranslations(lang);
           ))}
         </div>
       </div>
+
+      <!-- Experience -->
+      <div class="glass-card p-5 sm:p-6 rounded-xl">
+        <h2 class="text-base sm:text-lg font-bold text-[var(--color-text)] mb-6 text-center lg:text-left uppercase tracking-widest font-mono">
+          {t.about.experienceTitle}
+        </h2>
+
+        <div class="space-y-4">
+          {t.about.experienceList.map((item) => (
+            <div class="bg-[var(--color-card-bg)] border border-[var(--color-border)] rounded-xl p-4 sm:p-5">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                <p class="text-xs sm:text-sm font-bold text-[var(--color-text)] uppercase tracking-wider">
+                  {item.role}
+                </p>
+                <span class="text-xs text-[var(--color-text-muted)] font-mono">
+                  {item.period}
+                </span>
+              </div>
+              <p class="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
 
-    <!-- Colonne droite - Skills (desktop) / Deuxième sur mobile -->
+    <!-- Colonne droite - Skills -->
     <div class="order-2 lg:order-2">
       <!-- Skills -->
       <div class="glass-card p-5 sm:p-6 rounded-xl">

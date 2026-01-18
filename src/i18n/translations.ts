@@ -77,6 +77,19 @@ export const translations = {
           school: 'Université Catholique la Sapientia (UCS) – Goma',
         },
       ],
+      experienceTitle: 'EXPERIENCE',
+      experienceList: [
+        {
+          role: 'Electrical Engineering Student',
+          period: '2019 - Present',
+          description: 'Specialized in power systems, embedded electronics, and engineering software development',
+        },
+        {
+          role: 'Research & Development',
+          period: '2022 - Present',
+          description: 'Focus on renewable energy integration and automation systems',
+        },
+      ],
       skillsTitle: 'SKILLS',
       skillCategories: [
         {
@@ -184,6 +197,19 @@ export const translations = {
         {
           degree: 'B.Sc. en Génie Électrique',
           school: 'Université Catholique la Sapientia (UCS) – Goma',
+        },
+      ],
+      experienceTitle: 'EXPÉRIENCE',
+      experienceList: [
+        {
+          role: 'Étudiant en Génie Électrique',
+          period: '2019 - Présent',
+          description: 'Spécialisé en électroénergétique, électronique embarquée et développement de logiciels d\'ingénierie',
+        },
+        {
+          role: 'Recherche & Développement',
+          period: '2022 - Présent',
+          description: 'Focus sur l\'intégration des énergies renouvelables et les systèmes d\'automatisation',
         },
       ],
       skillsTitle: 'COMPÉTENCES',
