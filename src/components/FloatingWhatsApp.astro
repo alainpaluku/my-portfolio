@@ -14,16 +14,16 @@ const whatsappUrl = `${siteConfig.social.whatsapp}?text=${encodedMessage}`;
 ---
 
 <!-- Bouton WhatsApp flottant -->
-<div class="fixed bottom-6 right-6 z-50 animate-bounce-subtle">
+<div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 animate-bounce-subtle">
   <a 
     href={whatsappUrl}
     target="_blank"
     rel="noopener noreferrer"
-    class="whatsapp-float group flex items-center justify-center w-14 h-14 bg-[var(--color-accent)] hover:bg-[var(--color-text)] text-[var(--color-bg)] hover:text-[var(--color-bg)] rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)]/30"
+    class="whatsapp-float group flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-[var(--color-accent)] hover:bg-[var(--color-text)] text-[var(--color-bg)] hover:text-[var(--color-bg)] rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)]/30"
     title="Contactez-moi sur WhatsApp"
     aria-label="Contactez-moi sur WhatsApp"
   >
-    <Icon name="whatsapp" size={24} />
+    <Icon name="whatsapp" size={20} />
     
     <!-- Pulse animation -->
     <div class="absolute inset-0 rounded-full bg-[var(--color-accent)] animate-ping opacity-20"></div>
