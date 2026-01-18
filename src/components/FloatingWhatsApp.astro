@@ -19,14 +19,14 @@ const whatsappUrl = `${siteConfig.social.whatsapp}?text=${encodedMessage}`;
     href={whatsappUrl}
     target="_blank"
     rel="noopener noreferrer"
-    class="whatsapp-float group flex items-center justify-center w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-green-300"
+    class="whatsapp-float group flex items-center justify-center w-14 h-14 bg-[var(--color-accent)] hover:bg-[var(--color-text)] text-[var(--color-bg)] hover:text-[var(--color-bg)] rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)]/30"
     title="Contactez-moi sur WhatsApp"
     aria-label="Contactez-moi sur WhatsApp"
   >
     <Icon name="whatsapp" size={24} />
     
     <!-- Pulse animation -->
-    <div class="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-20"></div>
+    <div class="absolute inset-0 rounded-full bg-[var(--color-accent)] animate-ping opacity-20"></div>
   </a>
   
   <!-- Tooltip -->
@@ -51,10 +51,10 @@ const whatsappUrl = `${siteConfig.social.whatsapp}?text=${encodedMessage}`;
   }
   
   .whatsapp-float {
-    box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);
+    box-shadow: 0 4px 20px var(--color-glow-primary);
   }
   
   .whatsapp-float:hover {
-    box-shadow: 0 8px 30px rgba(34, 197, 94, 0.6);
+    box-shadow: 0 8px 30px var(--color-glow-primary);
   }
 </style>
