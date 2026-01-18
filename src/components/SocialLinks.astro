@@ -18,7 +18,7 @@ const isFooter = variant === 'footer';
         href={link.url} 
         target={link.name !== 'email' ? '_blank' : undefined}
         rel={link.name !== 'email' ? 'noopener noreferrer' : undefined}
-        class="w-10 h-10 sm:w-12 sm:h-12 rounded-full glass-card flex items-center justify-center text-[var(--color-text)] hover:bg-[var(--color-accent)] hover:text-[var(--color-bg)] transition-all"
+        class="w-10 h-10 sm:w-12 sm:h-12 rounded-full glass-card flex items-center justify-center text-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-bg)] transition-all"
         aria-label={link.label}
         title={link.label}
       >
@@ -35,7 +35,7 @@ const isFooter = variant === 'footer';
         rel={link.name !== 'email' ? 'noopener noreferrer' : undefined}
         class="flex items-center gap-3 text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors group"
       >
-        <span class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl glass-card flex items-center justify-center group-hover:bg-[var(--color-accent)] group-hover:text-[var(--color-bg)] transition-all flex-shrink-0">
+        <span class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl glass-card flex items-center justify-center group-hover:bg-[var(--color-text)] group-hover:text-[var(--color-bg)] transition-all flex-shrink-0">
           <Icon name={link.name} size={18} />
         </span>
         <span class="text-sm sm:text-base truncate">{link.label}</span>

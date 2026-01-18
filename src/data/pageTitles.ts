@@ -4,8 +4,8 @@ import { siteConfig } from './config';
 // Titres de pages centralisés
 export const pageTitles = {
   home: {
-    en: `${siteConfig.name} | M.Sc. Power Systems & IoT Developer`,
-    fr: `${siteConfig.name} | M.Sc. Systèmes de Puissance & Développeur IoT`,
+    en: `${siteConfig.name} | Electrical Engineer`,
+    fr: `${siteConfig.name} | Ingénieur Électricien`,
   },
   about: {
     en: `About | ${siteConfig.name}`,

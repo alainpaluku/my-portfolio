@@ -1,9 +1,8 @@
 ---
 import { useTranslations, type Lang, defaultLang } from '../i18n/translations';
-import SectionHeader from './SectionHeader.astro';
+import FilteredGrid from './ui/FilteredGrid.astro';
 import ArticleCard from './cards/ArticleCard.astro';
-import FilterButton from './ui/FilterButton.astro';
-import { articles, articleCategories, type ArticleCategory } from '../data/articles';
+import { articles, articleCategories } from '../data/articles';
 
 interface Props {
   lang?: Lang;
@@ -12,40 +11,23 @@ interface Props {
 const { lang = defaultLang } = Astro.props;
 const t = useTranslations(lang);
 
-const categories = Object.entries(articleCategories) as [ArticleCategory, { en: string; fr: string }][];
+// Enrichir les articles avec les props nécessaires pour ArticleCard
+const enrichedArticles = articles.map(article => ({
+  ...article,
+  readMoreText: t.articles.readMore
+}));
 ---
 
-<section class="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto relative">
-  <div class="glow-blob top-0 left-0 -translate-x-1/2 w-[200px] sm:w-[300px] lg:w-[400px] h-[200px] sm:h-[300px] lg:h-[400px] bg-[var(--color-glow-primary)]"></div>
-
-  <SectionHeader title={t.articles.title} subtitle={t.articles.subtitle} />
-
-  <!-- Filtres -->
-  <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12" id="articles-filters">
-    {categories.map(([key, label]) => (
-      <FilterButton filter={key} label={label[lang]} isActive={key === 'all'} />
-    ))}
-  </div>
-
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" id="articles-grid">
-    {articles.map((article) => (
-      <div class="article-card" data-category={article.categoryKey}>
-        <ArticleCard 
-          title={article.title}
-          excerpt={article.excerpt}
-          category={article.category}
-          image={article.image}
-          date={article.date}
-          readTime={article.readTime}
-          lang={lang}
-          readMoreText={t.articles.readMore}
-        />
-      </div>
-    ))}
-  </div>
-</section>
-
-<script>
-  import { initFilterGrid } from '../scripts/filterGrid';
-  initFilterGrid('articles-filters', 'article-card');
-</script>
+<FilteredGrid
+  title={t.articles.title}
+  subtitle={t.articles.subtitle}
+  items={enrichedArticles}
+  categories={articleCategories}
+  cardComponent={ArticleCard}
+  filterId="articles-filters"
+  gridId="articles-grid"
+  cardClass="article-card"
+  categoryKey="categoryKey"
+  gridCols="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+  lang={lang}
+/>

@@ -1,4 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Lora:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+@import './components/glass-card.css';
+@import './components/animations.css';
+@import './components/buttons.css';
+@import './utilities/text-gradients.css';
 
 @tailwind base;
 @tailwind components;
@@ -6,127 +10,163 @@
 
 @layer base {
   :root {
-    --color-bg: #fafafa;
-    --color-bg-secondary: #f1f5f9;
-    --color-text: #0f172a;
-    --color-text-muted: #475569;
-    --color-border: rgba(15, 23, 42, 0.12);
+    --color-bg: #fafbfc;
+    --color-bg-secondary: #f1f3f4;
+    --color-text: #2d3748;
+    --color-text-muted: #718096;
+    --color-border: rgba(45, 55, 72, 0.12);
     --color-card-bg: rgba(255, 255, 255, 0.85);
-    --color-glow-primary: rgba(79, 70, 229, 0.12);
-    --color-glow-secondary: rgba(219, 39, 119, 0.08);
-    --color-accent: #c2410c;
-    --color-primary: #4f46e5;
-    --color-secondary: #db2777;
+    --color-glow-primary: rgba(45, 55, 72, 0.08);
+    --color-glow-secondary: rgba(45, 55, 72, 0.05);
+    --color-accent: #2d3748;
+    --color-primary: #2d3748;
+    --color-secondary: #4a5568;
+    --color-success: #10b981;
+    --color-success-bg: rgba(16, 185, 129, 0.1);
+    --color-success-border: rgba(16, 185, 129, 0.2);
+    --color-error: #ef4444;
+    --color-warning: #f59e0b;
+    
+    /* Premium shadows */
+    --shadow-sm: 0 2px 8px rgba(45, 55, 72, 0.04);
+    --shadow-md: 0 4px 16px rgba(45, 55, 72, 0.08);
+    --shadow-lg: 0 8px 32px rgba(45, 55, 72, 0.12);
+    --shadow-xl: 0 16px 64px rgba(45, 55, 72, 0.16);
+    --shadow-premium: 0 20px 80px rgba(45, 55, 72, 0.2), 0 0 0 1px rgba(45, 55, 72, 0.05);
   }
 
   .dark {
-    --color-bg: #0a0a0f;
-    --color-bg-secondary: #12121a;
-    --color-text: #f8fafc;
-    --color-text-muted: #a1a1aa;
-    --color-border: rgba(255, 255, 255, 0.12);
-    --color-card-bg: rgba(255, 255, 255, 0.06);
-    --color-glow-primary: rgba(129, 140, 248, 0.18);
-    --color-glow-secondary: rgba(244, 114, 182, 0.12);
-    --color-accent: #fbbf24;
-    --color-primary: #818cf8;
-    --color-secondary: #f472b6;
+    --color-bg: #0f1f1f;
+    --color-bg-secondary: #1a2e2e;
+    --color-text: #ffffff;
+    --color-text-muted: #9ca3af;
+    --color-border: rgba(255, 255, 255, 0.1);
+    --color-card-bg: rgba(255, 255, 255, 0.05);
+    --color-glow-primary: rgba(255, 255, 255, 0.08);
+    --color-glow-secondary: rgba(255, 255, 255, 0.05);
+    --color-accent: #ffffff;
+    --color-primary: #ffffff;
+    --color-secondary: #e5e7eb;
+    --color-success: #10b981;
+    --color-success-bg: rgba(16, 185, 129, 0.1);
+    --color-success-border: rgba(16, 185, 129, 0.2);
+    --color-error: #f87171;
+    --color-warning: #fbbf24;
+  }
+
+  /* Base styles */
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Typography */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .font-mono {
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg-secondary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-muted);
   }
 }
 
 @layer components {
-  .glass-card {
-    @apply bg-[var(--color-card-bg)] backdrop-blur-xl border border-[var(--color-border)] shadow-sm;
+  /* Glass card avec style monochrome sombre */
+  .glass-card-dark {
+    @apply backdrop-blur-xl border border-white/10 relative;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   }
 
-  .dark .glass-card {
-    @apply shadow-[0_4px_24px_rgba(0,0,0,0.3)];
+  .dark .glass-card-dark {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
   }
 
-  .text-gradient {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #a78bfa 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+  /* Removed image texture effects */
+
+  /* Overlay pour les images de projet */
+  .project-image-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 40%,
+      rgba(0, 0, 0, 0.3) 70%,
+      rgba(0, 0, 0, 0.8) 100%
+    );
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
-  .dark .text-gradient {
-    background: linear-gradient(135deg, #c7d2fe 0%, #a5b4fc 50%, #818cf8 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+  .project-image-overlay:hover::before {
+    opacity: 1;
   }
 
-  .text-gradient-accent {
-    background: linear-gradient(135deg, #f472b6 0%, #fb923c 50%, #fbbf24 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+  /* Utilitaires de layout */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
-  .glow-blob {
-    @apply absolute rounded-full blur-[80px] sm:blur-[100px] pointer-events-none -z-10;
+  .section-padding {
+    @apply py-12 sm:py-16 lg:py-24;
   }
 
-  .nav-link {
-    @apply text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors duration-300 text-sm uppercase tracking-widest font-medium;
+  /* Utilitaires de texte */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
-  .dark .nav-link:hover {
-    @apply text-[var(--color-accent)];
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
-  .btn-primary {
-    @apply bg-[var(--color-text)] text-[var(--color-bg)] px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-xs sm:text-sm tracking-widest hover:scale-105 transition-all duration-300;
+  /* Focus states */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-opacity-50;
   }
-
-  .dark .btn-primary {
-    @apply bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-[0_0_24px_rgba(129,140,248,0.4)] hover:shadow-[0_0_32px_rgba(129,140,248,0.5)];
-  }
-
-  .btn-outline {
-    @apply border border-[var(--color-border)] px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-medium text-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-bg)] transition-all duration-300;
-  }
-
-  .section-title {
-    @apply text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 uppercase tracking-wide;
-  }
-
-  .section-subtitle {
-    @apply text-[var(--color-text-muted)] text-base sm:text-lg;
-  }
-}
-
-html {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-}
-
-body {
-  font-family: 'Nunito', sans-serif;
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  overflow-x: hidden;
-  max-width: 100vw;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-::selection {
-  background-color: #ec4899;
-  color: white;
-}
-
-/* Line clamp utilities */
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }

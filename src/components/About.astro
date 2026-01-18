@@ -1,6 +1,5 @@
 ---
 import { useTranslations, type Lang, defaultLang } from '../i18n/translations';
-import Icon from './Icon.astro';
 import ProfileCard from './ProfileCard.astro';
 
 interface Props {
@@ -9,315 +8,74 @@ interface Props {
 
 const { lang = defaultLang } = Astro.props;
 const t = useTranslations(lang);
-
-const content = {
-  en: {
-    title: 'About Me',
-    subtitle: 'Electrical Power Engineer & Software Developer',
-    intro: "Currently pursuing a Master's degree in Electrical Power Engineering at UCS Goma, I specialize in power systems, embedded development, and IoT solutions. My work bridges electrical engineering with modern software technologies.",
-    nationality: 'Congolese',
-    languagesTitle: 'Languages',
-    languages: [
-      { name: 'French', level: 'Fluent' },
-      { name: 'Swahili', level: 'Fluent' },
-      { name: 'Lingala', level: 'Secondary' },
-      { name: 'English', level: 'Basic' },
-    ],
-    educationTitle: 'Education',
-    skillsTitle: 'Technical Skills',
-    education: [
-      {
-        period: '2025 – Present',
-        title: "Master's in Electrical Power Engineering",
-        school: 'Université Catholique la Sapientia (UCS) – Goma',
-        desc: 'Production, transmission, distribution and optimization of power systems.',
-        current: true,
-      },
-      {
-        period: '2021 – 2025',
-        title: "Bachelor's in Electrical Engineering",
-        school: 'Université Catholique la Sapientia (UCS) – Goma',
-        desc: 'Fundamentals of electrical engineering, electronics and automation.',
-      },
-      {
-        period: '2021',
-        title: 'State Diploma in Electricity',
-        school: 'Institut Kyechero',
-        desc: 'General electricity and industrial installations.',
-      },
-    ],
-    skillCategories: [
-      {
-        title: 'Engineering & Hardware',
-        icon: 'bolt',
-        color: 'primary',
-        skills: [
-          { name: 'Power Networks', desc: 'Design & analysis (MV/LV)' },
-          { name: 'Solar PV Systems', desc: 'Sizing & installation' },
-          { name: 'Home & Industrial', desc: 'Automation & domotics' },
-          { name: 'PCB Design', desc: 'KiCad schematic & layout' },
-          { name: '3D Modeling', desc: 'FreeCAD parametric design' },
-        ],
-      },
-      {
-        title: 'Software Development',
-        icon: 'computer',
-        color: 'secondary',
-        skills: [
-          { name: 'Rust', desc: 'Embedded, Memory safety' },
-          { name: 'Golang', desc: 'Backend, DevOps' },
-          { name: 'TypeScript', desc: 'Web apps, UI/UX' },
-        ],
-      },
-    ],
-  },
-  fr: {
-    title: 'À Propos',
-    subtitle: 'Ingénieur Électroénergéticien & Développeur Logiciel',
-    intro: "Actuellement en Master en Électroénergétique à l'UCS Goma, je me spécialise dans les systèmes de puissance, le développement embarqué et les solutions IoT. Mon travail fait le pont entre l'ingénierie électrique et les technologies logicielles modernes.",
-    nationality: 'Congolaise',
-    languagesTitle: 'Langues',
-    languages: [
-      { name: 'Français', level: 'Courant' },
-      { name: 'Swahili', level: 'Courant' },
-      { name: 'Lingala', level: 'Secondaire' },
-      { name: 'Anglais', level: 'Basique' },
-    ],
-    educationTitle: 'Formation',
-    skillsTitle: 'Compétences Techniques',
-    education: [
-      {
-        period: '2025 – Présent',
-        title: 'Master en Électroénergétique',
-        school: 'Université Catholique la Sapientia (UCS) – Goma',
-        desc: 'Production, transport, distribution et optimisation des systèmes de puissance.',
-        current: true,
-      },
-      {
-        period: '2021 – 2025',
-        title: 'Licence en Génie Électrique',
-        school: 'Université Catholique la Sapientia (UCS) – Goma',
-        desc: "Fondamentaux de l'ingénierie électrique, électronique et automatique.",
-      },
-      {
-        period: '2021',
-        title: "Diplôme d'État en Électricité",
-        school: 'Institut Kyechero',
-        desc: 'Électricité générale et installations industrielles.',
-      },
-    ],
-    skillCategories: [
-      {
-        title: 'Ingénierie & Matériel',
-        icon: 'bolt',
-        color: 'primary',
-        skills: [
-          { name: 'Réseaux Électriques', desc: 'Conception & analyse (MT/BT)' },
-          { name: 'Solaire PV', desc: 'Dimensionnement & installation' },
-          { name: 'Domestique & Industriel', desc: 'Domotique & automatisation' },
-          { name: 'Conception PCB', desc: 'Schématique & layout KiCad' },
-          { name: 'Modélisation 3D', desc: 'Design paramétrique FreeCAD' },
-        ],
-      },
-      {
-        title: 'Développement Logiciel',
-        icon: 'computer',
-        color: 'secondary',
-        skills: [
-          { name: 'Rust', desc: 'Embarqué, Sécurité mémoire' },
-          { name: 'Golang', desc: 'Backend, DevOps' },
-          { name: 'TypeScript', desc: 'Apps web, UI/UX' },
-        ],
-      },
-    ],
-  },
-};
-
-const vision = {
-  en: {
-    title: 'Vision & Approach',
-    sections: [
-      {
-        title: 'The Necessary Evolution Towards Smart Grids',
-        content: "The electrical power engineering profession has changed. Legacy networks, designed for linear distribution, are showing their limits against current demands. Today, a high-performing network (Smart Grid) must be capable of self-diagnosis and real-time response. To ensure balance between supply and demand or integrate renewable energies, physical installation is no longer enough: it must be data-driven. This technical reality motivates my journey: I use electronics and software not out of passion for code, but because it's now the only way to build reliable and resilient electrical networks.",
-      },
-      {
-        title: 'CAD by Engineers, for Engineers',
-        content: "In the development of design tools (CAD), there's often a gap between the engineer's needs and the developer's solution. Software can be well-coded but ignore critical normative or physical constraints. My approach aims to eliminate this gap. Being from the field myself, I design tools where domain logic precedes software logic. This allows creating sizing and simulation solutions that perfectly match field realities, without the approximations a generalist developer might overlook.",
-      },
-    ],
-  },
-  fr: {
-    title: 'Vision & Approche',
-    sections: [
-      {
-        title: "L'évolution nécessaire vers le Smart Grid",
-        content: "Le métier d'ingénieur en électroénergétique a changé. Les réseaux historiques, conçus pour une distribution linéaire, montrent leurs limites face aux exigences actuelles. Aujourd'hui, un réseau performant (Smart Grid) doit être capable de s'auto-diagnostiquer et de réagir en temps réel. Pour garantir l'équilibre entre l'offre et la demande ou intégrer les énergies renouvelables, l'installation physique ne suffit plus : elle doit être pilotée par des données. C'est cette réalité technique qui motive mon parcours : j'utilise l'électronique et l'informatique non par passion du code, mais parce que c'est désormais le seul moyen de construire des réseaux électriques fiables et résilients.",
-      },
-      {
-        title: 'La CAO par le métier, pour le métier',
-        content: "Dans le développement d'outils de conception (CAO), il existe souvent un décalage entre le besoin de l'ingénieur et la solution du développeur. Un logiciel peut être bien codé mais ignorer des contraintes normatives ou physiques critiques. Ma démarche vise à supprimer cet écart. En étant moi-même du domaine, je conçois des outils où la logique métier précède la logique informatique. Cela permet de créer des solutions de dimensionnement et de simulation qui collent parfaitement aux réalités du terrain, sans les approximations qu'un développeur généraliste pourrait laisser passer.",
-      },
-    ],
-  },
-};
-
-const c = content[lang];
-const v = vision[lang];
 ---
 
 <section class="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto">
   <!-- Header -->
   <div class="text-center mb-10 sm:mb-14">
-    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 uppercase tracking-wide">{c.title}</h1>
-    <p class="text-sm sm:text-base text-[var(--color-text-muted)]">{c.subtitle}</p>
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 uppercase tracking-wide">{t.about.headerName}</h1>
+    <p class="text-sm sm:text-base text-[var(--color-text-muted)] uppercase tracking-widest font-mono">{t.about.headerTitle}</p>
   </div>
 
-  <!-- Profile + Intro -->
-  <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 mb-12 sm:mb-16">
-    <!-- Profile Card -->
-    <div class="lg:col-span-2 flex justify-center pb-20 sm:pb-16 lg:pb-0">
-      <ProfileCard lang={lang} showSocials={true} />
-    </div>
-
-    <!-- Intro + Current Status -->
-    <div class="lg:col-span-3 flex flex-col justify-center">
-      <div class="glass-card p-5 sm:p-6 rounded-xl mb-4">
-        <!-- Status + Nationality -->
-        <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-3">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-            <span class="text-xs sm:text-sm text-green-600 dark:text-green-400 font-mono">
-              {lang === 'fr' ? 'Master en cours' : "Master's in progress"}
-            </span>
-          </div>
-          <span class="text-[var(--color-text-muted)]">•</span>
-          <span class="text-xs sm:text-sm text-[var(--color-text-muted)]">
-            🇨🇩 {lang === 'fr' ? 'Nationalité' : 'Nationality'}: <span class="text-[var(--color-text)]">{c.nationality}</span>
-          </span>
-        </div>
-        <p class="text-[var(--color-text-muted)] text-sm sm:text-base leading-relaxed">{c.intro}</p>
-        
-        <!-- Languages -->
-        <div class="mt-4 pt-4 border-t border-[var(--color-border)]">
-          <div class="text-[10px] sm:text-xs text-[var(--color-text-muted)] uppercase mb-2">{c.languagesTitle}</div>
-          <div class="flex flex-wrap gap-2">
-            {c.languages.map((lang) => (
-              <span class={`px-2 py-1 text-[10px] sm:text-xs rounded-full ${
-                lang.level === 'Fluent' || lang.level === 'Courant' 
-                  ? 'bg-accent/20 text-accent' 
-                  : lang.level === 'Secondary' || lang.level === 'Secondaire'
-                    ? 'bg-primary/20 text-primary'
-                    : 'bg-[var(--color-card-bg)] text-[var(--color-text-muted)]'
-              }`}>
-                {lang.name} <span class="opacity-60">({lang.level})</span>
-              </span>
-            ))}
-          </div>
-        </div>
+  <!-- Layout en deux colonnes sur desktop -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+    <!-- Colonne gauche - Profile (desktop) -->
+    <div class="order-2 lg:order-1">
+      <div class="flex justify-center lg:justify-start mb-8">
+        <ProfileCard lang={lang} showSocials={true} />
       </div>
       
-      <!-- Quick Stats -->
-      <div class="grid grid-cols-3 gap-3">
-        <div class="glass-card p-3 sm:p-4 rounded-lg text-center">
-          <div class="text-xl sm:text-2xl font-bold text-accent">4+</div>
-          <div class="text-[10px] sm:text-xs text-[var(--color-text-muted)] uppercase">{lang === 'fr' ? "Ans d'études" : 'Years Study'}</div>
-        </div>
-        <div class="glass-card p-3 sm:p-4 rounded-lg text-center">
-          <div class="text-xl sm:text-2xl font-bold text-primary">10+</div>
-          <div class="text-[10px] sm:text-xs text-[var(--color-text-muted)] uppercase">{lang === 'fr' ? 'Projets' : 'Projects'}</div>
-        </div>
-        <div class="glass-card p-3 sm:p-4 rounded-lg text-center">
-          <div class="text-xl sm:text-2xl font-bold text-secondary">3</div>
-          <div class="text-[10px] sm:text-xs text-[var(--color-text-muted)] uppercase">{lang === 'fr' ? 'Langages' : 'Languages'}</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Vision & Approche - Justification du parcours -->
-  <div class="mb-10 sm:mb-14">
-    <div class="glass-card p-5 sm:p-6 rounded-xl">
-      <h3 class="text-base sm:text-lg font-bold text-[var(--color-text)] mb-5 flex items-center gap-2">
-        <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-accent/20 flex items-center justify-center text-accent">
-          <Icon name="bolt" size={14} />
-        </span>
-        {v.title}
-        <span class="ml-auto text-[10px] sm:text-xs text-[var(--color-text-muted)] font-normal">
-          {lang === 'fr' ? 'Pourquoi Embarqué, IoT & CAO ?' : 'Why Embedded, IoT & CAD?'}
-        </span>
-      </h3>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {v.sections.map((section, i) => (
-          <div class={`border-l-2 pl-4 ${i === 0 ? 'border-primary' : 'border-secondary'}`}>
-            <div class="flex items-center gap-2 mb-2">
-              <span class={`px-2 py-0.5 text-[9px] sm:text-[10px] rounded font-medium ${i === 0 ? 'bg-primary/20 text-primary' : 'bg-secondary/20 text-secondary'}`}>
-                {i === 0 ? (lang === 'fr' ? 'Embarqué & IoT' : 'Embedded & IoT') : 'CAO/CAD'}
-              </span>
-            </div>
-            <h4 class={`text-sm sm:text-base font-semibold mb-2 ${i === 0 ? 'text-primary' : 'text-secondary'}`}>
-              {section.title}
-            </h4>
-            <p class="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed">{section.content}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-
-  <!-- Education & Skills Grid -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-    <!-- Formation -->
-    <div class="glass-card p-5 sm:p-6 rounded-xl">
-      <h3 class="text-base sm:text-lg font-bold text-[var(--color-text)] mb-5 flex items-center gap-2">
-        <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
-          <Icon name="education" size={14} />
-        </span>
-        {c.educationTitle}
-      </h3>
-      <div class="space-y-4">
-        {c.education.map((edu) => (
-          <div class={`border-l-2 pl-4 ${edu.current ? 'border-accent' : 'border-[var(--color-border)]'}`}>
-            <div class="flex items-center gap-2 mb-1">
-              <span class={`text-[10px] sm:text-xs font-mono ${edu.current ? 'text-accent' : 'text-[var(--color-text-muted)]'}`}>
-                {edu.period}
-              </span>
-              {edu.current && (
-                <span class="px-1.5 py-0.5 text-[8px] sm:text-[9px] bg-accent/20 text-accent rounded uppercase font-bold">
-                  {lang === 'fr' ? 'En cours' : 'Current'}
-                </span>
-              )}
-            </div>
-            <h4 class="text-xs sm:text-sm font-semibold text-[var(--color-text)]">{edu.title}</h4>
-            <p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-0.5">{edu.school}</p>
-            <p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-1">{edu.desc}</p>
-          </div>
-        ))}
+      <div class="glass-card p-5 sm:p-6 rounded-xl">
+        <p class="text-[var(--color-text-muted)] text-sm sm:text-base leading-relaxed text-center lg:text-left">
+          {t.about.headerSubtitle}
+        </p>
       </div>
     </div>
 
-    <!-- Compétences -->
-    <div class="glass-card p-5 sm:p-6 rounded-xl">
-      <h3 class="text-base sm:text-lg font-bold text-[var(--color-text)] mb-5 flex items-center gap-2">
-        <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-secondary/20 flex items-center justify-center text-secondary">
-          <Icon name="computer" size={14} />
-        </span>
-        {c.skillsTitle}
-      </h3>
-      <div class="space-y-5">
-        {c.skillCategories.map((cat) => (
-          <div>
-            <h4 class={`text-xs sm:text-sm font-semibold mb-3 text-${cat.color}`}>{cat.title}</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-              {cat.skills.map((skill) => (
-                <div class="bg-[var(--color-card-bg)] border border-[var(--color-border)] rounded-lg p-2.5 sm:p-3 hover:border-primary/30 transition-colors">
-                  <div class="text-xs sm:text-sm font-medium text-[var(--color-text)]">{skill.name}</div>
-                  <div class="text-[9px] sm:text-[10px] text-[var(--color-text-muted)] mt-0.5">{skill.desc}</div>
-                </div>
-              ))}
+    <!-- Colonne droite - Contenu (desktop) -->
+    <div class="order-1 lg:order-2 space-y-6 lg:space-y-8">
+      <!-- Education -->
+      <div class="glass-card p-5 sm:p-6 rounded-xl">
+        <h2 class="text-base sm:text-lg font-bold text-[var(--color-text)] mb-6 text-center lg:text-left uppercase tracking-widest font-mono">
+          {t.about.educationTitle}
+        </h2>
+
+        <div class="space-y-4">
+          {t.about.educationList.map((item) => (
+            <div class="bg-[var(--color-card-bg)] border border-[var(--color-border)] rounded-xl p-4 sm:p-5">
+              <p class="text-xs sm:text-sm font-bold text-[var(--color-text)] uppercase tracking-wider mb-2">
+                {item.degree}
+              </p>
+              <p class="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed">
+                {item.school}
+              </p>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="glass-card p-5 sm:p-6 rounded-xl">
+        <h2 class="text-base sm:text-lg font-bold text-[var(--color-text)] mb-6 text-center lg:text-left uppercase tracking-widest font-mono">
+          {t.about.skillsTitle}
+        </h2>
+
+        <div class="grid grid-cols-1 gap-4">
+          {t.about.skillCategories.map((cat) => (
+            <div class="bg-[var(--color-card-bg)] border border-[var(--color-border)] rounded-xl p-4 sm:p-5">
+              <h3 class="text-xs sm:text-sm font-bold text-[var(--color-text)] uppercase tracking-wider mb-3">
+                {cat.title}
+              </h3>
+              <ul class="space-y-2">
+                {cat.items.map((item) => (
+                  <li class="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </div>

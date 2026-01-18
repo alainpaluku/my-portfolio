@@ -7,7 +7,7 @@ interface Props {
 const { title, subtitle } = Astro.props;
 ---
 
-<div class="text-center mb-10 sm:mb-16 px-2">
-  <h2 class="section-title">{title}</h2>
-  {subtitle && <p class="section-subtitle">{subtitle}</p>}
+<div class="text-center mb-10 sm:mb-16 px-2 reveal">
+  <h2 class="section-title text-gradient-glow">{title}</h2>
+  {subtitle && <p class="section-subtitle animate-fade-in-up animate-delay-200">{subtitle}</p>}
 </div>

@@ -1,0 +1,124 @@
+---
+import { type Lang } from '../../i18n/translations';
+
+interface Props {
+  type: 'project' | 'article' | 'service';
+  data: any;
+  lang: Lang;
+  className?: string;
+  showLink?: boolean;
+  linkText?: string;
+}
+
+const { type, data, lang, className = '', showLink = false, linkText = 'Learn More' } = Astro.props;
+
+// Déterminer l'URL basée sur le type
+const getUrl = () => {
+  switch (type) {
+    case 'project':
+      return data.slug ? `/${lang}/projects/${data.slug}` : '#';
+    case 'article':
+      return data.slug ? `/${lang}/articles/${data.slug}` : '#';
+    default:
+      return '#';
+  }
+};
+
+const url = getUrl();
+const isClickable = type === 'project' || type === 'article';
+const Component = isClickable ? 'a' : 'div';
+---
+
+<Component 
+  href={isClickable ? url : undefined}
+  class={`block group relative overflow-hidden rounded-xl sm:rounded-2xl glass-card cursor-pointer hover:border-[var(--color-accent)]/30 ${className}`}
+>
+  <!-- Image -->
+  {data.image && (
+    <div class={`aspect-${type === 'project' ? '[4/3]' : 'video'} overflow-hidden ${type === 'project' ? 'project-image-overlay' : ''}`}>
+      <img 
+        src={data.image} 
+        alt={data.title[lang]}
+        width="800"
+        height={type === 'project' ? "600" : "450"}
+        loading="lazy"
+        decoding="async"
+        class="w-full h-full object-cover"
+      />
+      {type === 'project' && (
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
+      )}
+    </div>
+  )}
+  
+  <!-- Content -->
+  <div class={`${type === 'project' ? 'absolute bottom-0 left-0 right-0 p-3 sm:p-4 z-20' : 'p-4 sm:p-5'}`}>
+    <!-- Category & Meta -->
+    <div class="flex items-center justify-between mb-2 sm:mb-3">
+      <span class={`text-[10px] sm:text-xs uppercase tracking-wider font-semibold ${type === 'project' ? 'text-white/90' : 'text-[var(--color-accent)]'}`}>
+        {data.category[lang]}
+      </span>
+      {data.readTime && (
+        <span class={`text-[10px] sm:text-xs font-medium ${type === 'project' ? 'text-white/80' : 'text-[var(--color-text-muted)]'}`}>
+          {data.readTime}
+        </span>
+      )}
+    </div>
+
+    <!-- Title -->
+    <h3 class={`${type === 'project' ? 'text-base sm:text-lg' : 'text-sm sm:text-base'} font-bold mb-2 transition-colors line-clamp-2 ${type === 'project' ? 'text-white group-hover:text-white/80' : 'text-[var(--color-text)] group-hover:text-[var(--color-accent)]'}`}>
+      {data.title[lang]}
+    </h3>
+
+    <!-- Description/Excerpt -->
+    {data.excerpt && (
+      <p class={`text-xs sm:text-sm leading-relaxed mb-2 sm:mb-3 line-clamp-2 ${type === 'project' ? 'text-white/80' : 'text-[var(--color-text-muted)]'}`}>
+        {data.excerpt[lang]}
+      </p>
+    )}
+
+    {data.description && (
+      <p class={`text-xs sm:text-sm leading-relaxed mb-2 sm:mb-3 line-clamp-2 ${type === 'project' ? 'text-white/80' : 'text-[var(--color-text-muted)]'}`}>
+        {data.description[lang]}
+      </p>
+    )}
+
+    <!-- Tags -->
+    {data.tags && (
+      <div class="flex flex-wrap gap-1 mt-2">
+        {data.tags.map((tag: string) => (
+          <span class={`px-1.5 sm:px-2 py-0.5 text-[10px] sm:text-xs rounded-full font-medium ${type === 'project' ? 'bg-black/20 border border-white/20 text-white/80 backdrop-blur-sm' : 'bg-[var(--color-bg-secondary)] border border-[var(--color-border)] text-[var(--color-text-muted)]'}`}>
+            {tag}
+          </span>
+        ))}
+      </div>
+    )}
+
+    <!-- Tools -->
+    {data.tools && (
+      <p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-2 leading-relaxed">
+        {data.tools[lang]}
+      </p>
+    )}
+
+    <!-- Date & Read More -->
+    {(data.date || showLink) && (
+      <div class="flex items-center justify-between mt-3 pt-2 border-t border-[var(--color-border)]">
+        {data.date && (
+          <time class="text-[10px] sm:text-xs text-[var(--color-text-muted)]">
+            {new Date(data.date).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric'
+            })}
+          </time>
+        )}
+        {showLink && (
+          <span class="text-[10px] sm:text-xs text-[var(--color-accent)] font-semibold group-hover:underline">
+            {linkText}
+          </span>
+        )}
+      </div>
+    )}
+  </div>
+</Component>

@@ -7,7 +7,7 @@ export const siteConfig = {
   domain: 'alainpaluku.com',
   
   // Image de profil unique (Hero + About)
-  profileImage: 'https://alainpaluku.com/alainpaluku.png',
+  profileImage: 'https://assets.alainpaluku.com/alainpaluku.png',
   
   // Liens sociaux
   social: {

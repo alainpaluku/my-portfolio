@@ -1,4 +1,4 @@
-import type { Lang, defaultLang } from '../i18n/translations';
+import type { Lang } from '../i18n/translations';
 
 /**
  * Props standard pour les composants avec langue

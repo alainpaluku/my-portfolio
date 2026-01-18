@@ -1,0 +1,113 @@
+/* Animations et effets visuels */
+
+/* Hover lift effect - DISABLED */
+.hover-lift {
+  /* transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); */
+}
+
+.hover-lift:hover {
+  /* transform: translateY(-4px); */
+}
+
+/* Card 3D effect - DISABLED */
+.card-3d {
+  /* transform-style: preserve-3d; */
+  /* transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); */
+}
+
+.card-3d:hover {
+  /* transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateY(-4px); */
+}
+
+/* Image zoom effect - DISABLED */
+.image-zoom img {
+  /* transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); */
+}
+
+.image-zoom:hover img {
+  /* transform: scale(1.05); */
+}
+
+/* Card hover gradient - DISABLED */
+.card-hover-gradient {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-hover-gradient::before {
+  /* Disabled animation */
+}
+
+/* Glow blob animation */
+.glow-blob {
+  @apply absolute rounded-full blur-3xl opacity-20 animate-pulse;
+  background: var(--color-glow-primary);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-20px) rotate(120deg); }
+  66% { transform: translateY(10px) rotate(240deg); }
+}
+
+/* Marquee animation */
+.marquee {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+}
+
+.marquee-content {
+  display: flex;
+  animation: marquee 30s linear infinite;
+  white-space: nowrap;
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Fade in animation */
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger animation for lists */
+.stagger-item {
+  opacity: 0;
+  animation: staggerIn 0.6s ease-out forwards;
+}
+
+.stagger-item:nth-child(1) { animation-delay: 0.1s; }
+.stagger-item:nth-child(2) { animation-delay: 0.2s; }
+.stagger-item:nth-child(3) { animation-delay: 0.3s; }
+.stagger-item:nth-child(4) { animation-delay: 0.4s; }
+.stagger-item:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes staggerIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

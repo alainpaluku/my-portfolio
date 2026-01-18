@@ -1,9 +1,8 @@
 ---
 import { useTranslations, type Lang, defaultLang } from '../i18n/translations';
-import SectionHeader from './SectionHeader.astro';
+import FilteredGrid from './ui/FilteredGrid.astro';
 import ProjectCard from './cards/ProjectCard.astro';
-import FilterButton from './ui/FilterButton.astro';
-import { projects, projectCategories, type ProjectCategory } from '../data/projects';
+import { projects, projectCategories } from '../data/projects';
 
 interface Props {
   lang?: Lang;
@@ -12,38 +11,24 @@ interface Props {
 const { lang = defaultLang } = Astro.props;
 const t = useTranslations(lang);
 
-const categories = Object.entries(projectCategories) as [ProjectCategory, { en: string; fr: string }][];
+// Enrichir les projets avec les props nécessaires pour ProjectCard
+const enrichedProjects = projects.map(project => ({
+  ...project,
+  showLink: true,
+  linkText: t.portfolio.viewProject
+}));
 ---
 
-<section class="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto">
-  <SectionHeader title={t.portfolio.title} subtitle={t.portfolio.subtitle} />
-
-  <!-- Filtres -->
-  <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12" id="portfolio-filters">
-    {categories.map(([key, label]) => (
-      <FilterButton filter={key} label={label[lang]} isActive={key === 'all'} />
-    ))}
-  </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6" id="portfolio-grid">
-    {projects.map((project) => (
-      <div class="project-card" data-category={project.categoryKey}>
-        <ProjectCard 
-          title={project.title}
-          category={project.category}
-          image={project.image}
-          tags={project.tags}
-          lang={lang}
-          slug={project.slug}
-          showLink={true}
-          linkText={t.portfolio.viewProject}
-        />
-      </div>
-    ))}
-  </div>
-</section>
-
-<script>
-  import { initFilterGrid } from '../scripts/filterGrid';
-  initFilterGrid('portfolio-filters', 'project-card');
-</script>
+<FilteredGrid
+  title={t.portfolio.title}
+  subtitle={t.portfolio.subtitle}
+  items={enrichedProjects}
+  categories={projectCategories}
+  cardComponent={ProjectCard}
+  filterId="portfolio-filters"
+  gridId="portfolio-grid"
+  cardClass="project-card"
+  categoryKey="categoryKey"
+  gridCols="grid-cols-1 md:grid-cols-2"
+  lang={lang}
+/>

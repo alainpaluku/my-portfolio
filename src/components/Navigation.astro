@@ -1,7 +1,6 @@
 ---
 import { useTranslations, type Lang, defaultLang } from '../i18n/translations';
 import Icon from './Icon.astro';
-import { siteConfig } from '../data/config';
 
 interface Props {
   lang?: Lang;
@@ -49,7 +48,7 @@ const flags = {
       <!-- Theme Toggle -->
       <button 
         id="theme-toggle" 
-        class="p-2 rounded-full border border-[var(--color-border)] hover:border-accent text-[var(--color-text-muted)] hover:text-accent transition-all"
+        class="p-2 rounded-full border border-[var(--color-border)] hover:border-[var(--color-text)] text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-all"
         aria-label="Toggle theme"
       >
         <span id="theme-icon-dark" class="hidden dark:block">
@@ -63,7 +62,7 @@ const flags = {
       <!-- Language Switcher -->
       <a 
         href={otherLangPath} 
-        class="flex items-center gap-1 sm:gap-2 text-[10px] sm:text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors uppercase font-mono px-1.5 sm:px-3 py-1 rounded-full border border-[var(--color-border)] hover:border-accent"
+        class="flex items-center gap-1 sm:gap-2 text-[10px] sm:text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors uppercase font-mono px-1.5 sm:px-3 py-1 rounded-full border border-[var(--color-border)] hover:border-[var(--color-text)]"
         title={otherLang === 'fr' ? 'Version française' : 'English version'}
       >
         <span class="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full overflow-hidden">
@@ -72,7 +71,7 @@ const flags = {
         <span class="hidden xs:inline sm:inline">{otherLang.toUpperCase()}</span>
       </a>
       
-      <a href={`${basePath}/contact`} class="hidden md:flex group items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wide hover:text-accent transition-colors">
+      <a href={`${basePath}/contact`} class="hidden md:flex group items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wide hover:text-[var(--color-text)] transition-colors">
         {t.nav.contact}
         <span class="group-hover:translate-x-1 transition-transform">↗</span>
       </a>
@@ -113,10 +112,11 @@ const flags = {
   const iconClose = document.getElementById('menu-icon-close');
 
   menuBtn?.addEventListener('click', () => {
-    const isOpen = mobileMenu?.classList.toggle('hidden');
+    const wasHidden = mobileMenu?.classList.contains('hidden');
+    mobileMenu?.classList.toggle('hidden');
     iconOpen?.classList.toggle('hidden');
     iconClose?.classList.toggle('hidden');
-    menuBtn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+    menuBtn.setAttribute('aria-expanded', wasHidden ? 'true' : 'false');
   });
 
   // Theme toggle

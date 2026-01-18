@@ -1,0 +1,124 @@
+/* Styles pour les boutons */
+
+/* Bouton principal - harmonieux pour les deux modes */
+.btn-primary {
+  @apply px-6 py-3 font-semibold rounded-lg transition-all duration-300 ease-out;
+  @apply focus:outline-none focus:ring-2 focus:ring-opacity-50;
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+.btn-primary:hover {
+  @apply hover:shadow-lg hover:-translate-y-0.5;
+  background: var(--color-secondary);
+}
+
+.btn-primary:focus {
+  @apply ring-2;
+  ring-color: var(--color-primary);
+}
+
+/* Bouton secondaire - adaptatif */
+.btn-secondary {
+  @apply px-6 py-3 font-semibold rounded-lg transition-all duration-300 ease-out;
+  @apply focus:outline-none focus:ring-2 focus:ring-opacity-50;
+  background: transparent;
+  border: 2px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-text);
+  color: var(--color-text);
+  @apply shadow-md;
+}
+
+.dark .btn-secondary {
+  @apply bg-white/10 border-white/20 text-white;
+  backdrop-filter: blur(10px);
+}
+
+.dark .btn-secondary:hover {
+  @apply bg-white/20 border-white/30;
+}
+
+/* Bouton de filtre harmonieux */
+.filter-btn {
+  @apply px-3 py-1.5 text-xs font-medium rounded-full border transition-all duration-300;
+  @apply cursor-pointer select-none;
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+
+.filter-btn:not(.active):hover {
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+
+.filter-btn.active {
+  background: var(--color-text);
+  color: var(--color-bg);
+  border-color: var(--color-text);
+}
+
+.dark .filter-btn:not(.active) {
+  @apply border-white/20 text-white/60;
+}
+
+.dark .filter-btn:not(.active):hover {
+  @apply border-white/40 text-white/80;
+}
+
+.dark .filter-btn.active {
+  @apply bg-white text-[#0f1f1f] border-white;
+}
+
+/* Bouton ghost */
+.btn-ghost {
+  @apply px-4 py-2 text-[var(--color-text)] font-medium rounded-lg;
+  @apply transition-all duration-300 ease-out;
+  @apply hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-primary)];
+  @apply focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-opacity-50;
+}
+
+/* Bouton avec icône */
+.btn-icon {
+  @apply inline-flex items-center gap-2;
+}
+
+.btn-icon svg {
+  @apply w-4 h-4 transition-transform duration-300;
+}
+
+.btn-icon:hover svg {
+  @apply transform translate-x-0.5;
+}
+
+/* Bouton CTA (Call to Action) */
+.btn-cta {
+  @apply btn-primary relative overflow-hidden;
+  @apply bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)];
+}
+
+.btn-cta::before {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-r from-[var(--color-secondary)] to-[var(--color-primary)];
+  @apply opacity-0 transition-opacity duration-300;
+}
+
+.btn-cta:hover::before {
+  @apply opacity-100;
+}
+
+.btn-cta span {
+  @apply relative z-10;
+}
+
+/* États des boutons */
+.btn-loading {
+  @apply opacity-75 cursor-not-allowed;
+}
+
+.btn-disabled {
+  @apply opacity-50 cursor-not-allowed pointer-events-none;
+}

@@ -1,0 +1,60 @@
+---
+import { type Lang } from '../../i18n/translations';
+import SectionHeader from '../SectionHeader.astro';
+import FilterButton from './FilterButton.astro';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  items: any[];
+  categories: Record<string, { en: string; fr: string }>;
+  cardComponent: any;
+  filterId: string;
+  gridId: string;
+  cardClass: string;
+  categoryKey: string;
+  lang: Lang;
+  gridCols?: string;
+}
+
+const { 
+  title, 
+  subtitle, 
+  items, 
+  categories, 
+  cardComponent: Card, 
+  filterId, 
+  gridId, 
+  cardClass, 
+  categoryKey,
+  lang,
+  gridCols = "grid-cols-1 md:grid-cols-2"
+} = Astro.props;
+
+const categoriesArray = Object.entries(categories) as [string, { en: string; fr: string }][];
+---
+
+<section class="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto">
+  <SectionHeader title={title} subtitle={subtitle} />
+
+  <!-- Filtres -->
+  <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12" id={filterId}>
+    {categoriesArray.map(([key, label]) => (
+      <FilterButton filter={key} label={label[lang]} isActive={key === 'all'} />
+    ))}
+  </div>
+
+  <!-- Grille -->
+  <div class={`grid ${gridCols} gap-4 sm:gap-6`} id={gridId}>
+    {items.map((item) => (
+      <div class={cardClass} data-category={item[categoryKey]}>
+        <Card {...item} lang={lang} />
+      </div>
+    ))}
+  </div>
+</section>
+
+<script define:vars={{ filterId, cardClass }}>
+  import { initFilterGrid } from '../../scripts/filterGrid';
+  initFilterGrid(filterId, cardClass);
+</script>

@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import { type Lang, defaultLang } from '../i18n/translations';
+import { siteConfig } from '../data/config';
 
 interface Props {
   title: string;
@@ -11,13 +12,29 @@ interface Props {
 }
 
 const { title, lang = defaultLang } = Astro.props;
-const otherLang = lang === 'en' ? 'fr' : 'en';
 const currentPath = Astro.url.pathname;
+
+// Construire les chemins alternatifs pour hreflang
+const getAlternatePath = (targetLang: string) => {
+  // Si le chemin commence par /en/ ou /fr/, remplacer par la langue cible
+  if (currentPath.startsWith('/en/') || currentPath.startsWith('/fr/')) {
+    return currentPath.replace(/^\/[^/]+/, `/${targetLang}`);
+  }
+  // Si le chemin est exactement /en ou /fr, remplacer
+  if (currentPath === '/en' || currentPath === '/fr') {
+    return `/${targetLang}`;
+  }
+  // Sinon, ajouter la langue au début
+  return `/${targetLang}${currentPath === '/' ? '' : currentPath}`;
+};
+
+const enPath = getAlternatePath('en');
+const frPath = getAlternatePath('fr');
 
 // SEO descriptions par langue
 const descriptions = {
-  en: 'M.Sc. Candidate in Power Systems | Embedded, IoT and CAD Software Developer. Specialized in Smart Grids, embedded systems, and energy data analysis.',
-  fr: 'Candidat M.Sc. en Systèmes de Puissance | Développeur Embarqué, IoT et Logiciel CAO. Spécialisé dans les Smart Grids, systèmes embarqués et analyse énergétique.'
+  en: 'Electrical Engineer. Specialized in Power Systems, Embedded Systems, and Engineering Software Development.',
+  fr: "Ingénieur Électricien. Spécialisé en électroénergétique, systèmes embarqués et développement de logiciels d'ingénierie."
 };
 ---
 
@@ -29,10 +46,10 @@ const descriptions = {
     <meta name="description" content={descriptions[lang]} />
     
     <!-- SEO: Canonical & Hreflang -->
-    <link rel="canonical" href={currentPath} />
-    <link rel="alternate" hreflang="en" href={currentPath.replace(`/${lang}`, '/en')} />
-    <link rel="alternate" hreflang="fr" href={currentPath.replace(`/${lang}`, '/fr')} />
-    <link rel="alternate" hreflang="x-default" href={currentPath.replace(`/${lang}`, '/en')} />
+    <link rel="canonical" href={`https://${siteConfig.domain}${currentPath}`} />
+    <link rel="alternate" hreflang="en" href={`https://${siteConfig.domain}${enPath}`} />
+    <link rel="alternate" hreflang="fr" href={`https://${siteConfig.domain}${frPath}`} />
+    <link rel="alternate" hreflang="x-default" href={`https://${siteConfig.domain}${enPath}`} />
     
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
@@ -99,13 +116,18 @@ const descriptions = {
     <!-- Scroll to Top Button -->
     <button 
       id="scroll-to-top" 
-      class="fixed bottom-6 left-6 z-50 w-12 h-12 rounded-full bg-accent text-dark flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:scale-110 hover:shadow-xl"
+      class="scroll-top-btn fixed bottom-6 left-6 z-50 w-12 h-12 rounded-full bg-[var(--color-text)] text-[var(--color-bg)] flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:scale-110 hover:shadow-xl"
       aria-label="Scroll to top"
     >
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M5 10l7-7m0 0l7 7m-7-7v18" />
       </svg>
     </button>
+
+    <script>
+      import { initPremiumEffects } from '../scripts/premiumEffects';
+      initPremiumEffects();
+    </script>
 
     <script is:inline>
       const scrollBtn = document.getElementById('scroll-to-top');

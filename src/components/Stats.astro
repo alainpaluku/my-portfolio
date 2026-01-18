@@ -18,11 +18,12 @@ const stats = [
 
 <section class="py-12 sm:py-20 border-y border-[var(--color-border)] bg-[var(--color-bg-secondary)] backdrop-blur-sm">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
-    {stats.map((stat) => (
-      <div>
-        <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--color-text)] mb-1 sm:mb-2">{stat.value}</h3>
+    {stats.map((stat, index) => (
+      <div class="stat-number reveal" style={`animation-delay: ${index * 0.1}s`}>
+        <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--color-text)] mb-1 sm:mb-2 text-shadow-premium">{stat.value}</h3>
         <p class="text-[var(--color-text-muted)] text-[10px] sm:text-sm uppercase tracking-widest">{stat.label}</p>
       </div>
     ))}
   </div>
 </section>
+

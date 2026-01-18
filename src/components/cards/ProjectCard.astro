@@ -17,29 +17,32 @@ const { title, category, image, tags, lang, slug, showLink = false, linkText = '
 const projectUrl = slug ? `/${lang}/projects/${slug}` : '#';
 ---
 
-<a href={projectUrl} class="block group relative overflow-hidden rounded-xl sm:rounded-2xl glass-card cursor-pointer hover:border-[var(--color-accent)]/30 transition-all duration-300">
-  <div class="aspect-[4/3] overflow-hidden">
+<a href={projectUrl} class="block group relative overflow-hidden rounded-xl sm:rounded-2xl glass-card cursor-pointer hover:border-[var(--color-accent)]/30">
+  <div class="aspect-[4/3] overflow-hidden project-image-overlay">
     <img 
       src={image} 
       alt={title[lang]}
+      width="800"
+      height="600"
       loading="lazy"
-      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+      decoding="async"
+      class="w-full h-full object-cover"
     />
-    <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-[var(--color-bg)]/60 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
   </div>
   
-  <div class="absolute bottom-0 left-0 right-0 p-3 sm:p-4">
-    <span class="text-[10px] sm:text-xs text-[var(--color-accent)] uppercase tracking-wider font-semibold">{category[lang]}</span>
-    <h3 class="text-base sm:text-lg font-bold mt-1 text-[var(--color-text)]">{title[lang]}</h3>
+  <div class="absolute bottom-0 left-0 right-0 p-3 sm:p-4 z-20">
+    <span class="text-[10px] sm:text-xs text-white/90 uppercase tracking-wider font-semibold">{category[lang]}</span>
+    <h3 class="text-base sm:text-lg font-bold mt-1 text-white">{title[lang]}</h3>
     <div class="flex flex-wrap gap-1 mt-2">
       {tags.map(tag => (
-        <span class="px-1.5 sm:px-2 py-0.5 text-[10px] sm:text-xs bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-full text-[var(--color-text-muted)] font-medium">{tag}</span>
+        <span class="px-1.5 sm:px-2 py-0.5 text-[10px] sm:text-xs bg-black/20 border border-white/20 rounded-full text-white/80 font-medium backdrop-blur-sm">{tag}</span>
       ))}
     </div>
     {showLink && (
-      <span class="inline-flex items-center text-xs sm:text-sm font-medium text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors mt-3">
+      <span class="inline-flex items-center text-xs sm:text-sm font-medium text-white group-hover:text-white/80 transition-colors mt-3">
         {linkText}
-        <Icon name="arrowRight" size={14} class="ml-1.5 group-hover:translate-x-1 transition-transform" />
+        <Icon name="arrowRight" size={14} class="ml-1.5" />
       </span>
     )}
   </div>

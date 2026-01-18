@@ -10,46 +10,91 @@ export const translations = {
     },
     hero: {
       subtitle: 'Engineering & Innovation',
-      title1: 'Power Systems',
-      title2: '& IoT Developer.',
-      description: 'Designing the future of smart energy. Specialized in Smart Grids, embedded systems development, and energy data analysis.',
+      title1: 'Electrical',
+      title2: 'Engineer.',
+      description: 'Specialized in Power Systems, Embedded Systems, and Engineering Software Development.',
       cta: 'VIEW MY PROJECTS',
-      candidate: 'M.Sc. Candidate',
-      field: 'Power Systems Analysis',
-      reliability: 'System Reliability',
-      embedded: 'Embedded Solutions',
-    },
-    about: {
-      title: 'About Me',
-      subtitle: 'A hybrid approach between hardware and software.',
-      intro: "I'm a passionate M.Sc. candidate in Power Systems with expertise in embedded systems, IoT development, and CAD software. My work bridges the gap between electrical engineering and modern software solutions.",
-      education: 'Education',
-      experience: 'Experience',
-      skills: 'Technical Skills',
+      stat1Label: 'Role',
+      stat1Value: 'Engineer',
+      stat2Label: 'Domains',
+      stat2Value: 'Power • Electronics • Software',
+      stat3Label: 'Focus',
+      stat3Value: 'Engineering',
     },
     services: {
       title: 'Services',
       subtitle: 'What I can do for you',
       power: {
-        title: 'Power Systems Analysis',
-        desc: 'Modeling and simulation of complex electrical networks. Distribution optimization and renewable energy integration.',
-        tools: 'Tools: ETAP, MATLAB/Simulink, PSCAD',
+        title: 'Power Engineering',
+        items: [
+          'Sizing and modeling of power plants and electrical grids',
+          'Design of industrial and home automation systems',
+          'Renewable energy integration and analysis',
+          'Protection systems design and optimization'
+        ]
       },
       embedded: {
-        title: 'Embedded Systems & IoT',
-        desc: 'Firmware development for microcontrollers and connected IoT solutions for real-time monitoring.',
-        tools: 'Tech: ESP32, STM32, Rust, C/C++, MQTT, LoRaWAN',
+        title: 'Embedded Systems',
+        items: [
+          'Design and modeling of electronic circuits',
+          'Embedded software development'
+        ]
       },
       cad: {
         title: 'CAD Software Development',
-        desc: 'Custom CAD tools, PCB design with KiCad, and automation scripts for electrical design workflows.',
-        tools: 'Tech: KiCad, Rust, Golang, TypeScript',
+        items: [
+          'CAD software development and customization',
+          'Engineering applications development',
+          'Design automation tools',
+          'Data analysis and visualization systems'
+        ]
       },
-      consulting: {
-        title: 'Technical Consulting',
-        desc: 'Expert advice on smart grid implementation, energy efficiency, and system architecture.',
-        tools: 'Focus: Smart Grids, SCADA, Energy Management',
-      },
+    },
+    about: {
+      title: 'About',
+      subtitle: 'Electrical Engineer',
+      intro: 'Specialized in Power Systems, Embedded Systems, and Engineering Software Development.',
+      education: 'Education',
+      experience: 'Experience',
+      skills: 'Technical Skills',
+      headerName: 'ALAIN PALUKU',
+      headerTitle: 'ELECTRICAL ENGINEER | EMBEDDED SYSTEMS & CAD SOFTWARE DEVELOPER',
+      headerSubtitle: 'Specialized in Power Systems, Embedded Systems, and Engineering Software Development.',
+      educationTitle: 'EDUCATION',
+      educationList: [
+        {
+          degree: 'M.Sc. in Power Systems (In Progress)',
+          school: 'Université Catholique la Sapientia (UCS) – Goma',
+        },
+        {
+          degree: 'B.Sc. in Electrical Engineering',
+          school: 'Université Catholique la Sapientia (UCS) – Goma',
+        },
+      ],
+      skillsTitle: 'SKILLS',
+      skillCategories: [
+        {
+          title: '1. POWER ENGINEERING',
+          items: [
+            'Sizing and modeling of power plants and electrical grids',
+            'Design of industrial and home automation systems',
+          ],
+        },
+        {
+          title: '2. ELECTRONICS',
+          items: [
+            'Design and modeling of electronic circuits',
+            'Embedded software development',
+          ],
+        },
+        {
+          title: '3. SOFTWARE DEVELOPMENT',
+          items: [
+            'CAD software development',
+            'Engineering applications development',
+          ],
+        },
+      ],
     },
     portfolio: {
       title: 'Portfolio',
@@ -66,7 +111,7 @@ export const translations = {
     contact: {
       title: 'Get In Touch',
       subtitle: "Ready to innovate together?",
-      description: "Let's discuss your next project in power systems, IoT, or embedded development.",
+      description: "Let's discuss your next project in power engineering, electronics, or software development.",
       name: 'Name',
       email: 'Email',
       message: 'Message',
@@ -96,45 +141,90 @@ export const translations = {
     },
     hero: {
       subtitle: 'Ingénierie & Innovation',
-      title1: 'Power Systems',
-      title2: '& IoT Developer.',
-      description: "Concevoir l'avenir de l'énergie intelligente. Spécialisé dans les réseaux intelligents (Smart Grids), le développement de systèmes embarqués et l'analyse de données énergétiques.",
+      title1: 'Ingénieur',
+      title2: 'Électricien.',
+      description: "Spécialisé en électroénergétique, systèmes embarqués et développement de logiciels d'ingénierie.",
       cta: 'VOIR MES PROJETS',
-      candidate: 'Candidat M.Sc.',
-      field: 'Analyse des Réseaux Électriques',
-      reliability: 'Fiabilité Système',
-      embedded: 'Solutions Embarquées',
+      stat1Label: 'Rôle',
+      stat1Value: 'Ingénieur',
+      stat2Label: 'Domaines',
+      stat2Value: 'Énergie • Électronique • Logiciel',
+      stat3Label: 'Focus',
+      stat3Value: "Ingénierie",
     },
     about: {
       title: 'À Propos',
-      subtitle: 'Une approche hybride entre le hardware et le software.',
-      intro: "Je suis un candidat passionné au M.Sc. en Systèmes de Puissance avec une expertise en systèmes embarqués, développement IoT et logiciels CAO. Mon travail fait le pont entre l'ingénierie électrique et les solutions logicielles modernes.",
+      subtitle: 'Ingénieur Électricien',
+      intro: "Spécialisé en électroénergétique, systèmes embarqués et développement de logiciels d'ingénierie.",
       education: 'Formation',
       experience: 'Expérience',
       skills: 'Compétences Techniques',
+      headerName: 'ALAIN PALUKU',
+      headerTitle: 'INGÉNIEUR ÉLECTRICIEN | DÉVELOPPEUR SYSTÈMES EMBARQUÉS ET LOGICIELS CAO',
+      headerSubtitle: "Spécialisé en électroénergétique, systèmes embarqués et développement de logiciels d'ingénierie.",
+      educationTitle: 'FORMATION',
+      educationList: [
+        {
+          degree: 'M.Sc. en Électroénergétique (En cours)',
+          school: 'Université Catholique la Sapientia (UCS) – Goma',
+        },
+        {
+          degree: 'B.Sc. en Génie Électrique',
+          school: 'Université Catholique la Sapientia (UCS) – Goma',
+        },
+      ],
+      skillsTitle: 'COMPÉTENCES',
+      skillCategories: [
+        {
+          title: '1. ÉLECTROÉNERGÉTIQUE',
+          items: [
+            'Dimensionnement et modélisation de centrales électriques et réseaux électriques',
+            'Conception de systèmes d\'automatisation industrielle et domotique',
+          ],
+        },
+        {
+          title: '2. ÉLECTRONIQUE',
+          items: [
+            'Conception et modélisation de circuits électroniques',
+            'Développement de logiciels embarqués',
+          ],
+        },
+        {
+          title: '3. DÉVELOPPEMENT LOGICIEL',
+          items: [
+            'Développement de logiciels CAO',
+            'Développement d\'applications d\'ingénierie',
+          ],
+        },
+      ],
     },
     services: {
       title: 'Services',
       subtitle: 'Ce que je peux faire pour vous',
       power: {
-        title: 'Analyse des Réseaux Électriques',
-        desc: 'Modélisation et simulation de réseaux électriques complexes. Optimisation de la distribution et intégration des énergies renouvelables.',
-        tools: 'Outils: ETAP, MATLAB/Simulink, PSCAD',
+        title: 'Électroénergétique',
+        items: [
+          'Dimensionnement et modélisation de centrales électriques et réseaux',
+          'Conception de systèmes d\'automatisation industrielle et domotique',
+          'Intégration et analyse d\'énergies renouvelables',
+          'Conception et optimisation de systèmes de protection'
+        ]
       },
       embedded: {
-        title: 'Systèmes Embarqués & IoT',
-        desc: 'Développement de firmware pour microcontrôleurs et solutions IoT connectées pour le monitoring temps réel.',
-        tools: 'Tech: ESP32, STM32, Rust, C/C++, MQTT, LoRaWAN',
+        title: 'Systèmes Embarqués',
+        items: [
+          'Conception et modélisation de circuits électroniques',
+          'Développement de logiciels embarqués'
+        ]
       },
       cad: {
-        title: 'Développement Logiciel CAO',
-        desc: "Outils CAO personnalisés, conception PCB avec KiCad et scripts d'automatisation pour les flux de conception électrique.",
-        tools: 'Tech: KiCad, Rust, Golang, TypeScript',
-      },
-      consulting: {
-        title: 'Conseil Technique',
-        desc: "Conseils d'expert sur l'implémentation des réseaux intelligents, l'efficacité énergétique et l'architecture système.",
-        tools: 'Focus: Smart Grids, SCADA, Gestion Énergétique',
+        title: 'Développement Logiciels CAO',
+        items: [
+          'Développement et personnalisation de logiciels CAO',
+          'Développement d\'applications d\'ingénierie',
+          'Outils d\'automatisation de conception',
+          'Systèmes d\'analyse de données et visualisation'
+        ]
       },
     },
     portfolio: {
@@ -152,7 +242,7 @@ export const translations = {
     contact: {
       title: 'Me Contacter',
       subtitle: 'Prêt à innover ensemble ?',
-      description: 'Discutons de votre prochain projet en systèmes de puissance, IoT ou développement embarqué.',
+      description: "Discutons de votre prochain projet en électroénergétique, électronique ou développement logiciel.",
       name: 'Nom',
       email: 'Email',
       message: 'Message',

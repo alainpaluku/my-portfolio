@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Portfolio from '../../components/Portfolio.astro';
+import PortfolioComponent from '../../components/Portfolio.astro';
 import { getStaticLangPaths } from '../../utils/lang';
 import { getPageTitle } from '../../data/pageTitles';
 import type { Lang } from '../../i18n/translations';
@@ -14,6 +14,6 @@ const { lang } = Astro.params as { lang: Lang };
 
 <Layout title={getPageTitle('portfolio', lang)} lang={lang}>
   <div class="pt-16 sm:pt-20">
-    <Portfolio lang={lang} />
+    <PortfolioComponent lang={lang} />
   </div>
 </Layout>

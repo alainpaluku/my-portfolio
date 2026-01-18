@@ -43,7 +43,7 @@ const t = labels[lang];
     <!-- Back Link -->
     <a 
       href={`/${lang}/portfolio`}
-      class="inline-flex items-center text-sm text-[var(--color-text-muted)] hover:text-accent transition-colors mb-8 group"
+      class="inline-flex items-center text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors mb-8 group"
     >
       <svg class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -107,7 +107,7 @@ const t = labels[lang];
             href={project.data.github}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-6 py-3 border-2 border-[var(--color-border)] rounded-xl text-[var(--color-text)] hover:border-accent hover:text-accent transition-all font-medium"
+            class="inline-flex items-center gap-2 px-6 py-3 border-2 border-[var(--color-border)] rounded-xl text-[var(--color-text)] hover:border-[var(--color-text)] hover:text-[var(--color-text)] transition-all font-medium"
           >
             <Icon name="github" size={20} />
             {t.viewCode}
@@ -121,6 +121,10 @@ const t = labels[lang];
       <img 
         src={project.data.image} 
         alt={project.data.title}
+        width="1200"
+        height="675"
+        loading="eager"
+        decoding="async"
         class="w-full h-auto object-cover"
       />
     </div>

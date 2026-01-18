@@ -1,0 +1,67 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  width?: number | string;
+  height?: number | string;
+  fallback?: string;
+  className?: string;
+  loading?: 'lazy' | 'eager';
+  decoding?: 'async' | 'sync' | 'auto';
+}
+
+const { 
+  src, 
+  alt, 
+  width, 
+  height, 
+  fallback = 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop',
+  className = '',
+  loading = 'lazy',
+  decoding = 'async'
+} = Astro.props;
+
+const imageId = `img-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<img 
+  id={imageId}
+  src={src} 
+  alt={alt}
+  width={width}
+  height={height}
+  loading={loading}
+  decoding={decoding}
+  class={`image-with-fallback ${className}`}
+/>
+
+<script define:vars={{ imageId, fallback }}>
+  const img = document.getElementById(imageId);
+  if (img) {
+    img.addEventListener('error', function() {
+      console.warn(`Image failed to load: ${this.src}. Using fallback.`);
+      this.src = fallback;
+      this.classList.add('fallback-image');
+    });
+
+    // Optionnel : ajouter un indicateur de chargement
+    img.addEventListener('load', function() {
+      this.classList.add('loaded');
+    });
+  }
+</script>
+
+<style>
+  .image-with-fallback {
+    transition: opacity 0.3s ease;
+    opacity: 0;
+  }
+
+  .image-with-fallback.loaded {
+    opacity: 1;
+  }
+
+  .image-with-fallback.fallback-image {
+    filter: grayscale(0.3) opacity(0.8);
+  }
+</style>

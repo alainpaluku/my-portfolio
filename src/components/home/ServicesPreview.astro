@@ -13,23 +13,21 @@ const t = useTranslations(lang);
 const basePath = `/${lang}`;
 
 const services = [
-  { icon: 'bolt' as const, ...t.services.power, color: 'primary' as const },
-  { icon: 'chip' as const, ...t.services.embedded, color: 'secondary' as const },
+  { icon: 'bolt' as const, title: t.services.power.title, items: t.services.power.items },
+  { icon: 'chip' as const, title: t.services.embedded.title, items: t.services.embedded.items },
+  { icon: 'document' as const, title: t.services.cad.title, items: t.services.cad.items },
 ];
 ---
 
-<section class="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto relative">
-  <div class="glow-blob top-1/2 right-0 translate-x-1/2 w-[200px] sm:w-[300px] lg:w-[400px] h-[200px] sm:h-[300px] lg:h-[400px] bg-[var(--color-glow-secondary)]"></div>
-
+<section class="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto">
   <SectionHeader title={t.services.title} subtitle={t.services.subtitle} />
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-10">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-10">
     {services.map((service) => (
       <ServiceCard 
         icon={service.icon}
         title={service.title}
-        desc={service.desc}
-        color={service.color}
+        items={service.items}
       />
     ))}
   </div>

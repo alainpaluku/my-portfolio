@@ -12,8 +12,8 @@ const basePath = `/${lang}`;
 ---
 
 <header class="relative min-h-screen flex items-center px-4 sm:px-6 pt-16 sm:pt-20 pb-8 z-10 overflow-hidden">
-  <!-- Background Glow -->
-  <div class="absolute top-0 left-0 w-48 sm:w-64 lg:w-96 h-48 sm:h-64 lg:h-96 bg-primary/20 rounded-full blur-[60px] sm:blur-[80px] lg:blur-[100px] -translate-x-1/2 -translate-y-1/2"></div>
+  <!-- Background Glow with parallax -->
+  <div class="parallax absolute top-0 left-0 w-48 sm:w-64 lg:w-96 h-48 sm:h-64 lg:h-96 bg-[var(--color-glow-primary)] rounded-full blur-[60px] sm:blur-[80px] lg:blur-[100px] -translate-x-1/2 -translate-y-1/2" data-speed="0.3"></div>
   
   <div class="max-w-7xl mx-auto w-full">
     <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:gap-16 items-center">
@@ -25,16 +25,16 @@ const basePath = `/${lang}`;
 
       <!-- CTA Content -->
       <div class="relative z-10 space-y-4 sm:space-y-5 lg:space-y-8 text-center lg:text-left lg:order-1">
-        <p class="text-[var(--color-accent)] font-mono text-[10px] sm:text-xs lg:text-sm tracking-[0.1em] sm:tracking-[0.15em] lg:tracking-[0.2em] uppercase font-semibold">
+        <p class="animate-fade-in-up text-[var(--color-text)] font-mono text-[10px] sm:text-xs lg:text-sm tracking-[0.1em] sm:tracking-[0.15em] lg:tracking-[0.2em] uppercase font-semibold">
           {t.hero.subtitle}
         </p>
         
-        <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight uppercase tracking-wide">
-          <span class="text-gradient">{t.hero.title1}</span> <br />
+        <h1 class="animate-fade-in-up animate-delay-100 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight uppercase tracking-wide">
+          <span class="text-gradient-glow">{t.hero.title1}</span> <br />
           <span class="text-gradient-accent">{t.hero.title2}</span>
         </h1>
 
-        <p class="text-[var(--color-text-muted)] max-w-xl mx-auto lg:mx-0 text-xs sm:text-sm lg:text-base font-light leading-relaxed">
+        <p class="animate-fade-in-up animate-delay-200 text-[var(--color-text-muted)] max-w-xl mx-auto lg:mx-0 text-xs sm:text-sm lg:text-base font-light leading-relaxed">
           {t.hero.description}
         </p>
 
@@ -42,7 +42,7 @@ const basePath = `/${lang}`;
           <a href={`${basePath}/portfolio`} class="btn-primary w-full sm:w-auto text-center text-sm sm:text-base">
             {t.hero.cta}
           </a>
-          <a href={`${basePath}/about`} class="flex items-center text-[var(--color-text)] hover:text-accent transition group text-xs sm:text-sm">
+          <a href={`${basePath}/about`} class="flex items-center text-[var(--color-text)] hover:text-[var(--color-text)] transition group text-xs sm:text-sm">
             {lang === 'fr' ? 'En savoir plus' : 'Learn More'}
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 group-hover:translate-x-1 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -52,17 +52,17 @@ const basePath = `/${lang}`;
 
         <!-- Stats (visible on desktop) -->
         <div class="hidden lg:flex gap-6 xl:gap-8 pt-6 border-t border-[var(--color-border)] mt-8">
-          <div>
-            <p class="text-[10px] xl:text-xs text-[var(--color-text-muted)] mb-1">{t.hero.candidate}</p>
-            <p class="text-lg xl:text-xl font-bold text-[var(--color-text)]">M.Sc.</p>
+          <div class="stat-number">
+            <p class="text-[10px] xl:text-xs text-[var(--color-text-muted)] mb-1">{t.hero.stat1Label}</p>
+            <p class="text-lg xl:text-xl font-bold text-[var(--color-text)]">{t.hero.stat1Value}</p>
           </div>
-          <div>
-            <p class="text-[10px] xl:text-xs text-[var(--color-text-muted)] mb-1">{t.hero.field}</p>
-            <p class="text-lg xl:text-xl font-bold text-[var(--color-accent)]">Power Systems</p>
+          <div class="stat-number">
+            <p class="text-[10px] xl:text-xs text-[var(--color-text-muted)] mb-1">{t.hero.stat2Label}</p>
+            <p class="text-lg xl:text-xl font-bold text-[var(--color-text)]">{t.hero.stat2Value}</p>
           </div>
-          <div>
-            <p class="text-[10px] xl:text-xs text-[var(--color-text-muted)] mb-1">{t.hero.reliability}</p>
-            <p class="text-lg xl:text-xl font-bold text-[var(--color-text)]">99.9%</p>
+          <div class="stat-number">
+            <p class="text-[10px] xl:text-xs text-[var(--color-text-muted)] mb-1">{t.hero.stat3Label}</p>
+            <p class="text-lg xl:text-xl font-bold text-[var(--color-text)]">{t.hero.stat3Value}</p>
           </div>
         </div>
       </div>
