@@ -2,6 +2,7 @@
 import { useTranslations, type Lang, defaultLang } from '../i18n/translations';
 import SectionHeader from './SectionHeader.astro';
 import ServiceCard from './cards/ServiceCard.astro';
+import FloatingWhatsApp from './FloatingWhatsApp.astro';
 
 interface Props {
   lang?: Lang;
@@ -42,3 +43,6 @@ const services = [
     ))}
   </div>
 </section>
+
+<!-- Bouton WhatsApp flottant -->
+<FloatingWhatsApp message={lang === 'fr' ? "Bonjour! Je suis intéressé par vos services." : "Hello! I'm interested in your services."} />
