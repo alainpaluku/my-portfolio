@@ -1,67 +1,104 @@
-/* Animations et effets visuels */
+/* Animations et effets visuels - Optimisé pour mobile */
 
-/* Hover lift effect - DISABLED */
+/* Détection des préférences utilisateur pour les animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Optimisations mobiles pour les animations */
+@media (max-width: 768px) {
+  /* Désactiver les animations coûteuses sur mobile */
+  .hover-lift, .card-3d, .image-zoom {
+    transform: none !important;
+    transition: none !important;
+  }
+  
+  /* Réduire la complexité des animations sur mobile */
+  .glow-blob {
+    animation-duration: 8s; /* Plus lent pour économiser la batterie */
+    will-change: auto; /* Évite la création de layers inutiles */
+  }
+  
+  .marquee-content {
+    animation-duration: 40s; /* Plus lent sur mobile */
+  }
+}
+
+/* Hover lift effect - Optimisé */
 .hover-lift {
-  /* transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); */
+  transition: transform 0.2s ease-out;
+  will-change: transform;
 }
 
-.hover-lift:hover {
-  /* transform: translateY(-4px); */
+@media (hover: hover) and (pointer: fine) {
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
 }
 
-/* Card 3D effect - DISABLED */
+/* Card 3D effect - Simplifié pour mobile */
 .card-3d {
-  /* transform-style: preserve-3d; */
-  /* transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); */
+  transition: transform 0.2s ease-out;
 }
 
-.card-3d:hover {
-  /* transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateY(-4px); */
+@media (hover: hover) and (pointer: fine) {
+  .card-3d:hover {
+    transform: translateY(-2px);
+  }
 }
 
-/* Image zoom effect - DISABLED */
+/* Image zoom effect - Optimisé */
 .image-zoom img {
-  /* transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); */
+  transition: transform 0.3s ease-out;
+  will-change: transform;
 }
 
-.image-zoom:hover img {
-  /* transform: scale(1.05); */
+@media (hover: hover) and (pointer: fine) {
+  .image-zoom:hover img {
+    transform: scale(1.02); /* Zoom réduit pour mobile */
+  }
 }
 
-/* Card hover gradient - DISABLED */
+/* Card hover gradient - Simplifié */
 .card-hover-gradient {
   position: relative;
   overflow: hidden;
 }
 
-.card-hover-gradient::before {
-  /* Disabled animation */
-}
-
-/* Glow blob animation */
+/* Glow blob animation - Optimisé */
 .glow-blob {
-  @apply absolute rounded-full blur-3xl opacity-20 animate-pulse;
+  @apply absolute rounded-full blur-3xl opacity-20;
   background: var(--color-glow-primary);
   animation: float 6s ease-in-out infinite;
+  transform: translateZ(0); /* Force hardware acceleration */
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  33% { transform: translateY(-20px) rotate(120deg); }
-  66% { transform: translateY(10px) rotate(240deg); }
+  0%, 100% { 
+    transform: translateY(0px) translateZ(0);
+  }
+  50% { 
+    transform: translateY(-10px) translateZ(0);
+  }
 }
 
-/* Marquee animation */
+/* Marquee animation - Optimisé */
 .marquee {
   display: flex;
   overflow: hidden;
   user-select: none;
+  contain: layout style paint; /* Optimisation de rendu */
 }
 
 .marquee-content {
   display: flex;
   animation: marquee 30s linear infinite;
   white-space: nowrap;
+  will-change: transform;
 }
 
 .marquee-content:hover {
@@ -69,45 +106,57 @@
 }
 
 @keyframes marquee {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-100%); }
+  0% { transform: translate3d(0%, 0, 0); }
+  100% { transform: translate3d(-100%, 0, 0); }
 }
 
-/* Fade in animation */
+/* Fade in animation - Optimisé */
 .fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+  animation: fadeIn 0.4s ease-out forwards;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translate3d(0, 10px, 0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
-/* Stagger animation for lists */
+/* Stagger animation for lists - Optimisé */
 .stagger-item {
   opacity: 0;
-  animation: staggerIn 0.6s ease-out forwards;
+  animation: staggerIn 0.4s ease-out forwards;
 }
 
-.stagger-item:nth-child(1) { animation-delay: 0.1s; }
-.stagger-item:nth-child(2) { animation-delay: 0.2s; }
-.stagger-item:nth-child(3) { animation-delay: 0.3s; }
-.stagger-item:nth-child(4) { animation-delay: 0.4s; }
-.stagger-item:nth-child(5) { animation-delay: 0.5s; }
+.stagger-item:nth-child(1) { animation-delay: 0.05s; }
+.stagger-item:nth-child(2) { animation-delay: 0.1s; }
+.stagger-item:nth-child(3) { animation-delay: 0.15s; }
+.stagger-item:nth-child(4) { animation-delay: 0.2s; }
+.stagger-item:nth-child(5) { animation-delay: 0.25s; }
 
 @keyframes staggerIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translate3d(0, 10px, 0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Animations spécifiques pour les interactions tactiles */
+@media (hover: none) and (pointer: coarse) {
+  .tap-highlight {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    transition: background-color 0.1s ease;
+  }
+  
+  .tap-highlight:active {
+    background-color: rgba(0, 0, 0, 0.05);
   }
 }

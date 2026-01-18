@@ -135,10 +135,20 @@ const structuredData = {
     
     <title>{fullTitle}</title>
     
-    <!-- Preload Critical Resources -->
+    <!-- Preload Critical Resources - Optimisé mobile -->
     <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="dns-prefetch" href="//images.unsplash.com" />
     <link rel="dns-prefetch" href="//api.github.com" />
+    
+    <!-- Optimisations mobiles critiques -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <!-- Resource Hints pour mobile -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
     <!-- Theme Detection - Évite le flash -->
     <script is:inline>
@@ -154,7 +164,7 @@ const structuredData = {
       })();
     </script>
     
-    <!-- Détection de langue du navigateur (seulement sur la page d'accueil) -->
+    <!-- Détection de langue optimisée pour mobile -->
     <script is:inline>
       (function() {
         const path = window.location.pathname;
@@ -173,6 +183,19 @@ const structuredData = {
           }
         }
       })();
+    </script>
+    
+    <!-- Performance monitoring pour mobile -->
+    <script is:inline>
+      // Optimisation: Désactiver les animations sur les appareils lents
+      if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) {
+        document.documentElement.style.setProperty('--animation-duration', '0.1s');
+      }
+      
+      // Optimisation: Réduire les effets sur les connexions lentes
+      if (navigator.connection && navigator.connection.effectiveType === 'slow-2g') {
+        document.documentElement.classList.add('reduce-motion');
+      }
     </script>
   </head>
   <body class="antialiased overflow-x-hidden">
@@ -200,6 +223,39 @@ const structuredData = {
     <script>
       import { initPremiumEffects } from '../scripts/premiumEffects';
       initPremiumEffects();
+    </script>
+
+    <!-- Optimisations mobiles intégrées -->
+    <script is:inline>
+      // Optimisations mobiles critiques
+      (function() {
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isLowEndDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2;
+        
+        if (isMobile || isLowEndDevice) {
+          // Réduire les animations sur mobile
+          document.documentElement.style.setProperty('--animation-duration', '0.2s');
+          
+          // Ajouter une classe pour les optimisations CSS
+          document.documentElement.classList.add('mobile-optimized');
+          
+          // Désactiver le parallax sur mobile
+          const style = document.createElement('style');
+          style.textContent = `
+            @media (max-width: 768px) {
+              .parallax { transform: none !important; }
+              .hover-lift:hover { transform: none !important; }
+              .card-3d:hover { transform: none !important; }
+            }
+          `;
+          document.head.appendChild(style);
+        }
+        
+        // Améliorer le feedback tactile
+        if (isMobile) {
+          document.addEventListener('touchstart', function() {}, { passive: true });
+        }
+      })();
     </script>
 
     <script is:inline>

@@ -13,7 +13,7 @@ const basePath = `/${lang}`;
 ---
 
 <header class="relative min-h-screen flex items-center px-4 sm:px-6 pt-16 sm:pt-20 pb-8 z-10 overflow-hidden">
-  <!-- Background Glow with parallax - Optimisé pour la performance -->
+  <!-- Background Glow optimisé pour mobile -->
   <div 
     class="parallax absolute top-0 left-0 w-48 sm:w-64 lg:w-96 h-48 sm:h-64 lg:h-96 bg-[var(--color-glow-primary)] rounded-full blur-[60px] sm:blur-[80px] lg:blur-[100px] -translate-x-1/2 -translate-y-1/2 will-change-transform" 
     data-speed="0.3"
@@ -52,14 +52,14 @@ const basePath = `/${lang}`;
           <Button
             href={`${basePath}/portfolio`}
             variant="primary"
-            className="w-full sm:w-auto text-center text-sm sm:text-base"
+            className="w-full sm:w-auto text-center text-sm sm:text-base tap-highlight"
           >
             {t.hero.cta}
           </Button>
           <Button
             href={`${basePath}/about`}
             variant="ghost"
-            className="flex items-center text-[var(--color-text)] hover:text-[var(--color-text)] transition group text-xs sm:text-sm"
+            className="flex items-center text-[var(--color-text)] hover:text-[var(--color-text)] transition group text-xs sm:text-sm tap-highlight"
           >
             {lang === 'fr' ? 'En savoir plus' : 'Learn More'}
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 group-hover:translate-x-1 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -88,18 +88,36 @@ const basePath = `/${lang}`;
   </div>
 </header>
 
-<!-- Script optimisé pour la performance -->
+<!-- Script optimisé pour mobile -->
 <script>
-  // Parallax optimisé avec requestAnimationFrame
+  // Détection mobile pour optimiser les performances
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const isLowEndDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2;
+  
+  // Parallax optimisé avec requestAnimationFrame et throttling
   let ticking = false;
+  let lastScrollY = 0;
   
   function updateParallax() {
     const scrolled = window.pageYOffset;
+    
+    // Skip si le scroll n'a pas beaucoup changé (optimisation mobile)
+    if (Math.abs(scrolled - lastScrollY) < 2 && isMobile) {
+      ticking = false;
+      return;
+    }
+    
+    lastScrollY = scrolled;
+    
     const parallaxElements = document.querySelectorAll('.parallax');
     
     parallaxElements.forEach(element => {
       const speed = parseFloat(element.dataset.speed) || 0.5;
-      const yPos = -(scrolled * speed);
+      // Réduire l'effet parallax sur mobile pour de meilleures performances
+      const adjustedSpeed = isMobile ? speed * 0.5 : speed;
+      const yPos = -(scrolled * adjustedSpeed);
+      
+      // Utiliser transform3d pour l'accélération matérielle
       element.style.transform = `translate3d(-50%, calc(-50% + ${yPos}px), 0)`;
     });
     
@@ -108,11 +126,31 @@ const basePath = `/${lang}`;
   
   function requestTick() {
     if (!ticking) {
-      requestAnimationFrame(updateParallax);
+      // Utiliser setTimeout sur les appareils low-end pour éviter les saccades
+      if (isLowEndDevice) {
+        setTimeout(updateParallax, 16); // ~60fps
+      } else {
+        requestAnimationFrame(updateParallax);
+      }
       ticking = true;
     }
   }
   
-  // Utiliser passive listener pour de meilleures performances
-  window.addEventListener('scroll', requestTick, { passive: true });
+  // Désactiver le parallax sur les appareils très lents
+  if (!isLowEndDevice) {
+    // Utiliser passive listener pour de meilleures performances
+    window.addEventListener('scroll', requestTick, { passive: true });
+  }
+  
+  // Optimisation: Pause les animations quand la page n'est pas visible
+  document.addEventListener('visibilitychange', () => {
+    const parallaxElements = document.querySelectorAll('.parallax');
+    parallaxElements.forEach(element => {
+      if (document.hidden) {
+        element.style.animationPlayState = 'paused';
+      } else {
+        element.style.animationPlayState = 'running';
+      }
+    });
+  });
 </script>

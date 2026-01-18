@@ -13,6 +13,47 @@
 @tailwind utilities;
 
 @layer base {
+  /* Optimisations mobiles critiques */
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    box-sizing: border-box;
+  }
+
+  html {
+    /* Améliore le scroll sur iOS */
+    -webkit-overflow-scrolling: touch;
+    /* Optimise le rendu des fonts sur mobile */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Améliore les performances de scroll */
+    scroll-behavior: smooth;
+  }
+
+  body {
+    /* Évite le zoom sur focus des inputs sur iOS */
+    -webkit-text-size-adjust: 100%;
+    /* Optimise les performances de rendu */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    font-family: 'Nunito', sans-serif;
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  /* Optimisations pour les interactions tactiles */
+  button, a, [role="button"] {
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Améliore les performances des images sur mobile */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
   :root {
     --color-bg: #fafbfc;
     --color-bg-secondary: #f1f3f4;
@@ -56,24 +97,6 @@
     --color-success-border: rgba(16, 185, 129, 0.2);
     --color-error: #f87171;
     --color-warning: #fbbf24;
-  }
-
-  /* Base styles */
-  * {
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    font-family: 'Nunito', sans-serif;
-    background: var(--color-bg);
-    color: var(--color-text);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
   /* Typography */

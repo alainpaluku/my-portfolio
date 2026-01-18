@@ -1,11 +1,14 @@
-/* Styles pour les boutons */
+/* Styles pour les boutons - Optimisé mobile */
 
-/* Bouton principal - harmonieux pour les deux modes */
+/* Bouton principal - Optimisé pour le tactile */
 .btn-primary {
   @apply px-6 py-3 font-semibold rounded-lg transition-all duration-300 ease-out;
   @apply focus:outline-none focus:ring-2 focus:ring-opacity-50;
+  @apply min-h-[44px]; /* Taille minimale tactile recommandée */
   background: var(--color-text);
   color: var(--color-bg);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn-primary:hover {
@@ -18,19 +21,51 @@
   ring-color: var(--color-primary);
 }
 
-/* Bouton secondaire - adaptatif */
+/* Optimisations mobiles pour les boutons */
+@media (max-width: 768px) {
+  .btn-primary {
+    @apply px-8 py-4; /* Plus grand sur mobile */
+    font-size: 16px; /* Évite le zoom sur iOS */
+    min-height: 48px; /* Taille tactile optimale */
+  }
+  
+  .btn-primary:hover {
+    transform: none; /* Pas d'animation hover sur mobile */
+  }
+}
+
+/* États tactiles pour mobile */
+@media (hover: none) and (pointer: coarse) {
+  .btn-primary:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* Bouton secondaire - Optimisé tactile */
 .btn-secondary {
   @apply px-6 py-3 font-semibold rounded-lg transition-all duration-300 ease-out;
   @apply focus:outline-none focus:ring-2 focus:ring-opacity-50;
+  @apply min-h-[44px];
   background: transparent;
   border: 2px solid var(--color-border);
   color: var(--color-text);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn-secondary:hover {
   border-color: var(--color-text);
   color: var(--color-text);
   @apply shadow-md;
+}
+
+@media (max-width: 768px) {
+  .btn-secondary {
+    @apply px-8 py-4;
+    font-size: 16px;
+    min-height: 48px;
+  }
 }
 
 .dark .btn-secondary {
@@ -42,12 +77,22 @@
   @apply bg-white/20 border-white/30;
 }
 
-/* Bouton de filtre harmonieux */
+/* Bouton de filtre - Optimisé tactile */
 .filter-btn {
   @apply px-3 py-1.5 text-xs font-medium rounded-full border transition-all duration-300;
   @apply cursor-pointer select-none;
+  @apply min-h-[36px] min-w-[60px]; /* Taille minimale tactile */
   border-color: var(--color-border);
   color: var(--color-text-muted);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .filter-btn {
+    @apply px-4 py-2 text-sm; /* Plus grand sur mobile */
+    min-height: 40px;
+  }
 }
 
 .filter-btn:not(.active):hover {
@@ -59,6 +104,14 @@
   background: var(--color-text);
   color: var(--color-bg);
   border-color: var(--color-text);
+}
+
+/* États tactiles pour les filtres */
+@media (hover: none) and (pointer: coarse) {
+  .filter-btn:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
 }
 
 .dark .filter-btn:not(.active) {
@@ -73,17 +126,36 @@
   @apply bg-white text-[#0f1f1f] border-white;
 }
 
-/* Bouton ghost */
+/* Bouton ghost - Optimisé tactile */
 .btn-ghost {
   @apply px-4 py-2 text-[var(--color-text)] font-medium rounded-lg;
   @apply transition-all duration-300 ease-out;
   @apply hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-primary)];
   @apply focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-opacity-50;
+  @apply min-h-[44px];
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* Bouton avec icône */
+@media (max-width: 768px) {
+  .btn-ghost {
+    @apply px-6 py-3;
+    font-size: 16px;
+    min-height: 48px;
+  }
+}
+
+/* Bouton avec icône - Optimisé tactile */
 .btn-icon {
   @apply inline-flex items-center gap-2;
+  @apply min-h-[44px] min-w-[44px]; /* Taille tactile minimale */
+}
+
+@media (max-width: 768px) {
+  .btn-icon {
+    min-height: 48px;
+    min-width: 48px;
+  }
 }
 
 .btn-icon svg {
@@ -92,6 +164,13 @@
 
 .btn-icon:hover svg {
   @apply transform translate-x-0.5;
+}
+
+/* Optimisation: Désactiver les animations hover sur mobile */
+@media (hover: none) {
+  .btn-icon:hover svg {
+    transform: none;
+  }
 }
 
 /* Bouton CTA (Call to Action) */
@@ -117,8 +196,27 @@
 /* États des boutons */
 .btn-loading {
   @apply opacity-75 cursor-not-allowed;
+  pointer-events: none;
 }
 
 .btn-disabled {
   @apply opacity-50 cursor-not-allowed pointer-events-none;
+}
+
+/* Feedback tactile amélioré pour mobile */
+@media (hover: none) and (pointer: coarse) {
+  .tap-highlight {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    transition: background-color 0.1s ease;
+  }
+  
+  .tap-highlight:active {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Améliorer le feedback visuel sur les boutons */
+  button:active, .btn-primary:active, .btn-secondary:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
 }
