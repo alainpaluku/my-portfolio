@@ -1,0 +1,145 @@
+/* Styles spéciaux pour le titre du héros - ALAIN PALUKU + Titre professionnel */
+
+.hero-title {
+  font-family: 'Lora', serif;
+}
+
+.hero-title-main {
+  /* Nom principal - ALAIN PALUKU */
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, 
+    var(--color-text) 0%, 
+    var(--color-primary) 50%, 
+    var(--color-text) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease-in-out infinite;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  font-family: 'Lora', serif;
+}
+
+.hero-title-sub {
+  /* Titre professionnel */
+  font-size: clamp(0.75rem, 2.5vw, 1.25rem);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: 'Space Mono', monospace;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+/* Animation du gradient */
+@keyframes gradientShift {
+  0%, 100% { 
+    background-position: 0% 50%; 
+  }
+  50% { 
+    background-position: 100% 50%; 
+  }
+}
+
+/* Responsive pour mobile */
+@media (max-width: 640px) {
+  .hero-title-main {
+    font-size: 2rem;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+  }
+  
+  .hero-title-sub {
+    font-size: 0.625rem;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .hero-title-main {
+    font-size: 3.5rem;
+  }
+  
+  .hero-title-sub {
+    font-size: 0.875rem;
+  }
+}
+
+/* Desktop large */
+@media (min-width: 1024px) {
+  .hero-title-main {
+    font-size: 5rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .hero-title-sub {
+    font-size: 1rem;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1280px) {
+  .hero-title-main {
+    font-size: 6rem;
+  }
+  
+  .hero-title-sub {
+    font-size: 1.125rem;
+  }
+}
+
+/* Animation d'entrée */
+.hero-title-animated {
+  animation: titleSlideIn 1s ease-out forwards;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.hero-title-animated .hero-title-sub {
+  animation: titleSlideIn 1s ease-out 0.3s forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes titleSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Effet de focus amélioré */
+.hero-title:hover .hero-title-main {
+  animation-duration: 2s;
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
+
+/* Amélioration pour le mode sombre */
+.dark .hero-title-main {
+  background: linear-gradient(135deg, 
+    #ffffff 0%, 
+    #e5e7eb 50%, 
+    #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+}
+
+/* Séparateur visuel entre nom et titre */
+.hero-title-separator {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-accent), transparent);
+  margin: 0.75rem 0;
+  border-radius: 2px;
+  opacity: 0.6;
+}

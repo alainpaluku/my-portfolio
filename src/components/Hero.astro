@@ -29,14 +29,20 @@ const basePath = `/${lang}`;
           {t.hero.subtitle}
         </p>
         
-        <h1 class="animate-fade-in-up animate-delay-100 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight uppercase tracking-wide">
-          <span class="text-gradient-glow">{t.hero.title1}</span> <br />
-          <span class="text-gradient-accent">{t.hero.title2}</span>
-        </h1>
+        <div class="hero-title hero-title-animated">
+          <h1 class="hero-title-main animate-fade-in-up animate-delay-100">
+            {t.hero.title1}
+          </h1>
+          <h2 class="hero-title-sub animate-fade-in-up animate-delay-200">
+            {t.hero.title2}
+          </h2>
+        </div>
 
-        <p class="animate-fade-in-up animate-delay-200 text-[var(--color-text-muted)] max-w-xl mx-auto lg:mx-0 text-xs sm:text-sm lg:text-base font-light leading-relaxed">
-          {t.hero.description}
-        </p>
+        {t.hero.description && (
+          <p class="animate-fade-in-up animate-delay-200 text-[var(--color-text-muted)] max-w-xl mx-auto lg:mx-0 text-xs sm:text-sm lg:text-base font-light leading-relaxed">
+            {t.hero.description}
+          </p>
+        )}
 
         <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4">
           <a href={`${basePath}/portfolio`} class="btn-primary w-full sm:w-auto text-center text-sm sm:text-base">

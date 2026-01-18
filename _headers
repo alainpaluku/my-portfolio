@@ -8,5 +8,8 @@
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
-/favicon.svg
+/logo.png
+  Cache-Control: public, max-age=86400
+
+/manifest.json
   Cache-Control: public, max-age=86400

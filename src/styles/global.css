@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Lora:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Lora:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 @import './components/glass-card.css';
 @import './components/animations.css';
 @import './components/buttons.css';
+@import './components/hero-title.css';
 @import './utilities/text-gradients.css';
 
 @tailwind base;
