@@ -1,0 +1,58 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'button'> {
+  variant?: 'primary' | 'secondary' | 'ghost' | 'outline' | 'icon';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+  className?: string;
+  ariaLabel?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  disabled = false,
+  type = 'button',
+  className = '',
+  ariaLabel,
+  ...rest
+} = Astro.props;
+
+const Component = href ? 'a' : 'button';
+
+// Classes de base selon la variante
+const variantClasses = {
+  primary: 'btn-primary',
+  secondary: 'btn-secondary',
+  ghost: 'btn-ghost',
+  outline: 'border border-[var(--color-border)] hover:border-[var(--color-text)] text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-all',
+  icon: 'p-2 rounded-full border border-[var(--color-border)] hover:border-[var(--color-text)] text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-all'
+};
+
+// Classes de taille
+const sizeClasses = {
+  sm: 'px-3 py-1.5 text-xs',
+  md: 'px-4 py-2 text-sm',
+  lg: 'px-6 py-3 text-base'
+};
+
+// Construire les classes finales
+const baseClasses = variantClasses[variant];
+const finalSizeClasses = variant === 'icon' ? '' : sizeClasses[size];
+const finalClasses = `${baseClasses} ${finalSizeClasses} ${className}`.trim();
+---
+
+<Component
+  href={href}
+  type={href ? undefined : type}
+  disabled={disabled}
+  aria-label={ariaLabel}
+  class={finalClasses}
+  {...rest}
+>
+  <slot />
+</Component>

@@ -1,6 +1,7 @@
 ---
 import { useTranslations, type Lang, defaultLang } from '../i18n/translations';
 import Icon from './Icon.astro';
+import Button from './ui/Button.astro';
 
 interface Props {
   lang?: Lang;
@@ -46,10 +47,10 @@ const flags = {
 
     <div class="flex items-center gap-1.5 sm:gap-3">
       <!-- Theme Toggle -->
-      <button 
-        id="theme-toggle" 
-        class="p-2 rounded-full border border-[var(--color-border)] hover:border-[var(--color-text)] text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-all"
-        aria-label="Toggle theme"
+      <Button
+        variant="icon"
+        id="theme-toggle"
+        ariaLabel="Toggle theme"
       >
         <span id="theme-icon-dark" class="hidden dark:block">
           <Icon name="sun" size={18} />
@@ -57,17 +58,18 @@ const flags = {
         <span id="theme-icon-light" class="block dark:hidden">
           <Icon name="moon" size={18} />
         </span>
-      </button>
+      </Button>
 
       <!-- Language Switcher -->
-      <a 
-        href={otherLangPath} 
-        class="flex items-center gap-1 sm:gap-2 p-2 rounded-full border border-[var(--color-border)] hover:border-[var(--color-text)] text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-all"
-        title={otherLang === 'fr' ? 'Version française' : 'English version'}
+      <Button
+        variant="icon"
+        href={otherLangPath}
+        className="flex items-center gap-1 sm:gap-2"
+        ariaLabel={otherLang === 'fr' ? 'Version française' : 'English version'}
       >
         <Icon name="languages" size={18} />
         <span class="text-xs font-bold hidden sm:inline">{otherLang.toUpperCase()}</span>
-      </a>
+      </Button>
       
       <a href={`${basePath}/contact`} class="hidden md:flex group items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wide hover:text-[var(--color-text)] transition-colors">
         {t.nav.contact}
@@ -75,14 +77,19 @@ const flags = {
       </a>
 
       <!-- Mobile Menu Button -->
-      <button id="mobile-menu-btn" class="lg:hidden text-[var(--color-text)] p-2" aria-label="Menu" aria-expanded="false">
+      <Button
+        variant="icon"
+        id="mobile-menu-btn"
+        className="lg:hidden"
+        ariaLabel="Menu"
+      >
         <span id="menu-icon-open">
           <Icon name="menu" size={24} />
         </span>
         <span id="menu-icon-close" class="hidden">
           <Icon name="close" size={24} />
         </span>
-      </button>
+      </Button>
     </div>
   </div>
 

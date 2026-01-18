@@ -2,7 +2,8 @@
 import { useTranslations, type Lang, defaultLang } from '../../i18n/translations';
 import SectionHeader from '../SectionHeader.astro';
 import Icon from '../Icon.astro';
-import ArticleCard from '../cards/ArticleCard.astro';
+import Card from '../base/Card.astro';
+import Button from '../ui/Button.astro';
 import { articles } from '../../data/articles';
 
 interface Props {
@@ -20,23 +21,24 @@ const latestArticles = articles.slice(0, 3);
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-10">
     {latestArticles.map((article) => (
-      <ArticleCard 
-        title={article.title}
-        excerpt={article.excerpt}
-        category={article.category}
-        image={article.image}
-        date={article.date}
-        readTime={article.readTime}
+      <Card 
+        type="article"
+        data={article}
         lang={lang}
-        readMoreText={t.articles.readMore}
+        showLink={true}
+        linkText={t.articles.readMore}
       />
     ))}
   </div>
 
   <div class="text-center">
-    <a href={`${basePath}/articles`} class="btn-outline inline-flex items-center gap-2">
+    <Button
+      href={`${basePath}/articles`}
+      variant="outline"
+      className="inline-flex items-center gap-2"
+    >
       {t.articles.viewAll}
       <Icon name="arrowRight" size={16} />
-    </a>
+    </Button>
   </div>
 </section>

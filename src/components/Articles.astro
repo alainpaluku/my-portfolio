@@ -1,7 +1,7 @@
 ---
 import { useTranslations, type Lang, defaultLang } from '../i18n/translations';
 import FilteredGrid from './ui/FilteredGrid.astro';
-import ArticleCard from './cards/ArticleCard.astro';
+import Card from './base/Card.astro';
 import { articles, articleCategories } from '../data/articles';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 const { lang = defaultLang } = Astro.props;
 const t = useTranslations(lang);
 
-// Enrichir les articles avec les props nécessaires pour ArticleCard
+// Enrichir les articles avec les props nécessaires pour Card
 const enrichedArticles = articles.map(article => ({
   ...article,
   readMoreText: t.articles.readMore
@@ -23,11 +23,12 @@ const enrichedArticles = articles.map(article => ({
   subtitle={t.articles.subtitle}
   items={enrichedArticles}
   categories={articleCategories}
-  cardComponent={ArticleCard}
+  cardComponent={Card}
   filterId="articles-filters"
   gridId="articles-grid"
   cardClass="article-card"
   categoryKey="categoryKey"
   gridCols="grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
   lang={lang}
+  cardType="article"
 />

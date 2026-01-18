@@ -1,6 +1,7 @@
 ---
 import { useTranslations, type Lang, defaultLang } from '../i18n/translations';
 import ProfileCard from './ProfileCard.astro';
+import Button from './ui/Button.astro';
 
 interface Props {
   lang?: Lang;
@@ -45,15 +46,23 @@ const basePath = `/${lang}`;
         )}
 
         <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4">
-          <a href={`${basePath}/portfolio`} class="btn-primary w-full sm:w-auto text-center text-sm sm:text-base">
+          <Button
+            href={`${basePath}/portfolio`}
+            variant="primary"
+            className="w-full sm:w-auto text-center text-sm sm:text-base"
+          >
             {t.hero.cta}
-          </a>
-          <a href={`${basePath}/about`} class="flex items-center text-[var(--color-text)] hover:text-[var(--color-text)] transition group text-xs sm:text-sm">
+          </Button>
+          <Button
+            href={`${basePath}/about`}
+            variant="ghost"
+            className="flex items-center text-[var(--color-text)] hover:text-[var(--color-text)] transition group text-xs sm:text-sm"
+          >
             {lang === 'fr' ? 'En savoir plus' : 'Learn More'}
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 group-hover:translate-x-1 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </a>
+          </Button>
         </div>
 
         <!-- Stats (visible on desktop) -->

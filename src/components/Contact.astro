@@ -1,6 +1,7 @@
 ---
 import { useTranslations, type Lang, defaultLang } from '../i18n/translations';
-import SectionHeader from './SectionHeader.astro';
+import Section from './base/Section.astro';
+import Button from './ui/Button.astro';
 import SocialLinks from './SocialLinks.astro';
 import FloatingWhatsApp from './FloatingWhatsApp.astro';
 
@@ -12,9 +13,7 @@ const { lang = defaultLang } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<section class="py-8 sm:py-12 lg:py-16 xl:py-24 px-3 sm:px-4 md:px-6 lg:px-12 max-w-7xl mx-auto">
-  <SectionHeader title={t.contact.title} subtitle={t.contact.subtitle} />
-
+<Section title={t.contact.title} subtitle={t.contact.subtitle}>
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10">
     <!-- Contact Form -->
     <div class="glass-card p-4 sm:p-6 lg:p-8 rounded-xl lg:rounded-2xl">
@@ -49,7 +48,9 @@ const t = useTranslations(lang);
             placeholder={lang === 'fr' ? 'Votre message...' : 'Your message...'}
           ></textarea>
         </div>
-        <button type="submit" class="btn-primary w-full">{t.contact.send}</button>
+        <Button type="submit" variant="primary" className="w-full">
+          {t.contact.send}
+        </Button>
       </form>
     </div>
 
@@ -61,7 +62,7 @@ const t = useTranslations(lang);
       </div>
     </div>
   </div>
-</section>
+</Section>
 
 <!-- Bouton WhatsApp flottant -->
 <FloatingWhatsApp message={lang === 'fr' ? "Bonjour! Je souhaiterais discuter d'un projet." : "Hello! I would like to discuss a project."} />

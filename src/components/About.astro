@@ -1,6 +1,8 @@
 ---
 import { useTranslations, type Lang, defaultLang } from '../i18n/translations';
 import ProfileCard from './ProfileCard.astro';
+import Section from './base/Section.astro';
+import Button from './ui/Button.astro';
 
 interface Props {
   lang?: Lang;
@@ -10,13 +12,7 @@ const { lang = defaultLang } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<section class="py-8 sm:py-12 lg:py-16 xl:py-24 px-3 sm:px-4 md:px-6 lg:px-12 max-w-7xl mx-auto">
-  <!-- Header -->
-  <div class="text-center mb-10 sm:mb-14">
-    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 uppercase tracking-wide">{t.about.headerName}</h1>
-    <p class="text-sm sm:text-base text-[var(--color-text-muted)] uppercase tracking-widest font-mono">{t.about.headerTitle}</p>
-  </div>
-
+<Section title={t.about.headerName} subtitle={t.about.headerTitle}>
   <!-- Layout en deux colonnes sur desktop -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
     <!-- Colonne gauche - Profile + Formation -->
@@ -81,16 +77,17 @@ const t = useTranslations(lang);
         <p class="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed mb-6">
           {t.about.portfolioDescription}
         </p>
-        <a 
-          href={`/${lang}/portfolio`} 
-          class="btn-outline inline-flex items-center gap-2 text-sm"
+        <Button
+          href={`/${lang}/portfolio`}
+          variant="outline"
+          className="inline-flex items-center gap-2 text-sm"
         >
           {t.about.portfolioCta}
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
-        </a>
+        </Button>
       </div>
     </div>
   </div>
-</section>
+</Section>

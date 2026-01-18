@@ -15,6 +15,7 @@ interface Props {
   categoryKey: string;
   lang: Lang;
   gridCols?: string;
+  cardType?: 'project' | 'article' | 'service';
 }
 
 const { 
@@ -28,7 +29,8 @@ const {
   cardClass, 
   categoryKey,
   lang,
-  gridCols = "grid-cols-1 md:grid-cols-2"
+  gridCols = "grid-cols-1 md:grid-cols-2",
+  cardType = "article"
 } = Astro.props;
 
 const categoriesArray = Object.entries(categories) as [string, { en: string; fr: string }][];
@@ -48,7 +50,7 @@ const categoriesArray = Object.entries(categories) as [string, { en: string; fr:
   <div class={`grid ${gridCols} gap-3 sm:gap-4 lg:gap-6`} id={gridId}>
     {items.map((item) => (
       <div class={cardClass} data-category={item[categoryKey]}>
-        <Card {...item} lang={lang} />
+        <Card type={cardType} data={item} lang={lang} showLink={true} />
       </div>
     ))}
   </div>

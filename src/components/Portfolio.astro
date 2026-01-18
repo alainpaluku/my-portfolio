@@ -1,7 +1,7 @@
 ---
 import { useTranslations, type Lang, defaultLang } from '../i18n/translations';
 import FilteredGrid from './ui/FilteredGrid.astro';
-import ProjectCard from './cards/ProjectCard.astro';
+import Card from './base/Card.astro';
 import { projects, projectCategories } from '../data/projects';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 const { lang = defaultLang } = Astro.props;
 const t = useTranslations(lang);
 
-// Enrichir les projets avec les props nécessaires pour ProjectCard
+// Enrichir les projets avec les props nécessaires pour Card
 const enrichedProjects = projects.map(project => ({
   ...project,
   showLink: true,
@@ -24,11 +24,12 @@ const enrichedProjects = projects.map(project => ({
   subtitle={t.portfolio.subtitle}
   items={enrichedProjects}
   categories={projectCategories}
-  cardComponent={ProjectCard}
+  cardComponent={Card}
   filterId="portfolio-filters"
   gridId="portfolio-grid"
   cardClass="project-card"
   categoryKey="categoryKey"
   gridCols="grid-cols-1 sm:grid-cols-2"
   lang={lang}
+  cardType="project"
 />
