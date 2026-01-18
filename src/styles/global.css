@@ -1,4 +1,7 @@
+/* Optimisation des fonts - Preload critique */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Lora:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+/* Import des composants CSS */
 @import './components/glass-card.css';
 @import './components/animations.css';
 @import './components/buttons.css';

@@ -16,5 +16,9 @@
     "astro": "^5.16.8",
     "tailwindcss": "^3.4.19",
     "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "astro-compress": "^2.3.9",
+    "lightningcss": "^1.30.2"
   }
 }

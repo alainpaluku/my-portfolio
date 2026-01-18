@@ -8,6 +8,7 @@ interface Props {
   className?: string;
   loading?: 'lazy' | 'eager';
   decoding?: 'async' | 'sync' | 'auto';
+  priority?: boolean;
 }
 
 const { 
@@ -15,27 +16,42 @@ const {
   alt, 
   width, 
   height, 
-  fallback = 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop',
+  fallback = '/images/placeholder.png',
   className = '',
   loading = 'lazy',
-  decoding = 'async'
+  decoding = 'async',
+  priority = false
 } = Astro.props;
 
+// Validation des props
+if (!src) {
+  console.warn('ImageWithFallback: src is required');
+}
+
+if (!alt) {
+  console.warn('ImageWithFallback: alt is required for accessibility');
+}
+
 const imageId = `img-${Math.random().toString(36).substr(2, 9)}`;
+
+// Optimiser le loading pour les images critiques
+const finalLoading = priority ? 'eager' : loading;
+const fetchPriority = priority ? 'high' : 'auto';
 ---
 
 <img 
   id={imageId}
-  src={src} 
-  alt={alt}
+  src={src || fallback} 
+  alt={alt || 'Image'}
   width={width}
   height={height}
-  loading={loading}
+  loading={finalLoading}
   decoding={decoding}
+  fetchpriority={fetchPriority}
   class={`image-with-fallback ${className}`}
 />
 
-<script define:vars={{ imageId, fallback }}>
+<script define:vars={{ imageId, fallback }} is:inline>
   const img = document.getElementById(imageId);
   if (img) {
     img.addEventListener('error', function() {
@@ -44,16 +60,30 @@ const imageId = `img-${Math.random().toString(36).substr(2, 9)}`;
       this.classList.add('fallback-image');
     });
 
-    // Optionnel : ajouter un indicateur de chargement
+    // Ajouter un indicateur de chargement
     img.addEventListener('load', function() {
       this.classList.add('loaded');
     });
+
+    // Intersection Observer pour lazy loading amélioré
+    if ('IntersectionObserver' in window && this.loading === 'lazy') {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '50px' });
+      
+      observer.observe(img);
+    }
   }
 </script>
 
 <style>
   .image-with-fallback {
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
     opacity: 0;
   }
 
@@ -63,5 +93,14 @@ const imageId = `img-${Math.random().toString(36).substr(2, 9)}`;
 
   .image-with-fallback.fallback-image {
     filter: grayscale(0.3) opacity(0.8);
+  }
+
+  .image-with-fallback.in-view {
+    transform: scale(1.02);
+  }
+
+  /* Optimisation pour les images critiques */
+  .image-with-fallback[loading="eager"] {
+    opacity: 1;
   }
 </style>
