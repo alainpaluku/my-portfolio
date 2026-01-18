@@ -24,13 +24,13 @@ const services = [
 
   <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-10">
     {services.map((service) => (
-      <div class="glass-card p-4 sm:p-5 lg:p-6 rounded-xl group hover:shadow-xl transition-all duration-300 text-center">
-        <div class="flex justify-center mb-4">
-          <div class="p-3 bg-[var(--color-accent)] text-[var(--color-bg)] rounded-xl shadow-lg">
-            <Icon name={service.icon} size={24} />
+      <div class="glass-card p-4 sm:p-5 lg:p-6 rounded-xl group hover:shadow-xl transition-all duration-300">
+        <div class="flex items-center gap-3 sm:gap-4">
+          <div class="p-2.5 sm:p-3 bg-[var(--color-accent)] text-[var(--color-bg)] rounded-xl shadow-lg flex-shrink-0">
+            <Icon name={service.icon} size={20} />
           </div>
+          <h3 class="text-sm sm:text-base lg:text-lg font-bold text-[var(--color-text)]">{service.title}</h3>
         </div>
-        <h3 class="text-sm sm:text-base lg:text-lg font-bold text-[var(--color-text)]">{service.title}</h3>
       </div>
     ))}
   </div>
