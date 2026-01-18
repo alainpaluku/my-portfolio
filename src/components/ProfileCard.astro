@@ -41,7 +41,7 @@ const { lang, showSocials = true } = Astro.props;
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            class="social-button magnetic w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg bg-[var(--color-bg-secondary)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-text-muted)] hover:bg-[var(--color-text)] hover:text-[var(--color-bg)] hover:border-[var(--color-text)] hover:scale-110 transition-all duration-300 glow-effect"
+            class="social-link w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg bg-[var(--color-bg-secondary)] border border-[var(--color-border)] flex items-center justify-center text-[var(--color-text-muted)] hover:bg-[var(--color-text)] hover:text-[var(--color-bg)] hover:border-[var(--color-text)] hover:scale-110 transition-all duration-300"
             title={link.label}
           >
             <Icon name={link.name} size={16} />
@@ -51,3 +51,41 @@ const { lang, showSocials = true } = Astro.props;
     </div>
   )}
 </div>
+
+<style>
+  /* Styles pour la carte de profil */
+  .social-link {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .social-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .social-link:hover::before {
+    left: 100%;
+  }
+  
+  /* Effet magnétique subtil */
+  @media (hover: hover) and (pointer: fine) {
+    .social-link:hover {
+      transform: scale(1.1) translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+  }
+  
+  /* Optimisations mobiles */
+  @media (max-width: 768px) {
+    .social-link:active {
+      transform: scale(0.95);
+    }
+  }
+</style>
