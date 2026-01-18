@@ -19,8 +19,8 @@ const t = useTranslations(lang);
 
   <!-- Layout en deux colonnes sur desktop -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-    <!-- Colonne gauche - Profile (desktop) -->
-    <div class="order-2 lg:order-1">
+    <!-- Colonne gauche - Profile (desktop) / Premier sur mobile -->
+    <div class="order-1 lg:order-1">
       <div class="flex justify-center lg:justify-start mb-8">
         <ProfileCard lang={lang} showSocials={true} />
       </div>
@@ -32,8 +32,8 @@ const t = useTranslations(lang);
       </div>
     </div>
 
-    <!-- Colonne droite - Contenu (desktop) -->
-    <div class="order-1 lg:order-2 space-y-6 lg:space-y-8">
+    <!-- Colonne droite - Contenu (desktop) / Deuxième sur mobile -->
+    <div class="order-2 lg:order-2 space-y-6 lg:space-y-8">
       <!-- Education -->
       <div class="glass-card p-5 sm:p-6 rounded-xl">
         <h2 class="text-base sm:text-lg font-bold text-[var(--color-text)] mb-6 text-center lg:text-left uppercase tracking-widest font-mono">

@@ -10,6 +10,8 @@ export interface SocialLink {
 
 export const socialLinks: SocialLink[] = [
   { name: 'github', url: siteConfig.social.github, label: 'GitHub' },
+  { name: 'linkedin', url: siteConfig.social.linkedin, label: 'LinkedIn' },
+  { name: 'whatsapp', url: siteConfig.social.whatsapp, label: 'WhatsApp' },
   { name: 'medium', url: siteConfig.social.medium, label: 'Medium' },
   { name: 'huggingface', url: siteConfig.social.huggingface, label: 'Hugging Face' },
   { name: 'reddit', url: siteConfig.social.reddit, label: 'Reddit' },

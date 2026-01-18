@@ -12,6 +12,8 @@ export const siteConfig = {
   // Liens sociaux
   social: {
     github: 'https://github.com/alainpaluku',
+    linkedin: 'https://linkedin.com/in/alainpaluku',
+    whatsapp: 'https://wa.me/243897023743',
     medium: 'https://medium.com/@alainpaluku',
     huggingface: 'https://huggingface.co/alainpaluku',
     reddit: 'https://reddit.com/user/alainpaluku',

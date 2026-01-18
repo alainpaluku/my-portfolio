@@ -39,9 +39,9 @@
     --color-bg: #0f1f1f;
     --color-bg-secondary: #1a2e2e;
     --color-text: #ffffff;
-    --color-text-muted: #9ca3af;
-    --color-border: rgba(255, 255, 255, 0.1);
-    --color-card-bg: rgba(255, 255, 255, 0.05);
+    --color-text-muted: #d1d5db;
+    --color-border: rgba(255, 255, 255, 0.15);
+    --color-card-bg: rgba(255, 255, 255, 0.08);
     --color-glow-primary: rgba(255, 255, 255, 0.08);
     --color-glow-secondary: rgba(255, 255, 255, 0.05);
     --color-accent: #ffffff;
