@@ -28,25 +28,31 @@ export const translations = {
         title: 'Power Engineering',
         items: [
           'Sizing and modeling of power plants and electrical grids',
-          'Design of industrial and home automation systems',
           'Renewable energy integration and analysis',
           'Protection systems design and optimization'
         ]
       },
       embedded: {
-        title: 'Embedded Systems',
+        title: 'Electronics',
         items: [
           'Design and modeling of electronic circuits',
           'Embedded software development'
         ]
       },
       cad: {
-        title: 'CAD Software Development',
+        title: 'Software Development',
         items: [
           'CAD software development and customization',
           'Engineering applications development',
-          'Design automation tools',
-          'Data analysis and visualization systems'
+          'Design automation tools'
+        ]
+      },
+      automation: {
+        title: 'Automation',
+        items: [
+          'Design of industrial automation systems',
+          'Design of home automation systems',
+          'SCADA systems implementation'
         ]
       },
     },
@@ -77,7 +83,7 @@ export const translations = {
           title: '1. POWER ENGINEERING',
           items: [
             'Sizing and modeling of power plants and electrical grids',
-            'Design of industrial and home automation systems',
+            'Renewable energy integration and analysis',
           ],
         },
         {
@@ -92,6 +98,13 @@ export const translations = {
           items: [
             'CAD software development',
             'Engineering applications development',
+          ],
+        },
+        {
+          title: '4. AUTOMATION',
+          items: [
+            'Design of industrial automation systems',
+            'Design of home automation systems',
           ],
         },
       ],
@@ -179,7 +192,7 @@ export const translations = {
           title: '1. ÉLECTROÉNERGÉTIQUE',
           items: [
             'Dimensionnement et modélisation de centrales électriques et réseaux électriques',
-            'Conception de systèmes d\'automatisation industrielle et domotique',
+            'Intégration et analyse d\'énergies renouvelables',
           ],
         },
         {
@@ -196,6 +209,13 @@ export const translations = {
             'Développement d\'applications d\'ingénierie',
           ],
         },
+        {
+          title: '4. AUTOMATISATION',
+          items: [
+            'Conception de systèmes d\'automatisation industrielle',
+            'Conception de systèmes d\'automatisation domestique',
+          ],
+        },
       ],
     },
     services: {
@@ -205,25 +225,31 @@ export const translations = {
         title: 'Électroénergétique',
         items: [
           'Dimensionnement et modélisation de centrales électriques et réseaux',
-          'Conception de systèmes d\'automatisation industrielle et domotique',
           'Intégration et analyse d\'énergies renouvelables',
           'Conception et optimisation de systèmes de protection'
         ]
       },
       embedded: {
-        title: 'Systèmes Embarqués',
+        title: 'Électronique',
         items: [
           'Conception et modélisation de circuits électroniques',
           'Développement de logiciels embarqués'
         ]
       },
       cad: {
-        title: 'Développement Logiciels CAO',
+        title: 'Développement Logiciel',
         items: [
           'Développement et personnalisation de logiciels CAO',
           'Développement d\'applications d\'ingénierie',
-          'Outils d\'automatisation de conception',
-          'Systèmes d\'analyse de données et visualisation'
+          'Outils d\'automatisation de conception'
+        ]
+      },
+      automation: {
+        title: 'Automatisation',
+        items: [
+          'Conception de systèmes d\'automatisation industrielle',
+          'Conception de systèmes d\'automatisation domestique',
+          'Implémentation de systèmes SCADA'
         ]
       },
     },

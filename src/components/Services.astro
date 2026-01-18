@@ -27,13 +27,18 @@ const services = [
     title: t.services.cad.title,
     items: t.services.cad.items,
   },
+  { 
+    icon: 'automation' as const, 
+    title: t.services.automation.title,
+    items: t.services.automation.items,
+  },
 ];
 ---
 
 <section class="py-8 sm:py-12 lg:py-16 xl:py-24 px-3 sm:px-4 md:px-6 lg:px-12 max-w-7xl mx-auto">
   <SectionHeader title={t.services.title} subtitle={t.services.subtitle} />
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+  <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
     {services.map((service) => (
       <ServiceCard 
         icon={service.icon}
