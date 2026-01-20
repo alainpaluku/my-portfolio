@@ -1,0 +1,64 @@
+---
+/**
+ * Composant générique pour afficher un aperçu de section (Portfolio, Articles, etc.)
+ * Élimine la duplication entre PortfolioPreview et ArticlesPreview
+ */
+import { useTranslations, type Lang, defaultLang } from '../../i18n/translations';
+import SectionHeader from '../SectionHeader.astro';
+import Card from './Card.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../Icon.astro';
+
+interface Props {
+  lang?: Lang;
+  title: string;
+  subtitle: string;
+  items: any[];
+  cardType: 'project' | 'article' | 'service';
+  viewAllText: string;
+  viewAllHref: string;
+  itemsToShow?: number;
+  className?: string;
+}
+
+const { 
+  lang = defaultLang,
+  title,
+  subtitle,
+  items,
+  cardType,
+  viewAllText,
+  viewAllHref,
+  itemsToShow = 3,
+  className = ''
+} = Astro.props;
+
+const t = useTranslations(lang);
+const displayItems = items.slice(0, itemsToShow);
+---
+
+<section class={`py-12 sm:py-16 lg:py-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto ${className}`}>
+  <SectionHeader title={title} subtitle={subtitle} />
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-10">
+    {displayItems.map((item) => (
+      <Card 
+        type={cardType}
+        data={item}
+        lang={lang}
+        showLink={true}
+      />
+    ))}
+  </div>
+
+  <div class="text-center">
+    <Button
+      href={viewAllHref}
+      variant="outline"
+      className="group"
+    >
+      {viewAllText}
+      <Icon name="arrowRight" size={16} class="ml-2 group-hover:translate-x-1 transition-transform" />
+    </Button>
+  </div>
+</section>

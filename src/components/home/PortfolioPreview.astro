@@ -1,9 +1,6 @@
 ---
 import { useTranslations, type Lang, defaultLang } from '../../i18n/translations';
-import SectionHeader from '../SectionHeader.astro';
-import Icon from '../Icon.astro';
-import Card from '../base/Card.astro';
-import Button from '../ui/Button.astro';
+import SectionPreview from '../base/SectionPreview.astro';
 import { projects } from '../../data/projects';
 
 interface Props {
@@ -13,31 +10,15 @@ interface Props {
 const { lang = defaultLang } = Astro.props;
 const t = useTranslations(lang);
 const basePath = `/${lang}`;
-const latestProjects = projects.slice(0, 3);
 ---
 
-<section class="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto">
-  <SectionHeader title={t.portfolio.title} subtitle={t.portfolio.subtitle} />
-
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-10">
-    {latestProjects.map((project) => (
-      <Card 
-        type="project"
-        data={project}
-        lang={lang}
-        showLink={true}
-      />
-    ))}
-  </div>
-
-  <div class="text-center">
-    <Button
-      href={`${basePath}/portfolio`}
-      variant="outline"
-      className="inline-flex items-center gap-2"
-    >
-      {t.portfolio.viewAll}
-      <Icon name="arrowRight" size={16} />
-    </Button>
-  </div>
-</section>
+<SectionPreview
+  lang={lang}
+  title={t.portfolio.title}
+  subtitle={t.portfolio.subtitle}
+  items={projects}
+  cardType="project"
+  viewAllText={t.portfolio.viewAll}
+  viewAllHref={`${basePath}/portfolio`}
+  itemsToShow={3}
+/>

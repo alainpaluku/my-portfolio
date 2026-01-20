@@ -199,12 +199,17 @@ const structuredData = {
     </script>
   </head>
   <body class="antialiased overflow-x-hidden">
+    <!-- Skip link for keyboard navigation -->
+    <a href="#main-content" class="skip-link">
+      {lang === 'en' ? 'Skip to main content' : 'Aller au contenu principal'}
+    </a>
+
     <!-- Background Glow Effects -->
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[300px] sm:w-[500px] lg:w-[800px] h-[300px] sm:h-[400px] lg:h-[600px] bg-[var(--color-glow-primary)] rounded-full blur-[80px] sm:blur-[100px] lg:blur-[120px] -z-10 pointer-events-none"></div>
-    <div class="fixed bottom-0 right-0 w-[200px] sm:w-[400px] lg:w-[600px] h-[200px] sm:h-[400px] lg:h-[600px] bg-[var(--color-glow-secondary)] rounded-full blur-[60px] sm:blur-[80px] lg:blur-[100px] -z-10 pointer-events-none"></div>
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[300px] sm:w-[500px] lg:w-[800px] h-[300px] sm:h-[400px] lg:h-[600px] bg-[var(--color-glow-primary)] rounded-full blur-[80px] sm:blur-[100px] lg:blur-[120px] -z-10 pointer-events-none" aria-hidden="true"></div>
+    <div class="fixed bottom-0 right-0 w-[200px] sm:w-[400px] lg:w-[600px] h-[200px] sm:h-[400px] lg:h-[600px] bg-[var(--color-glow-secondary)] rounded-full blur-[60px] sm:blur-[80px] lg:blur-[100px] -z-10 pointer-events-none" aria-hidden="true"></div>
     
     <Navigation lang={lang} />
-    <main>
+    <main id="main-content">
       <slot />
     </main>
     <Footer lang={lang} />

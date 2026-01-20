@@ -28,6 +28,18 @@
     scroll-behavior: smooth;
   }
 
+  /* Respect user's motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   body {
     -webkit-text-size-adjust: 100%;
     font-family: 'Nunito', sans-serif;
@@ -132,6 +144,11 @@
 }
 
 @layer components {
+  /* Skip link for keyboard navigation accessibility */
+  .skip-link {
+    @apply absolute top-0 left-0 bg-[var(--color-primary)] text-white px-4 py-2 z-[10000] transform -translate-y-full focus:translate-y-0 transition-transform;
+  }
+
   /* Glass card avec style monochrome sombre */
   .glass-card-dark {
     @apply backdrop-blur-xl border border-white/10 relative;
