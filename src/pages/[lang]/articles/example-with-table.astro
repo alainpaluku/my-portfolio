@@ -1,0 +1,182 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import type { Lang } from '../../../i18n/translations';
+import { getStaticLangPaths } from '../../../utils/lang';
+
+export async function getStaticPaths() {
+  return getStaticLangPaths();
+}
+
+const { lang } = Astro.params as { lang: Lang };
+
+const labels = {
+  en: {
+    back: 'Back to Articles',
+    title: 'Example Article with Responsive Tables',
+    date: 'January 20, 2026',
+    readTime: '5 min read',
+  },
+  fr: {
+    back: 'Retour aux Articles',
+    title: 'Exemple d\'Article avec Tableaux Responsifs',
+    date: '20 janvier 2026',
+    readTime: '5 min de lecture',
+  },
+};
+
+const t = labels[lang];
+---
+
+<Layout title={`${t.title} | ALAIN PALUKU`} lang={lang} type="article">
+  <article class="pt-20 sm:pt-24 pb-16 px-4 sm:px-6 max-w-4xl mx-auto">
+    <!-- Back Link -->
+    <a 
+      href={`/${lang}/articles`}
+      class="inline-flex items-center text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors mb-8 group"
+    >
+      <svg class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      {t.back}
+    </a>
+
+    <!-- Header -->
+    <header class="mb-10">
+      <h1 class="text-4xl sm:text-5xl font-black mb-4 text-[var(--color-text)] tracking-tight">
+        {t.title}
+      </h1>
+      <div class="flex items-center gap-4 text-sm text-[var(--color-text-muted)]">
+        <time datetime="2026-01-20">{t.date}</time>
+        <span>•</span>
+        <span>{t.readTime}</span>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="article-content">
+      <h2>Introduction</h2>
+      <p>
+        Cet article démontre comment les tableaux sont rendus de manière responsive sur différentes tailles d'écran.
+        Les tableaux s'adaptent automatiquement pour offrir une meilleure expérience utilisateur sur mobile.
+      </p>
+
+      <h2>Exemple de Tableau - Comparaison de Technologies</h2>
+      <p>
+        Voici un tableau comparatif de différentes technologies IoT pour le monitoring énergétique:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Technologie</th>
+            <th>Consommation</th>
+            <th>Portée</th>
+            <th>Coût</th>
+            <th>Cas d'usage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Technologie">ESP32</td>
+            <td data-label="Consommation">Moyenne</td>
+            <td data-label="Portée">100m</td>
+            <td data-label="Coût">$5-10</td>
+            <td data-label="Cas d'usage">Monitoring local</td>
+          </tr>
+          <tr>
+            <td data-label="Technologie">LoRaWAN</td>
+            <td data-label="Consommation">Faible</td>
+            <td data-label="Portée">15km</td>
+            <td data-label="Coût">$15-25</td>
+            <td data-label="Cas d'usage">Réseaux étendus</td>
+          </tr>
+          <tr>
+            <td data-label="Technologie">NB-IoT</td>
+            <td data-label="Consommation">Très faible</td>
+            <td data-label="Portée">10km</td>
+            <td data-label="Coût">$20-30</td>
+            <td data-label="Cas d'usage">Smart cities</td>
+          </tr>
+          <tr>
+            <td data-label="Technologie">Zigbee</td>
+            <td data-label="Consommation">Faible</td>
+            <td data-label="Portée">100m</td>
+            <td data-label="Coût">$8-15</td>
+            <td data-label="Cas d'usage">Domotique</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Tableau de Spécifications Techniques</h2>
+      <p>
+        Un autre exemple avec des spécifications plus détaillées:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Paramètre</th>
+            <th>Valeur Min</th>
+            <th>Valeur Typ</th>
+            <th>Valeur Max</th>
+            <th>Unité</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Paramètre">Tension d'alimentation</td>
+            <td data-label="Valeur Min">3.0</td>
+            <td data-label="Valeur Typ">3.3</td>
+            <td data-label="Valeur Max">3.6</td>
+            <td data-label="Unité">V</td>
+          </tr>
+          <tr>
+            <td data-label="Paramètre">Courant actif</td>
+            <td data-label="Valeur Min">80</td>
+            <td data-label="Valeur Typ">160</td>
+            <td data-label="Valeur Max">260</td>
+            <td data-label="Unité">mA</td>
+          </tr>
+          <tr>
+            <td data-label="Paramètre">Courant veille</td>
+            <td data-label="Valeur Min">0.8</td>
+            <td data-label="Valeur Typ">5</td>
+            <td data-label="Valeur Max">20</td>
+            <td data-label="Unité">µA</td>
+          </tr>
+          <tr>
+            <td data-label="Paramètre">Fréquence CPU</td>
+            <td data-label="Valeur Min">80</td>
+            <td data-label="Valeur Typ">160</td>
+            <td data-label="Valeur Max">240</td>
+            <td data-label="Unité">MHz</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Comportement Responsive</h2>
+      <p>
+        Sur les écrans larges (desktop et tablette), les tableaux s'affichent normalement avec toutes les colonnes visibles.
+      </p>
+      <p>
+        Sur mobile (moins de 640px), les tableaux se transforment en cartes empilées où chaque ligne devient une carte
+        avec les labels des colonnes affichés à gauche de chaque valeur.
+      </p>
+      <p>
+        Sur tablette, un indicateur de scroll horizontal apparaît si le tableau est plus large que l'écran,
+        permettant à l'utilisateur de faire défiler horizontalement pour voir toutes les colonnes.
+      </p>
+
+      <h2>Conclusion</h2>
+      <p>
+        Cette approche garantit que les tableaux restent lisibles et utilisables sur tous les appareils,
+        améliorant ainsi l'expérience utilisateur globale du site.
+      </p>
+    </div>
+  </article>
+</Layout>
+
+<script>
+  import { initResponsiveTables } from '../../../scripts/tableResponsive';
+  initResponsiveTables();
+</script>

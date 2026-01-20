@@ -89,7 +89,7 @@ const basePath = `/${lang}`;
 </header>
 
 <!-- Script optimisé pour mobile -->
-<script>
+<script is:inline>
   // Détection mobile pour optimiser les performances
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   const isLowEndDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2;
@@ -99,7 +99,7 @@ const basePath = `/${lang}`;
   let lastScrollY = 0;
   
   function updateParallax() {
-    const scrolled = window.pageYOffset;
+    const scrolled = window.scrollY;
     
     // Skip si le scroll n'a pas beaucoup changé (optimisation mobile)
     if (Math.abs(scrolled - lastScrollY) < 2 && isMobile) {
@@ -111,14 +111,14 @@ const basePath = `/${lang}`;
     
     const parallaxElements = document.querySelectorAll('.parallax');
     
-    parallaxElements.forEach(element => {
-      const speed = parseFloat(element.dataset.speed) || 0.5;
+    parallaxElements.forEach(function(element) {
+      const speed = parseFloat(element.getAttribute('data-speed') || '0.5');
       // Réduire l'effet parallax sur mobile pour de meilleures performances
       const adjustedSpeed = isMobile ? speed * 0.5 : speed;
       const yPos = -(scrolled * adjustedSpeed);
       
       // Utiliser transform3d pour l'accélération matérielle
-      element.style.transform = `translate3d(-50%, calc(-50% + ${yPos}px), 0)`;
+      element.style.transform = 'translate3d(-50%, calc(-50% + ' + yPos + 'px), 0)';
     });
     
     ticking = false;
@@ -143,9 +143,9 @@ const basePath = `/${lang}`;
   }
   
   // Optimisation: Pause les animations quand la page n'est pas visible
-  document.addEventListener('visibilitychange', () => {
+  document.addEventListener('visibilitychange', function() {
     const parallaxElements = document.querySelectorAll('.parallax');
-    parallaxElements.forEach(element => {
+    parallaxElements.forEach(function(element) {
       if (document.hidden) {
         element.style.animationPlayState = 'paused';
       } else {
