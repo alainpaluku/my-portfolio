@@ -38,8 +38,6 @@
 - ✅ **Components** — Created reusable SectionPreview component
 - ✅ **Documentation** — Comprehensive docs and migration guides
 
-See [REFACTORING.md](./REFACTORING.md) for detailed changes.
-
 ## 🛠️ Tech Stack
 
 | Category | Technologies |
@@ -111,11 +109,7 @@ npm run build
 | `npm run preview` | Preview production build locally |
 | `npm run astro check` | Run TypeScript diagnostics |
 
-## 📚 Documentation
 
-- **[REFACTORING.md](./REFACTORING.md)** — Detailed refactoring documentation
-- **[IMPROVEMENTS_SUMMARY.md](./IMPROVEMENTS_SUMMARY.md)** — Summary of improvements and metrics
-- **[NEXT_STEPS.md](./NEXT_STEPS.md)** — Roadmap for future improvements
 
 ## 🧪 Code Quality
 
