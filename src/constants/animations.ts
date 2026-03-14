@@ -1,16 +1,4 @@
-/**
- * Constantes d'animation centralisées
- * Réduit la duplication dans tailwind.config.mjs
- */
-
-export const ANIMATION_DURATIONS = {
-  FAST: '200ms',
-  NORMAL: '300ms',
-  SLOW: '500ms',
-  VERY_SLOW: '1000ms',
-} as const;
-
-export const ANIMATION_TIMINGS = {
+ATION_TIMINGS = {
   EASE: 'ease',
   EASE_IN: 'ease-in',
   EASE_OUT: 'ease-out',

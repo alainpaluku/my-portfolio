@@ -4,6 +4,7 @@
  */
 
 import type { Lang } from '../i18n/translations';
+import type { ProjectCategory, ArticleCategory } from './categories';
 
 // ============================================================================
 // TYPES & INTERFACES
@@ -29,6 +30,7 @@ export interface ProjectData {
 
 export interface ArticleData {
   id: string;
+  slug: string;
   title: MultiLangText;
   excerpt: MultiLangText;
   image: string;
@@ -46,8 +48,8 @@ export interface ServiceData {
   icon: string;
 }
 
-export type ProjectCategory = 'all' | 'blockchain' | 'iot' | 'software';
-export type ArticleCategory = 'all' | 'power' | 'iot' | 'research';
+// Ré-exporter les types de catégories
+export type { ProjectCategory, ArticleCategory };
 
 // ============================================================================
 // VALIDATION FUNCTIONS
@@ -152,6 +154,12 @@ export function validateArticle(article: any): article is ArticleData {
     return false;
   }
 
+  // Validation slug
+  if (typeof article.slug !== 'string' || !article.slug) {
+    console.error('Article.slug is required and must be a non-empty string');
+    return false;
+  }
+
   // Validation des champs multilingues
   if (!validateMultiLangText(article.title, 'Article.title')) return false;
   if (!validateMultiLangText(article.excerpt, 'Article.excerpt')) return false;
@@ -199,11 +207,11 @@ export function validateProjects(projects: any[]): ProjectData[] {
 
   const validProjects = projects.filter(validateProject);
   const invalidCount = projects.length - validProjects.length;
-  
+
   if (invalidCount > 0) {
     console.warn(`⚠️ ${invalidCount} projet(s) invalide(s) détecté(s) et ignoré(s)`);
   }
-  
+
   return validProjects;
 }
 
@@ -218,11 +226,11 @@ export function validateArticles(articles: any[]): ArticleData[] {
 
   const validArticles = articles.filter(validateArticle);
   const invalidCount = articles.length - validArticles.length;
-  
+
   if (invalidCount > 0) {
     console.warn(`⚠️ ${invalidCount} article(s) invalide(s) détecté(s) et ignoré(s)`);
   }
-  
+
   return validArticles;
 }
 
@@ -290,7 +298,7 @@ export function validateAndSanitize<T>(
 ): T {
   const sanitized = sanitizeData(data);
 
-  const isValid = type === 'article' 
+  const isValid = type === 'article'
     ? validateArticle(sanitized)
     : validateProject(sanitized);
 

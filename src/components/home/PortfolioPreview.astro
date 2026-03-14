@@ -2,6 +2,7 @@
 import { useTranslations, type Lang, defaultLang } from '../../i18n/translations';
 import SectionPreview from '../base/SectionPreview.astro';
 import { projects } from '../../data/projects';
+import { getLocalizedPath } from '../../utils/routing';
 
 interface Props {
   lang?: Lang;
@@ -9,7 +10,6 @@ interface Props {
 
 const { lang = defaultLang } = Astro.props;
 const t = useTranslations(lang);
-const basePath = `/${lang}`;
 ---
 
 <SectionPreview
@@ -19,6 +19,6 @@ const basePath = `/${lang}`;
   items={projects}
   cardType="project"
   viewAllText={t.portfolio.viewAll}
-  viewAllHref={`${basePath}/portfolio`}
+  viewAllHref={getLocalizedPath('/portfolio', lang)}
   itemsToShow={3}
 />

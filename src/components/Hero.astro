@@ -1,5 +1,6 @@
 ---
 import { useTranslations, type Lang, defaultLang } from '../i18n/translations';
+import { getLocalizedPath } from '../utils/routing';
 import ProfileCard from './ProfileCard.astro';
 import Button from './ui/Button.astro';
 
@@ -9,7 +10,6 @@ interface Props {
 
 const { lang = defaultLang } = Astro.props;
 const t = useTranslations(lang);
-const basePath = `/${lang}`;
 ---
 
 <header class="relative min-h-screen flex items-center px-4 sm:px-6 pt-16 sm:pt-20 pb-8 z-10 overflow-hidden">
@@ -50,14 +50,14 @@ const basePath = `/${lang}`;
 
         <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4">
           <Button
-            href={`${basePath}/portfolio`}
+            href={getLocalizedPath('/portfolio', lang)}
             variant="primary"
             className="w-full sm:w-auto text-center text-sm sm:text-base tap-highlight"
           >
             {t.hero.cta}
           </Button>
           <Button
-            href={`${basePath}/about`}
+            href={getLocalizedPath('/about', lang)}
             variant="ghost"
             className="flex items-center text-[var(--color-text)] hover:text-[var(--color-text)] transition group text-xs sm:text-sm tap-highlight"
           >

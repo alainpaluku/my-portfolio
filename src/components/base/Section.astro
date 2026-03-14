@@ -8,6 +8,7 @@ interface Props {
   headerClassName?: string;
   showHeader?: boolean;
   id?: string;
+  compact?: boolean;
 }
 
 const {
@@ -17,19 +18,22 @@ const {
   headerClassName = '',
   showHeader = true,
   id,
+  compact = false
 } = Astro.props;
 
 const shouldShowHeader = showHeader && title;
+const sectionClass = compact ? 'section-compact' : 'section';
 ---
 
 <section 
   id={id}
-  class={`py-8 sm:py-12 lg:py-16 xl:py-24 px-3 sm:px-4 md:px-6 lg:px-12 max-w-7xl mx-auto ${className}`}
+  class={`${sectionClass} ${className}`}
 >
   {shouldShowHeader && (
     <SectionHeader
       title={title}
       subtitle={subtitle}
+      class={headerClassName}
     />
   )}
   <slot />

@@ -11,10 +11,6 @@ export const pageTitles = {
     en: `About | ${siteConfig.name}`,
     fr: `À Propos | ${siteConfig.name}`,
   },
-  services: {
-    en: `Services | ${siteConfig.name}`,
-    fr: `Services | ${siteConfig.name}`,
-  },
   portfolio: {
     en: `Portfolio | ${siteConfig.name}`,
     fr: `Portfolio | ${siteConfig.name}`,

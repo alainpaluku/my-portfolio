@@ -1,5 +1,6 @@
 ---
 import { useTranslations, type Lang, defaultLang } from '../i18n/translations';
+import { getBasePath, switchLangInPath } from '../utils/routing';
 import Icon from './Icon.astro';
 import Button from './ui/Button.astro';
 
@@ -10,17 +11,16 @@ interface Props {
 const { lang = defaultLang } = Astro.props;
 const t = useTranslations(lang);
 const otherLang = lang === 'en' ? 'fr' : 'en';
-const basePath = `/${lang}`;
+const basePath = getBasePath(lang);
 
 // Récupérer le chemin actuel pour le switcher de langue
 const currentPath = Astro.url.pathname;
 // Remplacer /en/ ou /fr/ par l'autre langue
-const otherLangPath = currentPath.replace(`/${lang}`, `/${otherLang}`);
+const otherLangPath = switchLangInPath(currentPath, lang, otherLang);
 
 // Liens vers les pages séparées
 const navLinks = [
   { href: '/about', label: t.nav.about },
-  { href: '/services', label: t.nav.services },
   { href: '/portfolio', label: t.nav.portfolio },
   { href: '/articles', label: t.nav.articles },
   { href: '/contact', label: t.nav.contact },
@@ -34,7 +34,7 @@ const navLinks = [
     </a>
     
     <div class="hidden lg:flex space-x-6 xl:space-x-8">
-      {navLinks.slice(0, 4).map(link => (
+      {navLinks.slice(0, 3).map(link => (
         <a href={`${basePath}${link.href}`} class="nav-link text-sm">{link.label}</a>
       ))}
     </div>
@@ -58,7 +58,7 @@ const navLinks = [
       <Button
         variant="icon"
         href={otherLangPath}
-        className="flex items-center gap-1 sm:gap-2"
+        className="language-toggle flex items-center gap-1 sm:gap-2"
         ariaLabel={otherLang === 'fr' ? 'Version française' : 'English version'}
       >
         <Icon name="languages" size={18} />

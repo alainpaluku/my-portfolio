@@ -1,6 +1,6 @@
 ---
 import { type Lang } from '../../i18n/translations';
-import { ASPECT_RATIOS, FONT_SIZES, SPACING, ROUNDED, TRANSITIONS } from '../../constants/design';
+import { getProjectUrl, getArticleUrl } from '../../utils/routing';
 
 interface Props {
   type: 'project' | 'article' | 'service';
@@ -13,22 +13,12 @@ interface Props {
 
 const { type, data, lang, className = '', showLink = false, linkText = 'Learn More' } = Astro.props;
 
-// Validation des données
-if (!data) {
-  throw new Error(`Card component: data is required`);
-}
-
-if (!data.title || !data.title[lang]) {
-  console.warn(`Card component: Missing title for language ${lang}`, data);
-}
-
-// Déterminer l'URL basée sur le type
 const getUrl = () => {
   switch (type) {
     case 'project':
-      return data.slug ? `/${lang}/projects/${data.slug}` : '#';
+      return data.slug ? getProjectUrl(data.slug, lang) : '#';
     case 'article':
-      return data.slug ? `/${lang}/articles/${data.slug}` : '#';
+      return data.slug ? getArticleUrl(data.slug, lang) : '#';
     default:
       return '#';
   }
@@ -37,46 +27,40 @@ const getUrl = () => {
 const url = getUrl();
 const isClickable = type === 'project' || type === 'article';
 const Component = isClickable ? 'a' : 'div';
-
-// Classes dynamiques basées sur les constantes
-const aspectRatio = type === 'project' ? ASPECT_RATIOS.PROJECT : ASPECT_RATIOS.ARTICLE;
-const cardPadding = type === 'project' ? 'p-3 sm:p-4' : SPACING.CARD_COMPACT;
+// Même aspect ratio pour projets et articles
+const aspectRatio = 'aspect-video';
 ---
 
 <Component 
   href={isClickable ? url : undefined}
-  class={`block group relative overflow-hidden ${ROUNDED.CARD} glass-card cursor-pointer hover:border-[var(--color-accent)]/30 ${TRANSITIONS.NORMAL} ${className}`}
+  class={`block group glass-card cursor-pointer ${className}`}
 >
   <!-- Image -->
   {data.image && (
-    <div class={`${aspectRatio} overflow-hidden ${type === 'project' ? 'project-image-overlay' : ''}`}>
+    <div class={`${aspectRatio} overflow-hidden`}>
       <img 
         src={data.image} 
         alt={data.title?.[lang] || 'Image'}
         width="800"
-        height={type === 'project' ? "600" : "450"}
+        height="450"
         loading="lazy"
-        decoding="async"
-        class="w-full h-full object-cover"
+        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         onerror="this.src='/images/placeholder.png'"
       />
-      {type === 'project' && (
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
-      )}
     </div>
   )}
   
-  <!-- Content -->
-  <div class={`${type === 'project' ? 'absolute bottom-0 left-0 right-0 p-3 sm:p-4 z-20' : cardPadding}`}>
+  <!-- Content - Même style pour projets et articles -->
+  <div class="p-3 sm:p-4">
     <!-- Category & Meta -->
     <div class="flex items-center justify-between mb-2 sm:mb-3">
       {data.category?.[lang] && (
-        <span class={`${FONT_SIZES.CAPTION} uppercase tracking-wider font-semibold ${type === 'project' ? 'text-white/90' : 'text-[var(--color-accent)]'}`}>
+        <span class="caption uppercase tracking-wider font-semibold text-[var(--color-accent)]">
           {data.category[lang]}
         </span>
       )}
       {data.readTime && (
-        <span class={`${FONT_SIZES.CAPTION} font-medium ${type === 'project' ? 'text-white/80' : 'text-[var(--color-text-muted)]'}`}>
+        <span class="caption font-medium text-[var(--color-text-muted)]">
           {data.readTime}
         </span>
       )}
@@ -84,20 +68,20 @@ const cardPadding = type === 'project' ? 'p-3 sm:p-4' : SPACING.CARD_COMPACT;
 
     <!-- Title -->
     {data.title?.[lang] && (
-      <h3 class={`${type === 'project' ? FONT_SIZES.BODY_LG : FONT_SIZES.BODY} font-bold mb-2 ${TRANSITIONS.COLORS} line-clamp-2 ${type === 'project' ? 'text-white group-hover:text-white/80' : 'text-[var(--color-text)] group-hover:text-[var(--color-accent)]'}`}>
+      <h3 class="body font-bold mb-2 transition-colors line-clamp-2 text-[var(--color-text)] group-hover:text-[var(--color-accent)]">
         {data.title[lang]}
       </h3>
     )}
 
     <!-- Description/Excerpt -->
     {data.excerpt?.[lang] && (
-      <p class={`${FONT_SIZES.BODY_SM} leading-relaxed mb-2 sm:mb-3 line-clamp-2 ${type === 'project' ? 'text-white/80' : 'text-[var(--color-text-muted)]'}`}>
+      <p class="body-sm leading-relaxed mb-2 sm:mb-3 line-clamp-2 text-[var(--color-text-muted)]">
         {data.excerpt[lang]}
       </p>
     )}
 
     {data.description?.[lang] && (
-      <p class={`${FONT_SIZES.BODY_SM} leading-relaxed mb-2 sm:mb-3 line-clamp-2 ${type === 'project' ? 'text-white/80' : 'text-[var(--color-text-muted)]'}`}>
+      <p class="body-sm leading-relaxed mb-2 sm:mb-3 line-clamp-2 text-[var(--color-text-muted)]">
         {data.description[lang]}
       </p>
     )}
@@ -106,7 +90,7 @@ const cardPadding = type === 'project' ? 'p-3 sm:p-4' : SPACING.CARD_COMPACT;
     {data.tags && Array.isArray(data.tags) && data.tags.length > 0 && (
       <div class="flex flex-wrap gap-1 mt-2">
         {data.tags.map((tag: string) => (
-          <span class={`px-1.5 sm:px-2 py-0.5 ${FONT_SIZES.CAPTION} rounded-full font-medium ${type === 'project' ? 'bg-black/20 border border-white/20 text-white/80 backdrop-blur-sm' : 'bg-[var(--color-bg-secondary)] border border-[var(--color-border)] text-[var(--color-text-muted)]'}`}>
+          <span class="px-1.5 sm:px-2 py-0.5 caption rounded-full font-medium bg-[var(--color-bg-secondary)] border border-[var(--color-border)] text-[var(--color-text-muted)]">
             {tag}
           </span>
         ))}
@@ -115,7 +99,7 @@ const cardPadding = type === 'project' ? 'p-3 sm:p-4' : SPACING.CARD_COMPACT;
 
     <!-- Tools -->
     {data.tools?.[lang] && (
-      <p class={`${FONT_SIZES.CAPTION} text-[var(--color-text-muted)] mt-2 leading-relaxed`}>
+      <p class="caption text-[var(--color-text-muted)] mt-2 leading-relaxed">
         {data.tools[lang]}
       </p>
     )}
@@ -124,7 +108,7 @@ const cardPadding = type === 'project' ? 'p-3 sm:p-4' : SPACING.CARD_COMPACT;
     {(data.date || showLink) && (
       <div class="flex items-center justify-between mt-3 pt-2 border-t border-[var(--color-border)]">
         {data.date && (
-          <time class={`${FONT_SIZES.CAPTION} text-[var(--color-text-muted)]`}>
+          <time class="caption text-[var(--color-text-muted)]">
             {new Date(data.date).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', {
               year: 'numeric',
               month: 'short',
@@ -133,7 +117,7 @@ const cardPadding = type === 'project' ? 'p-3 sm:p-4' : SPACING.CARD_COMPACT;
           </time>
         )}
         {showLink && (
-          <span class={`${FONT_SIZES.CAPTION} text-[var(--color-accent)] font-semibold group-hover:underline`}>
+          <span class="caption text-[var(--color-accent)] font-semibold group-hover:underline">
             {linkText}
           </span>
         )}

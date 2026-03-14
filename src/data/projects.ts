@@ -1,4 +1,6 @@
-import { type ProjectData, type ProjectCategory, validateProjects } from './schemas';
+import { type ProjectData, validateProjects } from './schemas';
+import { createDataLoader } from './loaders';
+import { projectCategories, type ProjectCategory } from './categories';
 
 // Données brutes des projets
 const rawProjects = [
@@ -61,13 +63,7 @@ const rawProjects = [
 ];
 
 // Validation et export des projets
-export const projects: ProjectData[] = validateProjects(rawProjects);
+export const projects: ProjectData[] = createDataLoader(rawProjects, validateProjects);
 
-export const projectCategories = {
-  all: { en: 'All', fr: 'Tous' },
-  blockchain: { en: 'Blockchain', fr: 'Blockchain' },
-  iot: { en: 'IoT', fr: 'IoT' },
-  software: { en: 'Software', fr: 'Logiciel' },
-};
-
-export type { ProjectCategory };
+// Ré-exporter les catégories et types
+export { projectCategories, type ProjectCategory };

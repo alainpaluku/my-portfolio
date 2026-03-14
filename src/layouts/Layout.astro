@@ -81,7 +81,7 @@ const structuredData = {
 ---
 
 <!doctype html>
-<html lang={lang} class="dark">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -125,7 +125,8 @@ const structuredData = {
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#0f1f1f" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Alain Paluku" />
@@ -150,16 +151,26 @@ const structuredData = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
-    <!-- Theme Detection - Évite le flash -->
+    <!-- Theme Detection - Mode clair par défaut -->
     <script is:inline>
       (function() {
-        const theme = localStorage.getItem('theme');
-        if (theme === 'light') {
-          document.documentElement.classList.remove('dark');
-        } else if (theme === 'dark') {
+        // Récupérer le thème depuis localStorage ou utiliser la préférence système
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Déterminer le thème à appliquer (light par défaut)
+        const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+        
+        // Appliquer le thème dark si nécessaire (light est par défaut)
+        if (theme === 'dark') {
           document.documentElement.classList.add('dark');
-        } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+        } else {
           document.documentElement.classList.remove('dark');
+        }
+        
+        // Sauvegarder si pas déjà fait
+        if (!savedTheme) {
+          localStorage.setItem('theme', theme);
         }
       })();
     </script>

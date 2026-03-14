@@ -4,8 +4,8 @@
   "description": "Portfolio professionnel d'Alain Paluku, Ingénieur Électricien spécialisé en électroénergétique, systèmes embarqués et développement logiciel.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f1f1f",
-  "theme_color": "#0f1f1f",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
   "orientation": "portrait-primary",
   "icons": [
     {
@@ -21,7 +21,11 @@
       "purpose": "maskable any"
     }
   ],
-  "categories": ["business", "education", "productivity"],
+  "categories": [
+    "business",
+    "education",
+    "productivity"
+  ],
   "lang": "fr",
   "dir": "ltr",
   "scope": "/",

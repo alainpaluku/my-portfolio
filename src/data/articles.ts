@@ -1,11 +1,14 @@
-import { type ArticleData, type ArticleCategory, validateArticles } from './schemas';
+import { type ArticleData, validateArticles } from './schemas';
+import { createDataLoader } from './loaders';
+import { articleCategories, type ArticleCategory } from './categories';
 
 // Données brutes des articles
 const rawArticles = [
   {
     id: 'smart-grids-intro',
+    slug: 'smart-grids-intro',
     title: { en: 'Introduction to Smart Grids', fr: 'Introduction aux Smart Grids' },
-    excerpt: { 
+    excerpt: {
       en: 'Discover the fundamentals of smart electrical grids and their impact on the future of energy.',
       fr: "Découvrez les fondamentaux des réseaux électriques intelligents et leur impact sur l'avenir de l'énergie."
     },
@@ -17,6 +20,7 @@ const rawArticles = [
   },
   {
     id: 'esp32-monitoring',
+    slug: 'esp32-monitoring',
     title: { en: 'ESP32 for Energy Monitoring', fr: 'ESP32 pour le Monitoring Énergétique' },
     excerpt: {
       en: 'Practical guide to creating an energy monitoring system with ESP32 and MQTT.',
@@ -30,6 +34,7 @@ const rawArticles = [
   },
   {
     id: 'matlab-power-flow',
+    slug: 'matlab-power-flow',
     title: { en: 'Power Flow Analysis with MATLAB', fr: 'Analyse de Flux de Puissance avec MATLAB' },
     excerpt: {
       en: 'Complete tutorial on power flow analysis using MATLAB and Simulink.',
@@ -43,6 +48,7 @@ const rawArticles = [
   },
   {
     id: 'rust-embedded',
+    slug: 'rust-embedded',
     title: { en: 'Rust for Embedded Systems', fr: 'Rust pour les Systèmes Embarqués' },
     excerpt: {
       en: 'Why Rust is becoming the go-to language for safe and efficient embedded development.',
@@ -56,6 +62,7 @@ const rawArticles = [
   },
   {
     id: 'scada-systems-guide',
+    slug: 'scada-systems-guide',
     title: { en: 'Modern SCADA Systems', fr: 'Systèmes SCADA Modernes' },
     excerpt: {
       en: 'Understanding modern SCADA systems for industrial automation and power grid management.',
@@ -70,13 +77,7 @@ const rawArticles = [
 ];
 
 // Validation et export des articles
-export const articles: ArticleData[] = validateArticles(rawArticles);
+export const articles: ArticleData[] = createDataLoader(rawArticles, validateArticles);
 
-export const articleCategories = {
-  all: { en: 'All', fr: 'Tous' },
-  power: { en: 'Power Systems', fr: 'Électroénergétique' },
-  iot: { en: 'IoT & Embedded', fr: 'IoT & Embarqué' },
-  research: { en: 'Research', fr: 'Recherche' },
-};
-
-export type { ArticleCategory };
+// Ré-exporter les catégories et types
+export { articleCategories, type ArticleCategory };

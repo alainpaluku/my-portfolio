@@ -1,0 +1,238 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Icon from '../../../components/Icon.astro';
+import type { Lang } from '../../../i18n/translations';
+import { articles } from '../../../data/articles';
+import { supportedLangs } from '../../../utils/routing';
+
+export async function getStaticPaths() {
+  const paths = [];
+  
+  for (const lang of supportedLangs) {
+    for (const article of articles) {
+      paths.push({
+        params: { 
+          lang: lang,
+          slug: article.slug
+        },
+        props: { article, lang },
+      });
+    }
+  }
+  
+  return paths;
+}
+
+const { article, lang } = Astro.props as { article: typeof articles[0], lang: Lang };
+
+const labels = {
+  en: {
+    back: 'Back to Articles',
+    readTime: 'Read time',
+    publishedOn: 'Published on',
+    category: 'Category',
+  },
+  fr: {
+    back: 'Retour aux Articles',
+    readTime: 'Temps de lecture',
+    publishedOn: 'Publié le',
+    category: 'Catégorie',
+  },
+};
+
+const t = labels[lang];
+
+// Formater la date
+const formatDate = (dateStr: string) => {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+};
+---
+
+<Layout title={`${article.title[lang]} | ALAIN PALUKU`} lang={lang}>
+  <article class="pt-20 sm:pt-24 pb-16 px-4 sm:px-6 max-w-4xl mx-auto">
+    <!-- Back Link -->
+    <a 
+      href={`/${lang}/articles`}
+      class="inline-flex items-center text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors mb-8 group"
+    >
+      <svg class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      {t.back}
+    </a>
+
+    <!-- Header -->
+    <header class="mb-10">
+      <!-- Category -->
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        <span class="text-xs sm:text-sm text-[var(--color-accent)] uppercase tracking-wider font-mono bg-[var(--color-accent)]/10 px-3 py-1 rounded-full">
+          {article.category[lang]}
+        </span>
+      </div>
+
+      <!-- Title -->
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 text-[var(--color-text)] tracking-tight">
+        {article.title[lang]}
+      </h1>
+
+      <!-- Meta Info -->
+      <div class="flex flex-wrap items-center gap-4 text-sm text-[var(--color-text-muted)] mb-6">
+        <div class="flex items-center gap-2">
+          <Icon name="calendar" size={16} />
+          <time datetime={article.date}>
+            {formatDate(article.date)}
+          </time>
+        </div>
+        <div class="flex items-center gap-2">
+          <Icon name="clock" size={16} />
+          <span>{article.readTime}</span>
+        </div>
+      </div>
+
+      <!-- Excerpt -->
+      <p class="text-lg sm:text-xl text-[var(--color-text-muted)] leading-relaxed">
+        {article.excerpt[lang]}
+      </p>
+    </header>
+
+    <!-- Featured Image -->
+    <div class="rounded-2xl lg:rounded-3xl overflow-hidden mb-12 border border-[var(--color-border)]">
+      <img 
+        src={article.image} 
+        alt={article.title[lang]}
+        width="1200"
+        height="675"
+        loading="eager"
+        decoding="async"
+        class="w-full h-auto object-cover"
+      />
+    </div>
+
+    <!-- Content Placeholder -->
+    <div class="article-content prose prose-lg max-w-none">
+      <div class="bg-[var(--color-card-bg)] border border-[var(--color-border)] rounded-xl p-8 text-center">
+        <Icon name="fileText" size={48} class="mx-auto mb-4 text-[var(--color-text-muted)]" />
+        <h2 class="text-2xl font-bold text-[var(--color-text)] mb-4">
+          {lang === 'fr' ? 'Contenu à venir' : 'Content Coming Soon'}
+        </h2>
+        <p class="text-[var(--color-text-muted)] mb-6">
+          {lang === 'fr' 
+            ? 'Le contenu complet de cet article sera bientôt disponible. Revenez plus tard pour lire l\'article complet.'
+            : 'The full content of this article will be available soon. Check back later to read the complete article.'}
+        </p>
+        <a 
+          href={`/${lang}/articles`}
+          class="btn-outline inline-flex items-center gap-2"
+        >
+          <Icon name="arrowLeft" size={16} />
+          {t.back}
+        </a>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style is:global>
+  .article-content {
+    color: var(--color-text-muted);
+    line-height: 1.75;
+  }
+  
+  .article-content h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  
+  @media (min-width: 640px) {
+    .article-content h2 {
+      font-size: 1.875rem;
+    }
+  }
+  
+  .article-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  @media (min-width: 640px) {
+    .article-content h3 {
+      font-size: 1.5rem;
+    }
+  }
+  
+  .article-content p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  
+  @media (min-width: 640px) {
+    .article-content p {
+      font-size: 1.125rem;
+    }
+  }
+  
+  .article-content ul {
+    margin-bottom: 1.5rem;
+    padding-left: 0;
+    list-style: none;
+  }
+  
+  .article-content ul li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  @media (min-width: 640px) {
+    .article-content ul li {
+      font-size: 1.125rem;
+    }
+  }
+  
+  .article-content ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: var(--color-accent);
+    border-radius: 50%;
+  }
+  
+  .article-content strong {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+  
+  .article-content a {
+    color: var(--color-accent);
+  }
+  
+  .article-content a:hover {
+    text-decoration: underline;
+  }
+  
+  .article-content code {
+    color: var(--color-accent);
+    background-color: var(--color-card-bg);
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-family: monospace;
+  }
+</style>

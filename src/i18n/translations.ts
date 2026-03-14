@@ -3,7 +3,6 @@ export const translations = {
     nav: {
       home: 'Home',
       about: 'About',
-      services: 'Services',
       portfolio: 'Portfolio',
       articles: 'Articles',
       contact: 'Contact',
@@ -20,41 +19,6 @@ export const translations = {
       stat2Value: '10+ Completed',
       stat3Label: 'Publications',
       stat3Value: '5 Articles',
-    },
-    services: {
-      title: 'Services',
-      subtitle: 'What I can do for you',
-      power: {
-        title: 'Power Engineering',
-        items: [
-          'Sizing and modeling of power plants and electrical grids',
-          'Renewable energy integration and analysis',
-          'Protection systems design and optimization'
-        ]
-      },
-      embedded: {
-        title: 'Electronics',
-        items: [
-          'Design and modeling of electronic circuits',
-          'Embedded software development'
-        ]
-      },
-      cad: {
-        title: 'Software Development',
-        items: [
-          'CAD software development and customization',
-          'Engineering applications development',
-          'Design automation tools'
-        ]
-      },
-      automation: {
-        title: 'Automation',
-        items: [
-          'Design of industrial automation systems',
-          'Design of home automation systems',
-          'SCADA systems implementation'
-        ]
-      },
     },
     about: {
       title: 'About',
@@ -150,7 +114,6 @@ export const translations = {
     nav: {
       home: 'Accueil',
       about: 'À Propos',
-      services: 'Services',
       portfolio: 'Portfolio',
       articles: 'Articles',
       contact: 'Contact',
@@ -223,41 +186,6 @@ export const translations = {
           ],
         },
       ],
-    },
-    services: {
-      title: 'Services',
-      subtitle: 'Ce que je peux faire pour vous',
-      power: {
-        title: 'Électroénergétique',
-        items: [
-          'Dimensionnement et modélisation de centrales électriques et réseaux',
-          'Intégration et analyse d\'énergies renouvelables',
-          'Conception et optimisation de systèmes de protection'
-        ]
-      },
-      embedded: {
-        title: 'Électronique',
-        items: [
-          'Conception et modélisation de circuits électroniques',
-          'Développement de logiciels embarqués'
-        ]
-      },
-      cad: {
-        title: 'Développement Logiciel',
-        items: [
-          'Développement et personnalisation de logiciels CAO',
-          'Développement d\'applications d\'ingénierie',
-          'Outils d\'automatisation de conception'
-        ]
-      },
-      automation: {
-        title: 'Automatisation',
-        items: [
-          'Conception de systèmes d\'automatisation industrielle',
-          'Conception de systèmes d\'automatisation domestique',
-          'Implémentation de systèmes SCADA'
-        ]
-      },
     },
     portfolio: {
       title: 'Portfolio',

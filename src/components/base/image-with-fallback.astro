@@ -1,0 +1,53 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  width?: number | string;
+  height?: number | string;
+  fallback?: string;
+  className?: string;
+  loading?: 'lazy' | 'eager';
+  rounded?: boolean;
+  withBorder?: boolean;
+}
+
+const { 
+  src, 
+  alt, 
+  width, 
+  height, 
+  fallback = '/images/placeholder.png',
+  className = '',
+  loading = 'lazy',
+  rounded = true,
+  withBorder = false
+} = Astro.props;
+
+const imageId = `img-${Math.random().toString(36).substr(2, 9)}`;
+const roundedClass = rounded ? 'rounded-xl sm:rounded-2xl' : '';
+const borderClass = withBorder ? 'border border-[var(--color-border)]' : '';
+---
+
+<div class={`relative overflow-hidden bg-[var(--color-bg-secondary)] ${roundedClass} ${borderClass} ${className}`}>
+  <img 
+    id={imageId}
+    src={src || fallback} 
+    alt={alt}
+    width={width}
+    height={height}
+    loading={loading}
+    class="w-full h-full object-cover opacity-0 transition-opacity duration-300"
+  />
+</div>
+
+<script define:vars={{ imageId, fallback }} is:inline>
+  const img = document.getElementById(imageId);
+  if (img) {
+    img.addEventListener('error', function() {
+      this.src = fallback;
+    });
+    img.addEventListener('load', function() {
+      this.classList.remove('opacity-0');
+    });
+  }
+</script>

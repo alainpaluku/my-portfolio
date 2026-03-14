@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from 'astro/types';
 
 interface Props extends HTMLAttributes<'button'> {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'outline' | 'icon';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'icon';
   size?: 'sm' | 'md' | 'lg';
   href?: string;
   disabled?: boolean;
@@ -24,23 +24,19 @@ const {
 
 const Component = href ? 'a' : 'button';
 
-// Classes de base selon la variante
 const variantClasses = {
   primary: 'btn-primary',
   secondary: 'btn-secondary',
   ghost: 'btn-ghost',
-  outline: 'border border-[var(--color-border)] hover:border-[var(--color-text)] text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-all',
-  icon: 'p-2 rounded-full border border-[var(--color-border)] hover:border-[var(--color-text)] text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-all'
+  icon: 'btn-icon'
 };
 
-// Classes de taille
 const sizeClasses = {
   sm: 'px-3 py-1.5 text-xs',
   md: 'px-4 py-2 text-sm',
   lg: 'px-6 py-3 text-base'
 };
 
-// Construire les classes finales
 const baseClasses = variantClasses[variant];
 const finalSizeClasses = variant === 'icon' ? '' : sizeClasses[size];
 const finalClasses = `${baseClasses} ${finalSizeClasses} ${className}`.trim();

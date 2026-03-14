@@ -16,7 +16,7 @@ const content = {
   en: {
     tagline: 'Bridging electrical engineering with modern software technologies.',
     quickLinks: 'Quick Links',
-    services: 'Services',
+    expertise: 'Expertise',
     contact: 'Contact',
     location: 'Goma, DR Congo',
     available: 'Available for projects',
@@ -24,7 +24,7 @@ const content = {
   fr: {
     tagline: "Faire le pont entre l'ingénierie électrique et les technologies logicielles modernes.",
     quickLinks: 'Liens Rapides',
-    services: 'Services',
+    expertise: 'Expertise',
     contact: 'Contact',
     location: 'Goma, RD Congo',
     available: 'Disponible pour projets',
@@ -40,7 +40,7 @@ const quickLinks = [
   { href: '/contact', label: t.nav.contact },
 ];
 
-const serviceLinks = [
+const expertiseAreas = [
   { label: lang === 'fr' ? 'Électroénergétique' : 'Power Engineering' },
   { label: lang === 'fr' ? 'Électronique' : 'Electronics' },
   { label: lang === 'fr' ? 'Développement Logiciel' : 'Software Development' },
@@ -65,9 +65,9 @@ const serviceLinks = [
         <p class="text-[var(--color-text-muted)] text-xs sm:text-sm leading-relaxed mb-4">{c.tagline}</p>
         
         <!-- Status Badge -->
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--color-success-bg)] border border-[var(--color-success-border)]">
-          <span class="w-2 h-2 bg-[var(--color-success)] rounded-full animate-pulse"></span>
-          <span class="text-[10px] sm:text-xs text-[var(--color-success)] font-medium">{c.available}</span>
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--color-bg)] border border-[var(--color-border)]">
+          <span class="w-2 h-2 bg-[var(--color-text)] rounded-full animate-pulse"></span>
+          <span class="text-[10px] sm:text-xs text-[var(--color-text)] font-medium">{c.available}</span>
         </div>
       </div>
 
@@ -85,11 +85,11 @@ const serviceLinks = [
         </ul>
       </div>
 
-      <!-- Services -->
+      <!-- Expertise -->
       <div>
-        <h4 class="text-xs sm:text-sm font-bold text-[var(--color-text)] uppercase tracking-wider mb-4">{c.services}</h4>
+        <h4 class="text-xs sm:text-sm font-bold text-[var(--color-text)] uppercase tracking-wider mb-4">{c.expertise}</h4>
         <ul class="space-y-2">
-          {serviceLinks.map(link => (
+          {expertiseAreas.map(link => (
             <li class="text-[var(--color-text-muted)] text-xs sm:text-sm">{link.label}</li>
           ))}
         </ul>
