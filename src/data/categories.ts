@@ -4,16 +4,21 @@
 
 export const projectCategories = {
     all: { en: 'All', fr: 'Tous' },
-    blockchain: { en: 'Blockchain', fr: 'Blockchain' },
-    iot: { en: 'IoT', fr: 'IoT' },
-    software: { en: 'Software', fr: 'Logiciel' },
+    ai: { en: 'Artificial Intelligence', fr: 'Intelligence Artificielle' },
+    iot: { en: 'Internet of Things', fr: 'Internet des Objets' },
+    robotics: { en: 'Robotics', fr: 'Robotique' },
+    power: { en: 'Electrical Networks', fr: 'Réseaux Électriques' },
+    renewable: { en: 'Renewable Energy', fr: 'Énergies Renouvelables' },
+    crypto: { en: 'Cryptography', fr: 'Cryptographie' },
 } as const;
 
 export const articleCategories = {
     all: { en: 'All', fr: 'Tous' },
-    power: { en: 'Power Systems', fr: 'Électroénergétique' },
-    iot: { en: 'IoT & Embedded', fr: 'IoT & Embarqué' },
-    research: { en: 'Research', fr: 'Recherche' },
+    ai: { en: 'Artificial Intelligence', fr: 'Intelligence Artificielle' },
+    iot: { en: 'Internet of Things', fr: 'Internet des Objets' },
+    robotics: { en: 'Robotics', fr: 'Robotique' },
+    power: { en: 'Electrical Networks', fr: 'Réseaux Électriques' },
+    renewable: { en: 'Renewable Energy', fr: 'Énergies Renouvelables' },
 } as const;
 
 export type ProjectCategory = keyof typeof projectCategories;

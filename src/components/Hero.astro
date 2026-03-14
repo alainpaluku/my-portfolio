@@ -13,144 +13,73 @@ const t = useTranslations(lang);
 ---
 
 <header class="relative min-h-screen flex items-center px-4 sm:px-6 pt-16 sm:pt-20 pb-8 z-10 overflow-hidden">
-  <!-- Background Glow optimisé pour mobile -->
+  <!-- Background Glow subtil -->
   <div 
-    class="parallax absolute top-0 left-0 w-48 sm:w-64 lg:w-96 h-48 sm:h-64 lg:h-96 bg-[var(--color-glow-primary)] rounded-full blur-[60px] sm:blur-[80px] lg:blur-[100px] -translate-x-1/2 -translate-y-1/2 will-change-transform" 
-    data-speed="0.3"
+    class="absolute top-0 left-0 w-96 h-96 bg-[var(--color-glow-primary)] rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 opacity-30" 
+    aria-hidden="true"
   ></div>
   
   <div class="max-w-7xl mx-auto w-full">
-    <div class="flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:gap-16 items-center">
+    <div class="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
       
-      <!-- Profile Card (First on mobile) -->
-      <div class="relative z-10 w-full lg:order-2 mb-20 sm:mb-16 lg:mb-0">
+      <!-- Profile Card -->
+      <div class="relative z-10 w-full lg:order-2 mb-12 lg:mb-0">
         <ProfileCard lang={lang} />
       </div>
 
-      <!-- CTA Content -->
-      <div class="relative z-10 space-y-4 sm:space-y-5 lg:space-y-8 text-center lg:text-left lg:order-1">
-        <p class="animate-fade-in-up text-[var(--color-text)] font-mono text-[10px] sm:text-xs lg:text-sm tracking-[0.1em] sm:tracking-[0.15em] lg:tracking-[0.2em] uppercase font-semibold">
-          {t.hero.subtitle}
-        </p>
-        
-        <div class="hero-title hero-title-animated">
-          <h1 class="hero-title-main animate-fade-in-up animate-delay-100">
+      <!-- Content Principal -->
+      <div class="relative z-10 space-y-6 lg:space-y-8 text-center lg:text-left lg:order-1">
+        <div class="space-y-2">
+          <p class="text-[var(--color-text-muted)] font-mono text-xs lg:text-sm tracking-[0.2em] uppercase font-medium">
+            {t.hero.subtitle}
+          </p>
+          
+          <h1 class="hero-title-main text-[var(--color-text)]">
             {t.hero.title1}
           </h1>
-          <h2 class="hero-title-sub animate-fade-in-up animate-delay-200">
+          
+          <h2 class="hero-title-sub text-[var(--color-text-muted)]">
             {t.hero.title2}
           </h2>
         </div>
 
-        {t.hero.description && (
-          <p class="animate-fade-in-up animate-delay-200 text-[var(--color-text-muted)] max-w-xl mx-auto lg:mx-0 text-xs sm:text-sm lg:text-base font-light leading-relaxed">
-            {t.hero.description}
-          </p>
-        )}
-
-        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4">
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
           <Button
             href={getLocalizedPath('/portfolio', lang)}
             variant="primary"
-            className="w-full sm:w-auto text-center text-sm sm:text-base tap-highlight"
+            className="w-full sm:w-auto text-center"
           >
             {t.hero.cta}
           </Button>
           <Button
-            href={getLocalizedPath('/about', lang)}
+            href={getLocalizedPath('/contact', lang)}
             variant="ghost"
-            className="flex items-center text-[var(--color-text)] hover:text-[var(--color-text)] transition group text-xs sm:text-sm tap-highlight"
+            className="flex items-center text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition group"
           >
-            {lang === 'fr' ? 'En savoir plus' : 'Learn More'}
+            {lang === 'fr' ? 'Me contacter' : 'Get in touch'}
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 group-hover:translate-x-1 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </Button>
         </div>
 
-        <!-- Stats (visible on desktop) -->
-        <div class="hidden lg:flex gap-6 xl:gap-8 pt-6 border-t border-[var(--color-border)] mt-8">
-          <div class="stat-number">
-            <p class="text-[10px] xl:text-xs text-[var(--color-text-muted)] mb-1">{t.hero.stat1Label}</p>
-            <p class="text-lg xl:text-xl font-bold text-[var(--color-text)]">{t.hero.stat1Value}</p>
+        <!-- Stats épurées (desktop uniquement) -->
+        <div class="hidden lg:flex gap-8 pt-8 border-t border-[var(--color-border)]">
+          <div>
+            <p class="text-xs text-[var(--color-text-muted)] mb-1">{t.hero.stat1Label}</p>
+            <p class="text-xl font-bold text-[var(--color-text)]">{t.hero.stat1Value}</p>
           </div>
-          <div class="stat-number">
-            <p class="text-[10px] xl:text-xs text-[var(--color-text-muted)] mb-1">{t.hero.stat2Label}</p>
-            <p class="text-lg xl:text-xl font-bold text-[var(--color-text)]">{t.hero.stat2Value}</p>
+          <div>
+            <p class="text-xs text-[var(--color-text-muted)] mb-1">{t.hero.stat2Label}</p>
+            <p class="text-xl font-bold text-[var(--color-text)]">{t.hero.stat2Value}</p>
           </div>
-          <div class="stat-number">
-            <p class="text-[10px] xl:text-xs text-[var(--color-text-muted)] mb-1">{t.hero.stat3Label}</p>
-            <p class="text-lg xl:text-xl font-bold text-[var(--color-text)]">{t.hero.stat3Value}</p>
+          <div>
+            <p class="text-xs text-[var(--color-text-muted)] mb-1">{t.hero.stat3Label}</p>
+            <p class="text-xl font-bold text-[var(--color-text)]">{t.hero.stat3Value}</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </header>
-
-<!-- Script optimisé pour mobile -->
-<script is:inline>
-  // Détection mobile pour optimiser les performances
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  const isLowEndDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2;
-  
-  // Parallax optimisé avec requestAnimationFrame et throttling
-  let ticking = false;
-  let lastScrollY = 0;
-  
-  function updateParallax() {
-    const scrolled = window.scrollY;
-    
-    // Skip si le scroll n'a pas beaucoup changé (optimisation mobile)
-    if (Math.abs(scrolled - lastScrollY) < 2 && isMobile) {
-      ticking = false;
-      return;
-    }
-    
-    lastScrollY = scrolled;
-    
-    const parallaxElements = document.querySelectorAll('.parallax');
-    
-    parallaxElements.forEach(function(element) {
-      const speed = parseFloat(element.getAttribute('data-speed') || '0.5');
-      // Réduire l'effet parallax sur mobile pour de meilleures performances
-      const adjustedSpeed = isMobile ? speed * 0.5 : speed;
-      const yPos = -(scrolled * adjustedSpeed);
-      
-      // Utiliser transform3d pour l'accélération matérielle
-      element.style.transform = 'translate3d(-50%, calc(-50% + ' + yPos + 'px), 0)';
-    });
-    
-    ticking = false;
-  }
-  
-  function requestTick() {
-    if (!ticking) {
-      // Utiliser setTimeout sur les appareils low-end pour éviter les saccades
-      if (isLowEndDevice) {
-        setTimeout(updateParallax, 16); // ~60fps
-      } else {
-        requestAnimationFrame(updateParallax);
-      }
-      ticking = true;
-    }
-  }
-  
-  // Désactiver le parallax sur les appareils très lents
-  if (!isLowEndDevice) {
-    // Utiliser passive listener pour de meilleures performances
-    window.addEventListener('scroll', requestTick, { passive: true });
-  }
-  
-  // Optimisation: Pause les animations quand la page n'est pas visible
-  document.addEventListener('visibilitychange', function() {
-    const parallaxElements = document.querySelectorAll('.parallax');
-    parallaxElements.forEach(function(element) {
-      if (document.hidden) {
-        element.style.animationPlayState = 'paused';
-      } else {
-        element.style.animationPlayState = 'running';
-      }
-    });
-  });
-</script>

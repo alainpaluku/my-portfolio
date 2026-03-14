@@ -10,7 +10,7 @@ export const translations = {
     hero: {
       subtitle: 'Engineering & Innovation',
       title1: 'ALAIN PALUKU',
-      title2: 'ELECTRICAL ENGINEER | EMBEDDED SYSTEMS & CAD SOFTWARE DEVELOPER',
+      title2: 'ELECTRICAL ENGINEER | EMBEDDED SYSTEMS | SOFTWARE DEVELOPER',
       description: '',
       cta: 'VIEW MY PROJECTS',
       stat1Label: 'Experience',
@@ -23,13 +23,13 @@ export const translations = {
     about: {
       title: 'About',
       subtitle: 'Electrical Engineer',
-      intro: 'Specialized in Power Systems, Embedded Systems, and Engineering Software Development.',
+      intro: 'Specialized in Power Systems, Embedded Systems, and Software Development.',
       education: 'Education',
       experience: 'Experience',
       skills: 'Technical Skills',
       headerName: 'ALAIN PALUKU',
-      headerTitle: 'ELECTRICAL ENGINEER | EMBEDDED SYSTEMS & CAD SOFTWARE DEVELOPER',
-      headerSubtitle: 'Specialized in Power Systems, Embedded Systems, and Engineering Software Development.',
+      headerTitle: 'ELECTRICAL ENGINEER | EMBEDDED SYSTEMS | SOFTWARE DEVELOPER',
+      headerSubtitle: 'Specialized in Power Systems, Embedded Systems, and Software Development.',
       educationTitle: 'EDUCATION',
       educationList: [
         {
@@ -42,7 +42,7 @@ export const translations = {
         },
       ],
       portfolioTitle: 'MY WORK',
-      portfolioDescription: 'Discover my projects in power engineering, electronics, and software development.',
+      portfolioDescription: 'Projects in power engineering, electronics, and software development.',
       portfolioCta: 'View Portfolio',
       skillsTitle: 'SKILLS',
       skillCategories: [
@@ -89,9 +89,9 @@ export const translations = {
       viewAll: 'View All Articles',
     },
     contact: {
-      title: 'Get In Touch',
-      subtitle: "Ready to innovate together?",
-      description: "Let's discuss your next project in power engineering, electronics, or software development.",
+      title: 'Contact',
+      subtitle: "Let's discuss your project",
+      description: "Contact me for projects in power engineering, embedded systems, or software development.",
       name: 'Name',
       email: 'Email',
       message: 'Message',
@@ -104,11 +104,10 @@ export const translations = {
     },
     stats: {
       years: 'Years Experience',
-      projects: 'GitHub Repos',
-      publications: 'Published Articles',
-      passion: 'Client Satisfaction',
+      projects: 'Projects Completed',
+      publications: 'Technical Articles',
+      passion: 'Technologies Used',
     },
-    marquee: ['POWER SYSTEMS', 'SMART GRIDS', 'RUST', 'GOLANG', 'TYPESCRIPT', 'MATLAB/SIMULINK', 'KICAD', 'PCB DESIGN', 'SCADA SYSTEMS', 'IOT PROTOCOLS', 'EMBEDDED C', 'RENEWABLE ENERGY'],
   },
   fr: {
     nav: {
@@ -121,7 +120,7 @@ export const translations = {
     hero: {
       subtitle: 'Ingénierie & Innovation',
       title1: 'ALAIN PALUKU',
-      title2: 'INGÉNIEUR ÉLECTRICIEN | DÉVELOPPEUR SYSTÈMES EMBARQUÉS ET LOGICIELS CAO',
+      title2: 'INGÉNIEUR ÉLECTRICIEN | SYSTÈMES EMBARQUÉS | DÉVELOPPEUR LOGICIEL',
       description: '',
       cta: 'VOIR MES PROJETS',
       stat1Label: 'Expérience',
@@ -134,13 +133,13 @@ export const translations = {
     about: {
       title: 'À Propos',
       subtitle: 'Ingénieur Électricien',
-      intro: "Spécialisé en électroénergétique, systèmes embarqués et développement de logiciels d'ingénierie.",
+      intro: "Spécialisé en électroénergétique, systèmes embarqués et développement logiciel.",
       education: 'Formation',
       experience: 'Expérience',
       skills: 'Compétences Techniques',
       headerName: 'ALAIN PALUKU',
-      headerTitle: 'INGÉNIEUR ÉLECTRICIEN | DÉVELOPPEUR SYSTÈMES EMBARQUÉS ET LOGICIELS CAO',
-      headerSubtitle: "Spécialisé en électroénergétique, systèmes embarqués et développement de logiciels d'ingénierie.",
+      headerTitle: 'INGÉNIEUR ÉLECTRICIEN | SYSTÈMES EMBARQUÉS | DÉVELOPPEUR LOGICIEL',
+      headerSubtitle: "Spécialisé en électroénergétique, systèmes embarqués et développement logiciel.",
       educationTitle: 'FORMATION',
       educationList: [
         {
@@ -153,7 +152,7 @@ export const translations = {
         },
       ],
       portfolioTitle: 'MES RÉALISATIONS',
-      portfolioDescription: 'Découvrez mes projets en électroénergétique, électronique et développement logiciel.',
+      portfolioDescription: 'Projets en électroénergétique, électronique et développement logiciel.',
       portfolioCta: 'Voir Portfolio',
       skillsTitle: 'COMPÉTENCES',
       skillCategories: [
@@ -200,9 +199,9 @@ export const translations = {
       viewAll: 'Voir Tous les Articles',
     },
     contact: {
-      title: 'Me Contacter',
-      subtitle: 'Prêt à innover ensemble ?',
-      description: "Discutons de votre prochain projet en électroénergétique, électronique ou développement logiciel.",
+      title: 'Contact',
+      subtitle: 'Discutons de votre projet',
+      description: "Contactez-moi pour des projets en électroénergétique, systèmes embarqués ou développement logiciel.",
       name: 'Nom',
       email: 'Email',
       message: 'Message',
@@ -215,11 +214,10 @@ export const translations = {
     },
     stats: {
       years: "Années d'expérience",
-      projects: 'Repos GitHub',
-      publications: 'Articles publiés',
-      passion: 'Satisfaction client',
+      projects: 'Projets réalisés',
+      publications: 'Articles techniques',
+      passion: 'Technologies utilisées',
     },
-    marquee: ['SYSTÈMES ÉLECTRIQUES', 'SMART GRIDS', 'RUST', 'GOLANG', 'TYPESCRIPT', 'MATLAB/SIMULINK', 'KICAD', 'PCB DESIGN', 'SCADA SYSTEMS', 'PROTOCOLES IOT', 'EMBEDDED C', 'ÉNERGIES RENOUVELABLES'],
   },
 } as const;
 

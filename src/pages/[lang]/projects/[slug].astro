@@ -1,24 +1,34 @@
 ---
-import { getCollection } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
 import Icon from '../../../components/Icon.astro';
+import { projects } from '../../../data/projects';
 import type { Lang } from '../../../i18n/translations';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects');
+  const paths = [];
   
-  return projects.map((project) => ({
-    params: { 
-      lang: project.data.lang,
-      slug: project.slug.split('/')[1]
-    },
-    props: { project },
-  }));
+  // Générer les chemins pour chaque projet dans chaque langue
+  for (const project of projects) {
+    paths.push({
+      params: { 
+        lang: 'en',
+        slug: project.slug
+      },
+      props: { project, lang: 'en' },
+    });
+    paths.push({
+      params: { 
+        lang: 'fr',
+        slug: project.slug
+      },
+      props: { project, lang: 'fr' },
+    });
+  }
+  
+  return paths;
 }
 
-const { project } = Astro.props;
-const { lang } = Astro.params as { lang: Lang };
-const { Content } = await project.render();
+const { project, lang } = Astro.props;
 
 const labels = {
   en: {
@@ -26,19 +36,82 @@ const labels = {
     viewDemo: 'View Live Demo',
     viewCode: 'View Source Code',
     featured: 'Featured Project',
+    technologies: 'Technologies Used',
+    overview: 'Project Overview',
+    features: 'Key Features',
+    implementation: 'Implementation Details',
   },
   fr: {
     back: 'Retour au Portfolio',
     viewDemo: 'Voir la Démo',
     viewCode: 'Voir le Code Source',
     featured: 'Projet Vedette',
+    technologies: 'Technologies Utilisées',
+    overview: 'Aperçu du Projet',
+    features: 'Fonctionnalités Clés',
+    implementation: 'Détails d\'Implémentation',
   },
 };
 
 const t = labels[lang];
+
+// Contenu détaillé des projets
+const projectDetails = {
+  'ai-power-prediction': {
+    en: {
+      overview: 'An advanced machine learning system that predicts electrical power consumption patterns using historical data and weather information.',
+      features: [
+        'Real-time power consumption prediction',
+        'Weather data integration',
+        'Historical pattern analysis',
+        'Grid optimization recommendations'
+      ],
+      implementation: 'Built using TensorFlow and Python, the system processes large datasets to identify consumption patterns and predict future demand with high accuracy.'
+    },
+    fr: {
+      overview: 'Un système d\'apprentissage automatique avancé qui prédit les modèles de consommation électrique en utilisant des données historiques et météorologiques.',
+      features: [
+        'Prédiction en temps réel de la consommation',
+        'Intégration des données météorologiques',
+        'Analyse des modèles historiques',
+        'Recommandations d\'optimisation du réseau'
+      ],
+      implementation: 'Construit avec TensorFlow et Python, le système traite de grandes bases de données pour identifier les modèles de consommation et prédire la demande future avec une grande précision.'
+    }
+  },
+  'gohome': {
+    en: {
+      overview: 'A comprehensive IoT platform for home automation, enabling remote control and monitoring of various home devices.',
+      features: [
+        'Device management dashboard',
+        'Real-time monitoring',
+        'Automated scheduling',
+        'Mobile app integration'
+      ],
+      implementation: 'Developed using Go for the backend with gRPC communication, React for the frontend, and Raspberry Pi for edge computing.'
+    },
+    fr: {
+      overview: 'Une plateforme IoT complète pour la domotique, permettant le contrôle à distance et la surveillance de divers appareils domestiques.',
+      features: [
+        'Tableau de bord de gestion des appareils',
+        'Surveillance en temps réel',
+        'Planification automatisée',
+        'Intégration d\'application mobile'
+      ],
+      implementation: 'Développé avec Go pour le backend avec communication gRPC, React pour le frontend, et Raspberry Pi pour l\'edge computing.'
+    }
+  }
+  // Ajouter d'autres projets selon les besoins
+};
+
+const details = projectDetails[project.slug]?.[lang] || {
+  overview: project.title[lang],
+  features: [],
+  implementation: ''
+};
 ---
 
-<Layout title={`${project.data.title} | ALAIN PALUKU`} lang={lang}>
+<Layout title={`${project.title[lang]} | ALAIN PALUKU`} lang={lang}>
   <article class="pt-20 sm:pt-24 pb-16 px-4 sm:px-6 max-w-5xl mx-auto">
     <!-- Back Link -->
     <a 
@@ -55,11 +128,11 @@ const t = labels[lang];
     <header class="mb-10">
       <!-- Category & Featured Badge -->
       <div class="flex flex-wrap items-center gap-3 mb-4">
-        <span class="text-xs sm:text-sm text-accent uppercase tracking-wider font-mono bg-accent/10 px-3 py-1 rounded-full">
-          {project.data.category}
+        <span class="text-xs sm:text-sm text-[var(--color-accent)] uppercase tracking-wider font-mono bg-[var(--color-accent)]/10 px-3 py-1 rounded-full">
+          {project.category[lang]}
         </span>
-        {project.data.featured && (
-          <span class="text-xs text-primary uppercase tracking-wider font-mono bg-primary/10 px-3 py-1 rounded-full flex items-center gap-1">
+        {project.featured && (
+          <span class="text-xs text-[var(--color-text)] uppercase tracking-wider font-mono bg-[var(--color-text)]/10 px-3 py-1 rounded-full flex items-center gap-1">
             <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
               <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
             </svg>
@@ -70,17 +143,17 @@ const t = labels[lang];
 
       <!-- Title -->
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 text-[var(--color-text)] tracking-tight">
-        {project.data.title}
+        {project.title[lang]}
       </h1>
 
       <!-- Description -->
       <p class="text-lg sm:text-xl text-[var(--color-text-muted)] leading-relaxed max-w-3xl">
-        {project.data.description}
+        {details.overview}
       </p>
       
       <!-- Tags -->
       <div class="flex flex-wrap gap-2 mt-6">
-        {project.data.tags.map((tag: string) => (
+        {project.tags.map((tag: string) => (
           <span class="px-3 py-1.5 text-sm bg-[var(--color-card-bg)] border border-[var(--color-border)] rounded-lg text-[var(--color-text)] font-medium">
             {tag}
           </span>
@@ -89,9 +162,9 @@ const t = labels[lang];
 
       <!-- Action Buttons -->
       <div class="flex flex-wrap gap-4 mt-8">
-        {project.data.demo && (
+        {project.demo && (
           <a 
-            href={project.data.demo}
+            href={project.demo}
             target="_blank"
             rel="noopener noreferrer"
             class="btn-primary inline-flex items-center gap-2 text-base px-6 py-3"
@@ -102,12 +175,12 @@ const t = labels[lang];
             {t.viewDemo}
           </a>
         )}
-        {project.data.github && (
+        {project.github && (
           <a 
-            href={project.data.github}
+            href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-6 py-3 border-2 border-[var(--color-border)] rounded-xl text-[var(--color-text)] hover:border-[var(--color-text)] hover:text-[var(--color-text)] transition-all font-medium"
+            class="btn-secondary inline-flex items-center gap-2 text-base px-6 py-3"
           >
             <Icon name="github" size={20} />
             {t.viewCode}
@@ -119,8 +192,8 @@ const t = labels[lang];
     <!-- Featured Image -->
     <div class="rounded-2xl lg:rounded-3xl overflow-hidden mb-12 border border-[var(--color-border)]">
       <img 
-        src={project.data.image} 
-        alt={project.data.title}
+        src={project.image} 
+        alt={project.title[lang]}
         width="1200"
         height="675"
         loading="eager"
@@ -130,173 +203,61 @@ const t = labels[lang];
     </div>
 
     <!-- Content -->
-    <div class="project-content article-content">
-      <Content />
+    <div class="project-content space-y-8">
+      <!-- Overview -->
+      <section>
+        <h2 class="text-2xl sm:text-3xl font-bold text-[var(--color-text)] mb-4 pb-2 border-b border-[var(--color-border)]">
+          {t.overview}
+        </h2>
+        <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">
+          {details.overview}
+        </p>
+      </section>
+
+      <!-- Features -->
+      {details.features.length > 0 && (
+        <section>
+          <h2 class="text-2xl sm:text-3xl font-bold text-[var(--color-text)] mb-4 pb-2 border-b border-[var(--color-border)]">
+            {t.features}
+          </h2>
+          <ul class="space-y-3">
+            {details.features.map((feature: string) => (
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-[var(--color-accent)] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-[var(--color-text-muted)]">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <!-- Technologies -->
+      <section>
+        <h2 class="text-2xl sm:text-3xl font-bold text-[var(--color-text)] mb-4 pb-2 border-b border-[var(--color-border)]">
+          {t.technologies}
+        </h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          {project.tags.map((tag: string) => (
+            <div class="bg-[var(--color-card-bg)] border border-[var(--color-border)] rounded-lg p-4 text-center">
+              <span class="text-[var(--color-text)] font-medium">{tag}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Implementation -->
+      {details.implementation && (
+        <section>
+          <h2 class="text-2xl sm:text-3xl font-bold text-[var(--color-text)] mb-4 pb-2 border-b border-[var(--color-border)]">
+            {t.implementation}
+          </h2>
+          <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">
+            {details.implementation}
+          </p>
+        </section>
+      )}
     </div>
   </article>
 </Layout>
-
-<style is:global>
-  .project-content {
-    color: var(--color-text-muted);
-    line-height: 1.75;
-  }
-  
-  .project-content h2 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--color-text);
-    margin-top: 3rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-  
-  @media (min-width: 640px) {
-    .project-content h2 {
-      font-size: 1.875rem;
-    }
-  }
-  
-  .project-content h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--color-text);
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-  }
-  
-  @media (min-width: 640px) {
-    .project-content h3 {
-      font-size: 1.5rem;
-    }
-  }
-  
-  .project-content h4 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--color-accent);
-    margin-top: 1.5rem;
-    margin-bottom: 0.75rem;
-  }
-  
-  .project-content p {
-    margin-bottom: 1rem;
-    font-size: 1rem;
-  }
-  
-  @media (min-width: 640px) {
-    .project-content p {
-      font-size: 1.125rem;
-    }
-  }
-  
-  .project-content ul {
-    margin-bottom: 1.5rem;
-    padding-left: 0;
-    list-style: none;
-  }
-  
-  .project-content ul li {
-    position: relative;
-    padding-left: 1.5rem;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-  }
-  
-  @media (min-width: 640px) {
-    .project-content ul li {
-      font-size: 1.125rem;
-    }
-  }
-  
-  .project-content ul li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.6em;
-    width: 0.5rem;
-    height: 0.5rem;
-    background-color: var(--color-accent);
-    border-radius: 50%;
-  }
-  
-  .project-content ol {
-    margin-bottom: 1.5rem;
-    padding-left: 0;
-    list-style: none;
-    counter-reset: item;
-  }
-  
-  .project-content ol li {
-    position: relative;
-    padding-left: 2rem;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-    counter-increment: item;
-  }
-  
-  @media (min-width: 640px) {
-    .project-content ol li {
-      font-size: 1.125rem;
-    }
-  }
-  
-  .project-content ol li::before {
-    content: counter(item);
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 1.5rem;
-    height: 1.5rem;
-    background-color: var(--color-accent);
-    color: var(--color-dark);
-    font-size: 0.875rem;
-    font-weight: 700;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .project-content strong {
-    color: var(--color-text);
-    font-weight: 600;
-  }
-  
-  .project-content a {
-    color: var(--color-accent);
-  }
-  
-  .project-content a:hover {
-    text-decoration: underline;
-  }
-  
-  .project-content code {
-    color: var(--color-accent);
-    background-color: var(--color-card-bg);
-    padding: 0.125rem 0.5rem;
-    border-radius: 0.25rem;
-    font-size: 0.875rem;
-    font-family: monospace;
-  }
-  
-  .project-content blockquote {
-    border-left: 4px solid var(--color-accent);
-    padding-left: 1.5rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    margin: 2rem 0;
-    font-style: italic;
-    font-size: 1.125rem;
-    background-color: rgba(var(--color-accent-rgb), 0.05);
-    border-radius: 0 0.5rem 0.5rem 0;
-  }
-  
-  /* Les styles de tableaux sont maintenant gérés par article-content.css */
-</style>
-
-<script>
-  import { initResponsiveTables } from '../../../scripts/tableResponsive';
-  initResponsiveTables();
-</script>

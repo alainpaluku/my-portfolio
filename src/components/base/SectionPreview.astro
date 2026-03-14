@@ -1,12 +1,10 @@
 ---
 /**
- * Composant générique pour afficher un aperçu de section (Portfolio, Articles, etc.)
- * Élimine la duplication entre PortfolioPreview et ArticlesPreview
+ * Composant générique premium pour afficher un aperçu de section
  */
 import { useTranslations, type Lang, defaultLang } from '../../i18n/translations';
 import SectionHeader from '../SectionHeader.astro';
 import Card from './Card.astro';
-import Button from '../ui/Button.astro';
 import Icon from '../Icon.astro';
 
 interface Props {
@@ -37,10 +35,19 @@ const t = useTranslations(lang);
 const displayItems = items.slice(0, itemsToShow);
 ---
 
-<section class={`py-12 sm:py-16 lg:py-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto ${className}`}>
-  <SectionHeader title={title} subtitle={subtitle} />
+<section class={`py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto ${className}`}>
+  <!-- Header épuré -->
+  <div class="text-center mb-12 sm:mb-16">
+    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--color-text)] mb-4">
+      {title}
+    </h2>
+    <p class="text-[var(--color-text-muted)] text-lg max-w-2xl mx-auto">
+      {subtitle}
+    </p>
+  </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-10">
+  <!-- Grid optimisé -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
     {displayItems.map((item) => (
       <Card 
         type={cardType}
@@ -51,14 +58,14 @@ const displayItems = items.slice(0, itemsToShow);
     ))}
   </div>
 
+  <!-- CTA avec texte dans le cercle -->
   <div class="text-center">
-    <Button
+    <a 
       href={viewAllHref}
-      variant="outline"
-      className="group"
+      class="inline-flex items-center justify-center px-6 py-3 rounded-full border-2 border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-text)] hover:text-[var(--color-text)] transition-all duration-300 group"
     >
-      {viewAllText}
-      <Icon name="arrowRight" size={16} class="ml-2 group-hover:translate-x-1 transition-transform" />
-    </Button>
+      <span class="text-sm font-medium mr-2">{viewAllText}</span>
+      <Icon name="arrowRight" size={16} class="group-hover:translate-x-0.5 transition-transform" />
+    </a>
   </div>
 </section>

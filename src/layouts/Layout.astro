@@ -41,8 +41,8 @@ const frPath = getAlternatePath('fr');
 
 // SEO descriptions par langue
 const defaultDescriptions = {
-  en: 'Electrical Engineer specialized in Power Systems, Embedded Systems, IoT, and Engineering Software Development. M.Sc. candidate with expertise in renewable energy and smart grids.',
-  fr: "Ingénieur Électricien spécialisé en électroénergétique, systèmes embarqués, IoT et développement de logiciels d'ingénierie. Candidat M.Sc. avec expertise en énergies renouvelables et réseaux intelligents."
+  en: 'Electrical Engineer specialized in Power Systems, Embedded Systems, and Software Development. M.Sc. candidate with expertise in renewable energy and smart grids.',
+  fr: "Ingénieur Électricien spécialisé en électroénergétique, systèmes embarqués et développement logiciel. Candidat M.Sc. avec expertise en énergies renouvelables et réseaux intelligents."
 };
 
 const finalDescription = description || defaultDescriptions[lang];
@@ -62,7 +62,10 @@ const structuredData = {
   "sameAs": [
     "https://github.com/alainpaluku",
     "https://linkedin.com/in/alainpaluku",
-    "https://medium.com/@alainpaluku"
+    "https://medium.com/@alainpaluku",
+    "https://alainpaluku.substack.com",
+    "https://kaggle.com/alainpaluku",
+    "https://huggingface.co/alainpaluku"
   ],
   "knowsAbout": [
     "Electrical Engineering",
@@ -92,8 +95,8 @@ const structuredData = {
     
     <meta name="description" content={finalDescription} />
     <meta name="keywords" content={lang === 'en' 
-      ? "electrical engineer, power systems, embedded systems, IoT, software development, renewable energy, smart grids, Alain Paluku" 
-      : "ingénieur électricien, électroénergétique, systèmes embarqués, IoT, développement logiciel, énergies renouvelables, réseaux intelligents, Alain Paluku"} />
+      ? "electrical engineer, power systems, embedded systems, software development, renewable energy, smart grids, Alain Paluku" 
+      : "ingénieur électricien, électroénergétique, systèmes embarqués, développement logiciel, énergies renouvelables, réseaux intelligents, Alain Paluku"} />
     <meta name="author" content="Alain Paluku" />
     
     {noindex && <meta name="robots" content="noindex, nofollow" />}
@@ -142,7 +145,8 @@ const structuredData = {
     <title>{fullTitle}</title>
     
     <!-- Preload Critical Resources - Optimisé mobile -->
-    <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="//images.unsplash.com" />
     <link rel="dns-prefetch" href="//api.github.com" />
     
@@ -180,24 +184,13 @@ const structuredData = {
       })();
     </script>
     
-    <!-- Détection de langue optimisée pour mobile -->
+    <!-- Gestion de la langue améliorée -->
     <script is:inline>
       (function() {
-        const path = window.location.pathname;
-        if (path === '/' || path === '/en/' || path === '/en' || path === '/fr/' || path === '/fr') {
-          const hasVisited = sessionStorage.getItem('lang-detected');
-          if (!hasVisited) {
-            sessionStorage.setItem('lang-detected', 'true');
-            const browserLang = navigator.language || navigator.userLanguage;
-            const isFrench = browserLang.toLowerCase().startsWith('fr');
-            const targetLang = isFrench ? 'fr' : 'en';
-            const currentLang = path.includes('/fr') ? 'fr' : 'en';
-            
-            if (targetLang !== currentLang) {
-              window.location.href = '/' + targetLang + '/';
-            }
-          }
-        }
+        // Sauvegarder la langue actuelle dans localStorage
+        const currentPath = window.location.pathname;
+        const currentLang = currentPath.startsWith('/fr') ? 'fr' : 'en';
+        localStorage.setItem('preferred-lang', currentLang);
       })();
     </script>
     
@@ -244,8 +237,13 @@ const structuredData = {
     <script>
       import { initPremiumEffects } from '../scripts/premiumEffects';
       import { initResponsiveTables } from '../scripts/tableResponsive';
+      import { themeManager } from '../scripts/themeTransitions';
+      
       initPremiumEffects();
       initResponsiveTables();
+      
+      // Initialiser le gestionnaire de thème globalement
+      themeManager.init();
     </script>
 
     <!-- Optimisations mobiles intégrées -->

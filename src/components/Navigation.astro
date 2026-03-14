@@ -1,8 +1,10 @@
 ---
 import { useTranslations, type Lang, defaultLang } from '../i18n/translations';
-import { getBasePath, switchLangInPath } from '../utils/routing';
+import { getBasePath, switchLangInPath, isActivePath } from '../utils/routing';
 import Icon from './Icon.astro';
 import Button from './ui/Button.astro';
+import ThemeSelector from './ui/ThemeSelector.astro';
+import LanguageSelector from './ui/LanguageSelector.astro';
 
 interface Props {
   lang?: Lang;
@@ -20,6 +22,7 @@ const otherLangPath = switchLangInPath(currentPath, lang, otherLang);
 
 // Liens vers les pages séparées
 const navLinks = [
+  { href: '', label: t.nav.home }, // Chemin vide pour la page d'accueil
   { href: '/about', label: t.nav.about },
   { href: '/portfolio', label: t.nav.portfolio },
   { href: '/articles', label: t.nav.articles },
@@ -34,65 +37,61 @@ const navLinks = [
     </a>
     
     <div class="hidden lg:flex space-x-6 xl:space-x-8">
-      {navLinks.slice(0, 3).map(link => (
-        <a href={`${basePath}${link.href}`} class="nav-link text-sm">{link.label}</a>
-      ))}
+      {navLinks.slice(0, 4).map(link => {
+        const isActive = isActivePath(currentPath, link.href, lang);
+        return (
+          <a 
+            href={`${basePath}${link.href}`} 
+            class={`nav-link text-sm ${isActive ? 'active' : ''}`}
+          >
+            {link.label}
+          </a>
+        );
+      })}
     </div>
 
     <div class="flex items-center gap-1.5 sm:gap-3">
-      <!-- Theme Toggle -->
-      <Button
-        variant="icon"
-        id="theme-toggle"
-        ariaLabel="Toggle theme"
-      >
-        <span id="theme-icon-dark" class="hidden dark:block">
-          <Icon name="sun" size={18} />
-        </span>
-        <span id="theme-icon-light" class="block dark:hidden">
-          <Icon name="moon" size={18} />
-        </span>
-      </Button>
+      <!-- Theme Selector -->
+      <ThemeSelector lang={lang} />
 
-      <!-- Language Switcher -->
-      <Button
-        variant="icon"
-        href={otherLangPath}
-        className="language-toggle flex items-center gap-1 sm:gap-2"
-        ariaLabel={otherLang === 'fr' ? 'Version française' : 'English version'}
-      >
-        <Icon name="languages" size={18} />
-        <span class="text-xs font-bold hidden sm:inline">{otherLang.toUpperCase()}</span>
-      </Button>
+      <!-- Language Selector -->
+      <LanguageSelector lang={lang} currentPath={currentPath} />
       
       <a href={`${basePath}/contact`} class="hidden md:flex group items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wide hover:text-[var(--color-text)] transition-colors">
         {t.nav.contact}
-        <span class="group-hover:translate-x-1 transition-transform">↗</span>
+        <span>↗</span>
       </a>
 
-      <!-- Mobile Menu Button -->
-      <Button
-        variant="icon"
+      <!-- Mobile Menu Button - Cercle amélioré -->
+      <button
         id="mobile-menu-btn"
-        className="lg:hidden"
-        ariaLabel="Menu"
+        class="lg:hidden w-10 h-10 rounded-full border border-[var(--color-border)] bg-[var(--color-bg)] hover:border-[var(--color-text-muted)] transition-all duration-200 flex items-center justify-center group"
+        aria-label="Menu"
       >
-        <span id="menu-icon-open">
-          <Icon name="menu" size={24} />
+        <span id="menu-icon-open" class="transition-all duration-200">
+          <Icon name="menu" size={16} />
         </span>
-        <span id="menu-icon-close" class="hidden">
-          <Icon name="close" size={24} />
+        <span id="menu-icon-close" class="hidden transition-all duration-200">
+          <Icon name="close" size={16} />
         </span>
-      </Button>
+      </button>
     </div>
   </div>
 
   <!-- Mobile Menu -->
   <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-6 border-t border-[var(--color-border)] pt-6">
     <div class="flex flex-col items-center space-y-4">
-      {navLinks.map(link => (
-        <a href={`${basePath}${link.href}`} class="nav-link py-2 text-lg text-center w-full">{link.label}</a>
-      ))}
+      {navLinks.map(link => {
+        const isActive = isActivePath(currentPath, link.href, lang);
+        return (
+          <a 
+            href={`${basePath}${link.href}`} 
+            class={`nav-link py-2 text-lg text-center w-full ${isActive ? 'active' : ''}`}
+          >
+            {link.label}
+          </a>
+        );
+      })}
       <a href={otherLangPath} class="nav-link py-2 text-lg flex items-center justify-center gap-2 w-full">
         <Icon name="languages" size={20} />
         {otherLang === 'fr' ? 'Français' : 'English'}
@@ -114,14 +113,6 @@ const navLinks = [
     iconOpen?.classList.toggle('hidden');
     iconClose?.classList.toggle('hidden');
     menuBtn.setAttribute('aria-expanded', wasHidden ? 'true' : 'false');
-  });
-
-  // Theme toggle
-  const themeToggle = document.getElementById('theme-toggle');
-  
-  themeToggle?.addEventListener('click', () => {
-    const isDark = document.documentElement.classList.toggle('dark');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
   });
 
   // Nav border on scroll

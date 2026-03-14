@@ -1,0 +1,111 @@
+---
+/**
+ * Sélecteur de langue avec combobox
+ */
+import Combobox from './Combobox.astro';
+import { switchLangInPath } from '../../utils/routing';
+import type { Lang } from '../../i18n/translations';
+
+interface Props {
+  lang: Lang;
+  currentPath: string;
+}
+
+const { lang, currentPath } = Astro.props;
+
+const languageOptions = [
+  {
+    value: 'en',
+    label: 'English',
+    icon: 'flag-us'
+  },
+  {
+    value: 'fr',
+    label: 'Français', 
+    icon: 'flag-fr'
+  }
+];
+---
+
+<!-- Icônes SVG pour les drapeaux -->
+<svg style="display: none;">
+  <defs>
+    <g id="icon-flag-us">
+      <rect x="2" y="4" width="20" height="12" rx="2" fill="#1f2937"/>
+      <rect x="2" y="4" width="20" height="2" fill="#dc2626"/>
+      <rect x="2" y="8" width="20" height="2" fill="#dc2626"/>
+      <rect x="2" y="12" width="20" height="2" fill="#dc2626"/>
+      <rect x="2" y="4" width="8" height="6" fill="#1e40af"/>
+    </g>
+    <g id="icon-flag-fr">
+      <rect x="2" y="4" width="6.67" height="12" fill="#1e40af"/>
+      <rect x="8.67" y="4" width="6.67" height="12" fill="#f3f4f6"/>
+      <rect x="15.33" y="4" width="6.67" height="12" fill="#dc2626"/>
+    </g>
+  </defs>
+</svg>
+
+<Combobox 
+  id="language-selector"
+  options={languageOptions}
+  currentValue={lang}
+  position="bottom-right"
+/>
+
+<script define:vars={{ currentPath, lang }}>
+  class LanguageSelector {
+    constructor(lang, path) {
+      this.currentLang = lang;
+      this.currentPath = path;
+    }
+
+    init() {
+      // Écouter les changements de combobox
+      document.addEventListener('combobox-change', (e) => {
+        if (e.detail.id === 'language-selector') {
+          this.changeLanguage(e.detail.value);
+        }
+      });
+    }
+
+    changeLanguage(newLang) {
+      if (newLang === this.currentLang) return;
+
+      // Calculer le nouveau chemin
+      const newPath = this.switchLangInPath(this.currentPath, this.currentLang, newLang);
+      
+      // Sauvegarder la préférence
+      localStorage.setItem('preferred-lang', newLang);
+      
+      // Rediriger
+      window.location.href = newPath;
+    }
+
+    // Copie locale de la fonction pour éviter les problèmes d'import
+    switchLangInPath(path, fromLang, toLang) {
+      // Si le chemin commence par /fromLang, le remplacer par /toLang
+      if (path.startsWith(`/${fromLang}/`)) {
+        return path.replace(`/${fromLang}/`, `/${toLang}/`);
+      }
+      // Si le chemin est exactement /fromLang, le remplacer par /toLang
+      if (path === `/${fromLang}`) {
+        return `/${toLang}`;
+      }
+      // Si le chemin ne contient pas de langue, ajouter la langue cible
+      if (!path.startsWith('/en') && !path.startsWith('/fr')) {
+        return `/${toLang}${path}`;
+      }
+      // Fallback: remplacer la première occurrence
+      return path.replace(`/${fromLang}`, `/${toLang}`);
+    }
+  }
+
+  // Initialiser le sélecteur de langue
+  const languageSelector = new LanguageSelector(lang, currentPath);
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => languageSelector.init());
+  } else {
+    languageSelector.init();
+  }
+</script>

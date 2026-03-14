@@ -1,11 +1,9 @@
 ---
 /**
- * Page d'accueil complète avec aperçus de chaque section
+ * Page d'accueil premium - Design épuré et professionnel
  */
 import Layout from '../layouts/Layout.astro';
 import Hero from './Hero.astro';
-import Marquee from './Marquee.astro';
-import Stats from './Stats.astro';
 import AboutPreview from './home/AboutPreview.astro';
 import PortfolioPreview from './home/PortfolioPreview.astro';
 import ArticlesPreview from './home/ArticlesPreview.astro';
@@ -18,14 +16,74 @@ interface Props {
 }
 
 const { lang } = Astro.props;
+
+// SEO optimisé pour la page d'accueil
+const pageTitle = getPageTitle('home', lang);
+const description = lang === 'fr' 
+  ? "Ingénieur Électricien spécialisé en électroénergétique, systèmes embarqués et développement logiciel. Portfolio de projets en énergies renouvelables et IoT."
+  : "Electrical Engineer specialized in Power Systems, Embedded Systems, and Software Development. Portfolio of renewable energy and IoT projects.";
 ---
 
-<Layout title={getPageTitle('home', lang)} lang={lang}>
+<Layout 
+  title={pageTitle} 
+  description={description}
+  lang={lang}
+  type="website"
+>
+  <!-- Hero Section - Point focal principal -->
   <Hero lang={lang} />
-  <Marquee lang={lang} />
+  
+  <!-- À propos - Aperçu des compétences -->
   <AboutPreview lang={lang} />
-  <Stats lang={lang} />
+  
+  <!-- Portfolio - Projets phares uniquement -->
   <PortfolioPreview lang={lang} />
+  
+  <!-- Articles - Publications récentes -->
   <ArticlesPreview lang={lang} />
+  
+  <!-- Contact - CTA simple et élégant -->
   <ContactCTA lang={lang} />
 </Layout>
+
+<!-- Script d'optimisation pour la page d'accueil -->
+<script>
+  // Lazy loading pour les images non critiques
+  if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target as HTMLImageElement;
+          if (img.dataset.src) {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+            observer.unobserve(img);
+          }
+        }
+      });
+    });
+
+    document.querySelectorAll('img[data-src]').forEach(img => {
+      imageObserver.observe(img);
+    });
+  }
+
+  // Préchargement des pages importantes
+  const prefetchLinks = [
+    `/${document.documentElement.lang}/portfolio`,
+    `/${document.documentElement.lang}/articles`,
+    `/${document.documentElement.lang}/about`,
+  ];
+
+  // Précharger après le chargement initial
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      prefetchLinks.forEach(href => {
+        const link = document.createElement('link');
+        link.rel = 'prefetch';
+        link.href = href;
+        document.head.appendChild(link);
+      });
+    }, 2000);
+  });
+</script>

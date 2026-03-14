@@ -2,41 +2,7 @@
 /**
  * Composant pour afficher les statistiques GitHub en temps réel
  */
-import { siteConfig } from '../data/config';
-
-// Fonction pour récupérer les statistiques GitHub
-async function getGitHubStats() {
-  try {
-    const username = siteConfig.username;
-    
-    // Récupérer les informations de l'utilisateur
-    const userResponse = await fetch(`https://api.github.com/users/${username}`);
-    const userData = await userResponse.json();
-    
-    // Récupérer les repositories
-    const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
-    const reposData = await reposResponse.json();
-    
-    // Calculer les statistiques
-    const totalRepos = userData.public_repos || 0;
-    const totalStars = reposData.reduce((acc: number, repo: any) => acc + (repo.stargazers_count || 0), 0);
-    const followers = userData.followers || 0;
-    
-    return {
-      repos: totalRepos,
-      stars: totalStars,
-      followers: followers,
-    };
-  } catch (error) {
-    console.error('Erreur lors de la récupération des stats GitHub:', error);
-    // Valeurs par défaut en cas d'erreur
-    return {
-      repos: 15,
-      stars: 42,
-      followers: 28,
-    };
-  }
-}
+import { getGitHubStats } from '../data/githubStats';
 
 const githubStats = await getGitHubStats();
 ---

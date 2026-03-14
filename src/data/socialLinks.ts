@@ -11,10 +11,11 @@ export interface SocialLink {
 export const socialLinks: SocialLink[] = [
   { name: 'github', url: siteConfig.social.github, label: 'GitHub' },
   { name: 'linkedin', url: siteConfig.social.linkedin, label: 'LinkedIn' },
-  { name: 'whatsapp', url: siteConfig.social.whatsapp, label: 'WhatsApp' },
   { name: 'medium', url: siteConfig.social.medium, label: 'Medium' },
+  { name: 'substack', url: siteConfig.social.substack, label: 'Substack' },
+  { name: 'kaggle', url: siteConfig.social.kaggle, label: 'Kaggle' },
   { name: 'huggingface', url: siteConfig.social.huggingface, label: 'Hugging Face' },
-  { name: 'reddit', url: siteConfig.social.reddit, label: 'Reddit' },
+  { name: 'whatsapp', url: siteConfig.social.whatsapp, label: 'WhatsApp' },
 ];
 
 export const socialLinksWithEmail: SocialLink[] = [

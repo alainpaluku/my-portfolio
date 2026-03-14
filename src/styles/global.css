@@ -1,5 +1,5 @@
 /* Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,15 +7,15 @@
 
 @layer base {
   :root {
-    /* Colors - Light theme par défaut */
-    --bg-primary: #FFFFFF;
-    --bg-secondary: #FAFAFA;
-    --bg-tertiary: #F5F5F5;
-    --text-primary: #000000;
-    --text-secondary: rgba(0, 0, 0, 0.6);
-    --text-tertiary: rgba(0, 0, 0, 0.4);
-    --border-color: rgba(0, 0, 0, 0.1);
-    --accent: #000000;
+    /* Tokyo Night - Light theme */
+    --bg-primary: #d5d6db;
+    --bg-secondary: #e9e9ed;
+    --bg-tertiary: #f0f0f4;
+    --text-primary: #343b58;
+    --text-secondary: #565a6e;
+    --text-tertiary: #6f7bb6;
+    --border-color: rgba(52, 59, 88, 0.12);
+    --accent: #8c4351;
 
     /* Legacy variables for compatibility */
     --color-bg: var(--bg-primary);
@@ -26,9 +26,9 @@
     --color-accent: var(--accent);
     --color-primary: var(--accent);
     --color-secondary: var(--text-secondary);
-    --color-card-bg: rgba(0, 0, 0, 0.05);
-    --color-glow-primary: rgba(0, 0, 0, 0.08);
-    --color-glow-secondary: rgba(0, 0, 0, 0.05);
+    --color-card-bg: rgba(52, 59, 88, 0.05);
+    --color-glow-primary: rgba(140, 67, 81, 0.08);
+    --color-glow-secondary: rgba(111, 123, 182, 0.05);
 
     /* Spacing */
     --spacing-xs: 0.25rem;
@@ -45,11 +45,11 @@
     --radius-2xl: 1.5rem;
 
     /* Shadows for light mode */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    --shadow-sm: 0 1px 2px 0 rgba(52, 59, 88, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(52, 59, 88, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(52, 59, 88, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(52, 59, 88, 0.1);
+    --shadow-2xl: 0 25px 50px -12px rgba(52, 59, 88, 0.25);
 
     /* Transition timing */
     --theme-transition-duration: 0.3s;
@@ -60,15 +60,15 @@
   }
 
   .dark {
-    /* Colors - Dark theme */
-    --bg-primary: #000000;
-    --bg-secondary: #0A0A0A;
-    --bg-tertiary: #171717;
-    --text-primary: #FFFFFF;
-    --text-secondary: rgba(255, 255, 255, 0.6);
-    --text-tertiary: rgba(255, 255, 255, 0.4);
-    --border-color: rgba(255, 255, 255, 0.1);
-    --accent: #FFFFFF;
+    /* Tokyo Night - Dark theme */
+    --bg-primary: #1a1b26;
+    --bg-secondary: #16161e;
+    --bg-tertiary: #24283b;
+    --text-primary: #c0caf5;
+    --text-secondary: #9aa5ce;
+    --text-tertiary: #565f89;
+    --border-color: rgba(192, 202, 245, 0.12);
+    --accent: #7aa2f7;
 
     /* Legacy variables for compatibility */
     --color-bg: var(--bg-primary);
@@ -79,9 +79,9 @@
     --color-accent: var(--accent);
     --color-primary: var(--accent);
     --color-secondary: var(--text-secondary);
-    --color-card-bg: rgba(255, 255, 255, 0.05);
-    --color-glow-primary: rgba(255, 255, 255, 0.08);
-    --color-glow-secondary: rgba(255, 255, 255, 0.05);
+    --color-card-bg: rgba(192, 202, 245, 0.05);
+    --color-glow-primary: rgba(122, 162, 247, 0.08);
+    --color-glow-secondary: rgba(154, 165, 206, 0.05);
 
     /* Shadows for dark mode */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -89,6 +89,72 @@
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
     --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  /* View Transitions pour le changement de thème */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.5s;
+  }
+
+  ::view-transition-old(root) {
+    z-index: 1;
+  }
+
+  ::view-transition-new(root) {
+    z-index: 999;
+  }
+
+  /* Animation de fondu circulaire pour le thème */
+  .dark::view-transition-old(root) {
+    animation-name: theme-fade-out;
+  }
+
+  .dark::view-transition-new(root) {
+    animation-name: theme-fade-in;
+  }
+
+  :not(.dark)::view-transition-old(root) {
+    animation-name: theme-fade-out;
+  }
+
+  :not(.dark)::view-transition-new(root) {
+    animation-name: theme-fade-in;
+  }
+
+  @keyframes theme-fade-out {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    100% {
+      opacity: 0;
+      transform: scale(1.1);
+    }
+  }
+
+  @keyframes theme-fade-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Animation spéciale pour les éléments avec changement de couleur */
+  [data-theme-transition] {
+    view-transition-name: theme-element;
+  }
+
+  ::view-transition-old(theme-element),
+  ::view-transition-new(theme-element) {
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
   }
 
   /* Smooth transitions for theme changes */
@@ -155,6 +221,11 @@
     font-family: 'JetBrains Mono', monospace;
   }
 
+  /* Serif font for articles */
+  .font-serif {
+    font-family: 'Crimson Text', Georgia, 'Times New Roman', serif;
+  }
+
   /* Section titles styling */
   .section-title {
     font-family: 'Space Grotesk', sans-serif;
@@ -168,6 +239,38 @@
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 700;
     letter-spacing: -0.03em;
+  }
+
+  .hero-title-main {
+    font-size: clamp(2rem, 8vw, 4rem);
+    line-height: 0.9;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-title-sub {
+    font-size: clamp(0.875rem, 3vw, 1.25rem);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .hero-title-animated {
+    overflow: hidden;
+  }
+
+  .stat-number {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .reveal {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .text-shadow-premium {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   /* Scrollbar */
@@ -226,28 +329,25 @@
   /* === CARDS === */
   .glass-card {
     @apply backdrop-blur-xl border relative overflow-hidden;
-    @apply transition-all duration-300 rounded-xl sm:rounded-2xl;
+    @apply transition-colors duration-300 rounded-xl sm:rounded-2xl;
     background: var(--color-card-bg);
     border-color: var(--border-color);
     box-shadow: var(--shadow-md);
   }
 
   .glass-card:hover {
-    box-shadow: var(--shadow-lg);
-    border-color: var(--accent);
-    transform: translateY(-2px);
+    border-color: var(--text-secondary);
   }
 
   .glass-card-dark {
-    @apply backdrop-blur-xl border relative transition-all duration-300;
+    @apply backdrop-blur-xl border relative transition-colors duration-300;
     @apply rounded-xl sm:rounded-2xl;
     background: rgba(255, 255, 255, 0.03);
     border-color: var(--border-color);
   }
 
   .glass-card-dark:hover {
-    border-color: var(--accent);
-    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--text-secondary);
   }
 
   /* === BUTTONS === */
@@ -282,8 +382,8 @@
   }
 
   .btn-secondary:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+    border-color: var(--text-secondary);
+    color: var(--text-secondary);
   }
 
   .btn-ghost {
@@ -294,7 +394,7 @@
 
   .btn-ghost:hover {
     background: var(--bg-secondary);
-    color: var(--accent);
+    color: var(--text-secondary);
   }
 
   .btn-icon {
@@ -306,7 +406,7 @@
 
   .btn-icon:hover {
     color: var(--text-primary);
-    border-color: var(--accent);
+    border-color: var(--text-secondary);
     background: var(--bg-secondary);
   }
 
@@ -321,23 +421,40 @@
   #theme-toggle:focus,
   #theme-toggle:focus-visible,
   .language-toggle:focus,
-  .language-toggle:focus-visible {
+  .language-toggle:focus-visible,
+  #mobile-menu-btn:focus,
+  #mobile-menu-btn:focus-visible {
     outline: none !important;
-    border-color: var(--accent) !important;
-    box-shadow: 0 0 0 3px var(--accent) !important;
-    transform: scale(1.05);
+    border-color: var(--text-secondary) !important;
+    box-shadow: 0 0 0 2px var(--text-secondary) !important;
   }
 
-  /* Animation du cercle de focus */
+  /* Styles améliorés pour les boutons circulaires */
   #theme-toggle,
-  .language-toggle {
+  .language-toggle,
+  #mobile-menu-btn {
     position: relative;
     transition: all 0.2s ease;
+    backdrop-filter: blur(8px);
+    view-transition-name: theme-toggle-button;
   }
 
-  #theme-toggle:active,
-  .language-toggle:active {
+  #theme-toggle:hover,
+  .language-toggle:hover,
+  #mobile-menu-btn:hover {
+    background: var(--bg-secondary);
+  }
+
+  /* Animation spéciale pour le bouton de thème avec View Transitions */
+  #theme-toggle:active {
     transform: scale(0.95);
+  }
+
+  /* View Transition pour le bouton de thème */
+  ::view-transition-old(theme-toggle-button),
+  ::view-transition-new(theme-toggle-button) {
+    animation-duration: 0.4s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* Correction spécifique pour supprimer le bleu du navigateur */
@@ -368,7 +485,7 @@
   }
 
   .filter-btn:hover:not(.active) {
-    border-color: var(--accent);
+    border-color: var(--text-secondary);
     color: var(--text-primary);
     background: var(--bg-secondary);
   }
@@ -510,6 +627,18 @@
   }
 }
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes slideUp {
   from {
     transform: translateY(100%);
@@ -517,6 +646,16 @@
 
   to {
     transform: translateY(0);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
   }
 }
 
@@ -541,8 +680,29 @@
   animation: fadeIn 0.3s ease-out forwards;
 }
 
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-delay-100 {
+  animation-delay: 0.1s;
+}
+
+.animate-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animate-delay-300 {
+  animation-delay: 0.3s;
+}
+
 .animate-slideUp {
   animation: slideUp 0.3s ease-out forwards;
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
 }
 
 .animate-pulse-ring {
@@ -578,7 +738,7 @@
   animation: rotate-moon 0.3s ease-in-out;
 }
 
-/* Fade transition for theme change */
+/* Fade transition for theme change - Conservé pour fallback */
 @keyframes theme-fade {
   0% {
     opacity: 1;

@@ -26,6 +26,19 @@ export function getBasePath(lang: Lang): string {
  * @example switchLangInPath('/en/portfolio', 'en', 'fr') => '/fr/portfolio'
  */
 export function switchLangInPath(path: string, fromLang: Lang, toLang: Lang): string {
+    // Si le chemin commence par /fromLang, le remplacer par /toLang
+    if (path.startsWith(`/${fromLang}/`)) {
+        return path.replace(`/${fromLang}/`, `/${toLang}/`);
+    }
+    // Si le chemin est exactement /fromLang, le remplacer par /toLang
+    if (path === `/${fromLang}`) {
+        return `/${toLang}`;
+    }
+    // Si le chemin ne contient pas de langue, ajouter la langue cible
+    if (!path.startsWith('/en') && !path.startsWith('/fr')) {
+        return `/${toLang}${path}`;
+    }
+    // Fallback: remplacer la première occurrence
     return path.replace(`/${fromLang}`, `/${toLang}`);
 }
 
@@ -69,6 +82,21 @@ export const supportedLangs: Lang[] = ['en', 'fr'];
  */
 export function getOtherLang(lang: Lang): Lang {
     return lang === 'en' ? 'fr' : 'en';
+}
+
+/**
+ * Vérifie si un lien est actif
+ */
+export function isActivePath(currentPath: string, linkPath: string, lang: Lang): boolean {
+    const normalizedCurrent = currentPath.replace(/\/$/, '') || '/';
+    const normalizedLink = `/${lang}${linkPath}`.replace(/\/$/, '') || `/${lang}`;
+    
+    // Pour la page d'accueil
+    if (linkPath === '' || linkPath === '/') {
+        return normalizedCurrent === `/${lang}` || normalizedCurrent === `/${lang}/`;
+    }
+    
+    return normalizedCurrent === normalizedLink;
 }
 
 /**

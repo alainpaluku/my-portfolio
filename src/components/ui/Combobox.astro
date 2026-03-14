@@ -1,0 +1,212 @@
+---
+/**
+ * Composant Combobox générique pour les sélecteurs
+ */
+interface Option {
+  value: string;
+  label: string;
+  icon?: string;
+}
+
+interface Props {
+  id: string;
+  options: Option[];
+  currentValue: string;
+  triggerClass?: string;
+  dropdownClass?: string;
+  position?: 'bottom-left' | 'bottom-right';
+}
+
+const { 
+  id, 
+  options, 
+  currentValue, 
+  triggerClass = '',
+  dropdownClass = '',
+  position = 'bottom-right'
+} = Astro.props;
+
+const currentOption = options.find(opt => opt.value === currentValue) || options[0];
+const positionClasses = position === 'bottom-left' ? 'left-0' : 'right-0';
+---
+
+<div class="relative" data-combobox={id}>
+  <!-- Trigger Button -->
+  <button
+    type="button"
+    class={`combobox-trigger w-10 h-10 rounded-full border border-[var(--color-border)] bg-[var(--color-bg)] hover:border-[var(--color-text-muted)] transition-all duration-200 flex items-center justify-center relative overflow-hidden group ${triggerClass}`}
+    aria-expanded="false"
+    aria-haspopup="listbox"
+    data-trigger={id}
+  >
+    {currentOption.icon && (
+      <span class="combobox-icon">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <use href={`#icon-${currentOption.icon}`}></use>
+        </svg>
+      </span>
+    )}
+  </button>
+
+  <!-- Dropdown -->
+  <div
+    class={`combobox-dropdown absolute top-full mt-2 ${positionClasses} min-w-[160px] bg-[var(--color-bg)] border border-[var(--color-border)] rounded-lg shadow-lg backdrop-blur-md z-[10000] opacity-0 invisible transform scale-95 transition-all duration-200 ${dropdownClass}`}
+    role="listbox"
+    data-dropdown={id}
+  >
+    <div class="py-2">
+      {options.map((option) => (
+        <button
+          type="button"
+          class={`combobox-option w-full px-4 py-2.5 text-left text-sm hover:bg-[var(--color-bg-secondary)] transition-colors flex items-center gap-3 ${
+            option.value === currentValue ? 'text-[var(--color-accent)] bg-[var(--color-bg-secondary)]' : 'text-[var(--color-text)]'
+          }`}
+          role="option"
+          aria-selected={option.value === currentValue}
+          data-value={option.value}
+          data-option={id}
+        >
+          {option.icon && (
+            <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+              <use href={`#icon-${option.icon}`}></use>
+            </svg>
+          )}
+          <span class="flex-1">{option.label}</span>
+          {option.value === currentValue && (
+            <svg class="w-4 h-4 text-[var(--color-accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          )}
+        </button>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .combobox-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+  }
+  
+  .combobox-trigger:focus,
+  .combobox-trigger:focus-visible {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px var(--color-accent);
+  }
+  
+  .combobox-option:focus {
+    outline: none;
+    background-color: var(--color-bg-secondary);
+  }
+</style>
+
+<script>
+  class ComboboxManager {
+    private activeCombobox: string | null = null;
+
+    init() {
+      // Gérer les clics sur les triggers
+      document.addEventListener('click', (e) => {
+        const trigger = (e.target as Element)?.closest('[data-trigger]');
+        if (trigger) {
+          const id = trigger.getAttribute('data-trigger');
+          if (id) {
+            e.stopPropagation();
+            this.toggle(id);
+          }
+          return;
+        }
+
+        // Gérer les clics sur les options
+        const option = (e.target as Element)?.closest('[data-option]');
+        if (option) {
+          const id = option.getAttribute('data-option');
+          const value = option.getAttribute('data-value');
+          if (id && value) {
+            this.selectOption(id, value);
+          }
+          return;
+        }
+
+        // Fermer si clic à l'extérieur
+        this.closeAll();
+      });
+
+      // Gérer les touches clavier
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          this.closeAll();
+        }
+      });
+    }
+
+    toggle(id: string) {
+      if (this.activeCombobox === id) {
+        this.close(id);
+      } else {
+        this.closeAll();
+        this.open(id);
+      }
+    }
+
+    open(id: string) {
+      const dropdown = document.querySelector(`[data-dropdown="${id}"]`);
+      const trigger = document.querySelector(`[data-trigger="${id}"]`);
+      
+      if (dropdown && trigger) {
+        dropdown.classList.add('show');
+        trigger.setAttribute('aria-expanded', 'true');
+        this.activeCombobox = id;
+      }
+    }
+
+    close(id: string) {
+      const dropdown = document.querySelector(`[data-dropdown="${id}"]`);
+      const trigger = document.querySelector(`[data-trigger="${id}"]`);
+      
+      if (dropdown && trigger) {
+        dropdown.classList.remove('show');
+        trigger.setAttribute('aria-expanded', 'false');
+        if (this.activeCombobox === id) {
+          this.activeCombobox = null;
+        }
+      }
+    }
+
+    closeAll() {
+      document.querySelectorAll('.combobox-dropdown.show').forEach(dropdown => {
+        dropdown.classList.remove('show');
+      });
+      document.querySelectorAll('[data-trigger]').forEach(trigger => {
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+      this.activeCombobox = null;
+    }
+
+    selectOption(id: string, value: string) {
+      // Émettre un événement personnalisé
+      const event = new CustomEvent('combobox-change', {
+        detail: { id, value }
+      });
+      document.dispatchEvent(event);
+      
+      this.close(id);
+    }
+  }
+
+  // Initialiser le gestionnaire
+  const comboboxManager = new ComboboxManager();
+  
+  // Attendre que le DOM soit prêt
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => comboboxManager.init());
+  } else {
+    comboboxManager.init();
+  }
+
+  // Exporter pour utilisation globale
+  (window as any).comboboxManager = comboboxManager;
+</script>
